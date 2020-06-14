@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>BeerAll</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-md navigation-clean-search">
+        <div class="container">
+            <a class="navbar-brand" href="./index.html"><i class="fa fa-beer"></i>&nbsp;All Beer Vibes</a><button
+                data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                    navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="./index.html"><i
+                                class="fa fa-home"></i>&nbsp;Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="./menuFav.html"><i
+                                class="fa fa-book"></i>&nbsp;Compare</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="./menuFav.html"><i
+                                class="fa fa-star"></i>&nbsp;Favorites</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link" href="./list.html"><i
+                                class="fa fa-list"></i>&nbsp;List</a></li>
+                </ul>
+                <form class="form-inline mr-auto" target="_self">
+                    <div class="form-group"><label for="search-field"><i class="fa fa-search"></i></label><input
+                            class="form-control search-field" type="search" id="search-field" name="search"></div>
+                </form>
+                <div class="dropdown"><a class="dropdown-toggle btn btn-profile" data-toggle="dropdown"
+                        aria-expanded="false" href="./loginSignup.html">Profile</a>
+                    <div class="dropdown-menu" role="menu"><a class="dropdown-item" role="presentation"
+                            href="./loginSignup.html">
+                            Log In</a><a class="dropdown-item" role="presentation" href="#">Register</a>
+                        <a class="dropdown-item" role="presentation" href="/profileSettings.html">Settings</a>
+                        <a class="dropdown-item" role="presentation" href="/list.html">List</a></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="d-flex flex-column justify-content-center" id="login-box">
+        <div class="login-box-header">
+            <h4 style="color:#333333;margin-bottom:0px;font-weight:400;font-size:27px;">Login</h4>
+        </div>
+        <div class="login-box-content">
+            <div class="fb-login box-shadow"><a class="d-flex flex-row align-items-center social-login-link" href="#"><i class="fa fa-facebook" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with Facebook</a></div>
+            <div class="ig-login box-shadow"><a class="d-flex flex-row align-items-center social-login-link" href="#"><i class="fa fa-instagram" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with Instagram</a></div>
+            <div class="tw-login box-shadow"><a class="d-flex flex-row align-items-center social-login-link" href="#"><i class="fa fa-twitter" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with Twitter</a></div>
+            <div class="gp-login box-shadow"><a class="d-flex flex-row align-items-center social-login-link" style="margin-bottom:10px;" href="#"><i class="fa fa-google" style="color:rgb(255,255,255);width:56px;"></i>Login with Google+</a></div>
+            <div class="gh-login box-shadow"><a class="d-flex flex-row align-items-center social-login-link" href="#"><i class="fa fa-github" style="margin-left:0px;padding-right:20px;padding-left:22px;width:56px;"></i>Login with Github</a></div>
+        </div>
+        <div class="d-flex flex-row align-items-center login-box-seperator-container">
+            <div class="login-box-seperator"></div>
+            <div class="login-box-seperator-text">
+                <p style="margin-bottom:0px;padding-left:10px;padding-right:10px;font-weight:400;color:rgb(201,201,201);">or</p>
+            </div>
+            <div class="login-box-seperator"></div>
+        </div>
+        <div class="email-login" style="background-color:#ffffff;"><input type="email" class="email-imput form-control" style="margin-top:10px;" required="" placeholder="Email" minlength="6"><input type="password" class="password-input form-control" style="margin-top:10px;" required="" placeholder="Password"
+                minlength="6"></div>
+        <div class="submit-row" style="margin-bottom:8px;padding-top:0px;"><button class="btn btn-profile btn-block box-shadow" id="submit-id-submit" type="submit">Login</button>
+            <div class="d-flex justify-content-between">
+                <div class="form-check form-check-inline" id="form-check-rememberMe"><input class="form-check-input" type="checkbox" id="formCheck-1" for="remember" style="cursor:pointer;" name="check"><label class="form-check-label" for="formCheck-1"><span class="label-text">Remember Me</span></label></div><a id="forgot-password-link"
+                    href="#">Forgot Password?</a></div>
+        </div>
+        <div id="login-box-footer" style="padding:10px 20px;padding-bottom:23px;padding-top:18px;">
+            <p style="margin-bottom:0px;">Don't you have an account?<a id="register-link" href="#">Sign Up!</a></p>
+        </div>
+    </div>
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="#">Web design</a></li>
+                            <li><a href="#">Development</a></li>
+                            <li><a href="#">Hosting</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Company Name</h3>
+                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                    </div>
+                    <div class="col item social"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-instagram"></i></a></div>
+                </div>
+                <p class="copyright">Company Name © 2017</p>
+            </div>
+        </footer>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+
+</html>

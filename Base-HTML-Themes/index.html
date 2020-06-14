@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ABV</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+</head>
+
+<body>
+    
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav" style="width:100%">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="./index.html">All Beer Vibes</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button" 
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="./Recommend.html">SUGGEST</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="#">PUB MAP</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="./searchResult.html">LIST</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="./compare.html">COMPARE</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="./profileSettings.html">PROFILE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <header class="masthead" style="background-image: url(&quot;assets/img/BACK.jpg&quot;);height: 100vh;">
+        <div class="container-fluid">
+            <div class="row justify-content-center" id="intro-search">
+                <div class="col-md-8 col-sm-12">
+                    <form class="form-inline" method='GET' action='https://www.google.ca' style="margin-top: 35vh;">
+                        <input class="form-control amber-border" id="searchBox" type="text" placeholder="Search Any keyword of Beer what you want" aria-label="Search" 
+                        style="margin-right:5px; width:85%;">
+                        <button class="btn btn-primary" type="submit" style="background-color:rgb(224,203,16)"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    </form>                                
+                </div>
+            </div>
+        </div>
+        
+        <div class="container-fluid">
+            <div class="row justify-content-center" id="intro-lead">
+                <p class="lead" style="font-size: 50px;margin-top: 10%; color:white;">YOU WANNA MORE?</p>
+            </div>
+            <div class="row justify-content-center">
+                <i class="fa fa-arrow-circle-down" id="intro-button" style="font-size: 100px;padding-top: 0%;" onclick="window.scrollTo({top:700,behavior:'smooth'})"></i>
+            </div>
+        </div>
+    </header>
+    
+        <div class="container-fluid" style="height: 100%; padding-top:50px;">
+            <div class="row justify-content-center" style="width:100%; margin:0px;">
+                
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <figure class="snip1527">
+                        <img src="assets/img/CORONA.jpg" alt="pr-sample23"/>
+                            <figcaption>
+                                <div class="date">CORONA 2020</div>
+                                <h3>Editor's Choice</h3>
+                                <p>This is our recommnedation</p>
+                            </figcaption>
+                            <a class="portfolio-link" data-toggle="modal" data-target="#model1" ara-hidden="true"></a>
+
+                            <div class="modal fade" id="model1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 10%;">
+                                <div class="modal-dialog">
+                                  <div class="modal-content" style="height: 480px; width: 480px;">
+                                    <div class="modal-header">
+                                        Editor's Choice
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                    
+                                    <div class="modal-body" style="background-image: url(assets/img/CORONA.jpg); background-size: cover;">
+                                      <div class="model_caption">
+                                        <p>This is Corona 2020 blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah
+                                            ,like promotional information.
+                                        </p> 
+                                    </div>
+                                    </div>
+                                    
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Get more information</button>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                    </figure>
+                </div>
+                
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <figure class="snip1527">
+                    <div class="image"><img src="assets/img/beerrr.jpg" alt="pr-sample23" /></div>
+                        <figcaption>
+                            <div class="date">DISCOVER</div>
+                            <h3>Beer Guide</h3>
+                            <p>You don't know what you wanna drink?</p>
+                    </figcaption>
+                    <a class="portfolio-link" data-toggle="modal" data-target="#model2" ara-hidden="true"></a>
+                    
+                    <div class="modal fade" id="model2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 10%;">
+                        <div class="modal-dialog">
+                          <div class="modal-content" style="height: 480px; width: 480px;">
+                            <div class="modal-header">
+                                Beer Guide
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                            
+                            <div class="modal-body" style="background-image: url(assets/img/beerrr.jpg); background-size: cover;">
+                              <div class="model_caption">
+                                <p>explanation of the guide menu</p> 
+                            </div>
+                            </div>
+                            
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Find your beer</button>
+                              
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                
+                
+                
+                </figure>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-4">
+                    <figure class="snip1527">
+                        <div class="image"><img src="assets/img/award.png" alt="pr-sample23" /></div>
+                        <figcaption>
+                          <div class="date">OREGON AWARD</div>
+                          <h3>The World Best</h3>
+                          <p>These are award winning beer</p>
+                        </figcaption>
+                        <a class="portfolio-link" data-toggle="modal" data-target="#model3" ara-hidden="true"></a>
+
+                        <div class="modal fade" id="model3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 10%;">
+                            <div class="modal-dialog">
+                              <div class="modal-content" style="height: 480px; width: 480px;">
+                                <div class="modal-header">
+                                    Oregon 2019 award Ranking
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                
+                                <div class="modal-body" style="background-image: url(assets/img/award.png); background-size: cover;">
+                                  <div class="model_caption">
+                                    <table class ="table">
+                                        <tbody>
+                                            <tr>
+                                                <th scope='row'>1st</th>
+                                                <td>SAIT</td>
+                                                <td><button type="button">info</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope='row'>2nd</th>
+                                                <td>SAIT</td>
+                                                <td><button type="button">info</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope='row'>3rd</th>
+                                                <td>SAIT</td>
+                                                <td><button type="button">info</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope='row'>4th</th>
+                                                <td>SAIT</td>
+                                                <td><button type="button">info</button> </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope='row'>5th</th>
+                                                <td>SAIT</td>
+                                                <td><button type="button">info</button> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Get more list</button>
+                                  
+                                </div>
+                              </div>
+                            </div>
+                          </div>  
+                    
+                    
+                    </figure>
+                    </div>
+                    </div>
+            
+                    <div class="row align-items-center justify-content-center" style="text-align: center; margin-top: 10px;">
+                        <div class="col-sm-6 col-md-2">OUR SPONSOR</div>
+                        <div class="col-sm-6 col-md-2"><a href="https://untappd.com/"><img class="img-fluid d-block mx-auto" src="assets/img/UNTAPPD.png" /></a></div>
+                        <div class="col-sm-6 col-md-2"><a href="#"><img class="img-fluid d-block mx-auto"/>something else</a></div>
+                        <div class="col-sm-6 col-md-2"><a href="#"><img class="img-fluid d-block mx-auto"/>may be heineken?</a></div>
+                    </div>
+            </div> 
+        
+        
+        <div class="footer-dark">
+            <footer>
+                <div class="row">
+                    <div class="col-sm-6 col-md-4 footer-navigation">
+                        <h3><a href="#"><strong>All Beer Vibes</strong></a></h3>
+                        <p class="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> ·
+                            </strong><a href="#"></a><a href="#">About</a><strong> ·&nbsp;</strong><a href="#">Contact</a></p>
+                        <p class="company-name">All Beer Vibes © 2020</p>
+                    </div>
+                    <div class="col-sm-6 col-md-4 footer-contacts">
+                        <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
+                            <p><span class="new-line-span">21 Revolution Street</span> Calgary, Canada</p>
+                        </div>
+                        <div><i class="fa fa-phone footer-contacts-icon"></i>
+                            <p class="footer-center-info email text-left"> +1 403 123456</p>
+                        </div>
+                        <div><i class="fa fa-envelope footer-contacts-icon"></i>
+                            <p> <a href="#" target="_blank">allbeervibes@google.com</a></p>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-4 footer-about">
+                        <h4>About the company</h4>
+                        <p>Company description here...</p>
+                        <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
+                                    class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i
+                                    class="fa fa-github"></i></a></div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+        
+
+</body>
+
+</html>
