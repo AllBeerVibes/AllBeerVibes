@@ -93,12 +93,42 @@ const getBeersById = (beerIds) => {
 		});
 };
 
-//single beer
-const getBeerById = (bid) => {
-	axios
-		.get(getBeerByIdURI(bid))
-		.then((response) => {
-			let beer = response.data.response.beer; //array of beers
-		})
-		.catch((error) => console.error(error));
+exports.topRatedDiv = (beer, stars) => {
+	const div = `<div class="col-sm-6 col-md-4 product-item">
+					<div class="product-container" style="background-color: #c1c0be;">
+	                    <div class="row">
+	                        <div class="col-md-12"><a class="product-image" href="/beer/${beer.beer
+								.bid}" style="margin-bottom: 5px;"><img src="${beer.beer.beer_label}"></a></div>
+	                    </div>
+	                    <p class="product-description" style="margin-bottom: 0px;margin-top: 0px;font-size: 11px;">${beer
+							.brewery.brewery_name}</p>
+	                    <div class="row" style="font-size: 16px;">
+	                        <div class="col-8">
+	                            <h6><a href="/beer/${beer.beer
+									.bid}" style="color: rgb(181,120,27);font-size: 18px;font-weight: 700;">${beer.beer
+		.beer_name}</a></h6>
+	                        </div>
+	                        <div class="col-4 text-left">
+	                            <p class="text-right" style="font-size: 18px;">${beer.beer.beer_abv}% ABV</p>
+	                        </div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+							<div class="product-rating">
+	                        ${stars}<a class="small-text" href="#">${beer.beer.rating_count} reviews</a></div>
+							</div>
+						</div>
+	                    <div class="row">
+	                        <div class="col-12">
+	                            <div class="row" style="margin-top: 16px;">
+	                                <div class="col-6"><button class="btn btn-light" type="button" style="background-color: rgb(224,203,16);"><strong>Add To Menu</strong></button></div>
+	                                <div class="col-6">
+	                                    <p class="product-price" style="margin-top: 10px;">${beer.beer.beer_style}</p>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+				</div>`;
+	return div;
 };
