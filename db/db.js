@@ -1,8 +1,9 @@
 require('dotenv').config();
+
 const mongoose = require('mongoose');
 const URI = `mongodb+srv://${process.env.ADMIN}:${process.env.PASS}@${process.env.DOM}/${process.env
 	.DB_NAME}?retryWrites=true&w=majority`; //mongo db connection
-
+	
 const connectDB = async () => {
 	try {
 		await mongoose.connect(URI, {

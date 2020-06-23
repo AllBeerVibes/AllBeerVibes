@@ -19,8 +19,12 @@ router.get('/top-rated', (req, res) => {
 			let div = '';
 			beers.forEach((beer) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
-
-				div += apiMethods.topRatedDiv(beer, stars);
+				let style = beer.beer.beer_style;
+				
+				style = style.split(" ");
+				style = style[0];
+				console.log(style);
+				div += apiMethods.topRatedDiv(beer, stars, style);
 			});
 			res.render('topRated', { getTopRated: div });
 		})
