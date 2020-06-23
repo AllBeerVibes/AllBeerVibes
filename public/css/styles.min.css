@@ -24,10 +24,6 @@ body {
 	margin-top: 15px;
 }
 
-.result-searchbar button {
-	background-color: var(--yellow);
-}
-
 #searchResult {
 	position: relative;
 	margin-top:20px;
@@ -41,13 +37,17 @@ body {
 	z-index: 1;
 }
 
-
 #searchInput {
 	text-align: left;
 	width: 700px;
 	border-radius: 20px;
 }
 
+.result-searchbar form input:focus {
+	border-color: 2px solid var(--yellow);
+	outline: none !important;
+	box-shadow: 0 0px 5px var(--yellow);
+}
 
 .product-item {
 	padding: 5px;
@@ -63,6 +63,8 @@ body {
 
 .product-item .product-container:hover {
 	background-color:var(--creamWhite);
+	outline: none !important;
+	box-shadow: 0 0px 20px var(--yellow);
 	transition: .5s ease-in-out;
 }
 
@@ -100,34 +102,42 @@ body {
 	text-align: center;
 	font-weight: 700;
 	height: 50px;
+	margin-bottom: 10px;
 }
 
 .product-item .beer-name a {
 	color: var(--brown);
 }
 
-
 .product-item #beer-des p {
 	font-size: 18px;
-	margin-top: 5px;
 	margin-bottom: 0px;
 	text-align: center;
 }
 
-.product-item #beer-rating #stars{
+.product-item #ibu-color {
+	color: var(--creamWhite);
+	border-radius: 20px;
+}
+
+.product-item #beer-rating {
+	margin-top: 5px;
 	font-size: 20px;
+	text-align: center;
+	margin-bottom: 0px;
 }
 
 .product-item #beer-rating #reviews{
-	font-size: 15px;
+	font-size: 12px;
+	margin-right: 0;
 }
 
 .product-item #buttons {
 	text-align: center;
 	background-color: var(--yellow);
 	width: 95%;
+	margin-top: 5px;
 	border-radius: 20px;
-	margin-top: 10px;
 	margin-left: 8px;
 	color: var(--lightWhite);
 	box-shadow: 5px 5px black;
@@ -266,11 +276,13 @@ body {
 	border-color: 10px solid var(--yellow);
 	outline: none !important;
 	box-shadow: 0 0px 60px var(--yellow);
+	transition: .5s ease-in-out;
 }
 
 @media screen and (max-width: 700px) {
 	
-	.masthead #intro-search input, .result-searchbar input {
+	.masthead #intro-search input,
+	.result-searchbar #searchInput {
 		width:500px;
 	}
 
@@ -278,7 +290,8 @@ body {
 
 @media screen and (max-width: 500px) {
 	
-	.masthead #intro-search input, .result-searchbar input{
+	.masthead #intro-search input,
+	.result-searchbar #searchInput {
 		width:400px;
 	}
 

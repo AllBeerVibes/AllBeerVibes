@@ -24,7 +24,21 @@ router.get('/top-rated', (req, res) => {
 				style = style.split(" ");
 				style = style[0];
 				
-				div += apiMethods.topRatedDiv(beer, stars, style);
+				let color = beer.beer.beer_ibu;
+
+				if(color > 60){
+					color = "black";
+				}
+
+				else if(color > 30) {
+					color = "brown";
+				}
+
+				else{
+					color= "yellow";
+				}
+
+				div += apiMethods.topRatedDiv(beer, stars, style, color);
 			});
 			res.render('topRated', { getTopRated: div });
 		})
