@@ -23,7 +23,7 @@ router.get('/top-rated', (req, res) => {
 				
 				style = style.split(" ");
 				style = style[0];
-				console.log(style);
+				
 				div += apiMethods.topRatedDiv(beer, stars, style);
 			});
 			res.render('topRated', { getTopRated: div });

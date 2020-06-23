@@ -129,7 +129,7 @@ exports.topRatedDiv = (beer, stars, style) => {
 
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-12">
-								<button class="btn btn-light" type="button" ><strong>Add To Menu</strong></button>
+								<button class="btn btn-light" type="button" ><strong>Add To List</strong></button>
 	                        </div>
 	                    </div>
 					</div>
