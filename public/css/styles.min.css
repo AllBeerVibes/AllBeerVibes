@@ -260,12 +260,32 @@ body {
 }
 
 .masthead #intro-search input {
-	margin-right:5px; 
-	width:85%;
+	text-align: center;
+	width: 700px;
+	border-radius: 20px;
 }
 
-.masthead #intro-search button {
-	background-color:var(--yellow);
+.masthead #intro-search input:focus {
+	
+	border-color: 10px solid var(--yellow);
+	outline: none !important;
+	box-shadow: 0 0px 60px var(--yellow);
+}
+
+@media screen and (max-width: 700px) {
+	
+	.masthead #intro-search input {
+		width:500px;
+	}
+
+}
+
+@media screen and (max-width: 500px) {
+	
+	.masthead #intro-search input {
+		width:400px;
+	}
+
 }
 
 
