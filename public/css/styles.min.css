@@ -41,17 +41,13 @@ body {
 	z-index: 1;
 }
 
+
 #searchInput {
-	width:85%;
+	text-align: left;
+	width: 700px;
+	border-radius: 20px;
 }
 
-@media screen and (max-width: 700px) {
-	
-	#searchInput {
-		width:85%;
-	}
-
-}
 
 .product-item {
 	padding: 5px;
@@ -274,7 +270,7 @@ body {
 
 @media screen and (max-width: 700px) {
 	
-	.masthead #intro-search input {
+	.masthead #intro-search input, .result-searchbar input {
 		width:500px;
 	}
 
@@ -282,7 +278,7 @@ body {
 
 @media screen and (max-width: 500px) {
 	
-	.masthead #intro-search input {
+	.masthead #intro-search input, .result-searchbar input{
 		width:400px;
 	}
 
