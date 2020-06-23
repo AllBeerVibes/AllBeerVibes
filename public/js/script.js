@@ -94,7 +94,7 @@ const getBeersById = (beerIds) => {
 };
 
 exports.topRatedDiv = (beer, stars, style) => {
-	const div = `<div class="col-sm-6 col-md-3 product-item">
+	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">
 							<img src="./img/beer.png"></a>
@@ -104,11 +104,9 @@ exports.topRatedDiv = (beer, stars, style) => {
 							${beer.brewery.brewery_name}
 						</p>
 						
-						<div class="beer-name">
-							<div class="col-12>
-								<a href="/beer/${beer.beer.bid}">
+						<div class="col-12 beer-name">
+							<a href="/beer/${beer.beer.bid}">
 								${beer.beer.beer_name}</a>
-							</div>
 						</div>
 						
 						<div class="row justify-content-center" id="beer-des"">
@@ -129,7 +127,7 @@ exports.topRatedDiv = (beer, stars, style) => {
 
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-12">
-								<button class="btn btn-light" type="button" ><strong>Add To List</strong></button>
+								<button>Add To List</button>
 	                        </div>
 	                    </div>
 					</div>

@@ -1,31 +1,80 @@
+/* main concept */
 
-.product-list {
-	overflow: hidden;
-	-webkit-perspective: 1000px;
-	-moz-perspective: 1000px;
-	-ms-perspective: 1000px;
-	perspective: 1000px;
-	-webkit-transform-style: preserve-3d;
-	-moz-transform-style: preserve-3d;
-	-ms-transform-style: preserve-3d;
-	transform-style: preserve-3d;
+:root {
+    --ligtGrey: #454444;
+	--grey: #333333;
+	--yellow: #FFD423;
+	--brown: #391c0e;
+	--lightWhite: #fff;
+	--creamWhite: #dadadc;
+	--gradYellow: linear-gradient(90deg, rgba(255,212,35,1) 0%, rgba(247,255,110,1) 35%, rgba(209,208,208,1) 100%);
+	--designFont: 'Kaushan Script';
+  }
+
+body {
+	font-family: 'Lato', Arial, sans-serif;
+	background-color: var(--grey);
 }
+
+/* search result */
+
+.result-searchbar {
+	position: relative;
+	z-index: 2;
+	margin-top: 15px;
+}
+
+.result-searchbar button {
+	background-color: var(--yellow);
+}
+
+#searchResult {
+	position: relative;
+	margin-top:20px;
+	max-height: 100vh;
+	overflow: auto;
+}
+
+#filter-bar {
+	position: relative;
+	margin-top: 5px;
+	z-index: 1;
+}
+
+#searchInput {
+	width:85%;
+}
+
+@media screen and (max-width: 700px) {
+	
+	#searchInput {
+		width:85%;
+	}
+
+}
+
 .product-item {
-	padding: 10px;
+	padding: 5px;
 }
+
 .product-item .product-container {
 	text-align: center;
-	background-color: white;
-	border: 1px solid #dbe3e7;
+	background-color:var(--lightWhite);
 	border-radius: 20px;
 	width:100%;
 	height: 380px;
+}
+
+.product-item .product-container:hover {
+	background-color:var(--creamWhite);
+	transition: .5s ease-in-out;
 }
 
 .product-item a.product-image {
 	display: block;
 	left:0;
 	right:0;
+	margin-top: 5px;
 	margin-left: 16px;
 	position: absolute;
 	z-index:1;
@@ -33,15 +82,15 @@
 	width: 100%;
 }
 
-.product-item .act-image {
-	text-align: center;
-	margin-top: 65px;
-	position:relative;
-	width: 90px;
-}
-
 .product-item a.product-image img {
 	height: 170px;
+}
+
+.product-item .act-image {
+	text-align: center;
+	margin-top: 70px;
+	position:relative;
+	width: 90px;
 }
 
 .product-item .bre-name {
@@ -52,10 +101,15 @@
 
 .product-item .beer-name {
 	font-size: 18px;
-	color: rgb(181,120,27);
+	text-align: center;
 	font-weight: 700;
 	height: 50px;
 }
+
+.product-item .beer-name a {
+	color: var(--brown);
+}
+
 
 .product-item #beer-des p {
 	font-size: 18px;
@@ -74,13 +128,23 @@
 
 .product-item #buttons {
 	text-align: center;
-	background-color: rgb(224,203,16);
+	background-color: var(--yellow);
 	width: 95%;
 	border-radius: 20px;
 	margin-top: 10px;
 	margin-left: 8px;
+	color: var(--lightWhite);
+	box-shadow: 5px 5px black;
+	
 }
 
+.product-item #buttons button{
+	width: 95%;
+	color: var(--grey);
+	font-size: 15px;
+}
+
+/* item description */
 
 .product-item h2 {
 	font-size: 18px;
@@ -90,10 +154,10 @@
 
 .product-item h2 a {
 	text-decoration: none;
-	color: #333333;
+	color: var(--grey);
 }
 .product-item a.small-text {
-	color: #333333;
+	color: var(--grey);
 	text-decoration: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -102,7 +166,7 @@
 	font-size: 12px;
 }
 .product-item a.small-text:hover {
-	color: #dadadc;
+	color: var(--creamWhite);
 	text-decoration: none;
 	margin-top: 10px;
 	margin-bottom: 10px;
@@ -111,16 +175,16 @@
 	font-size: 12px;
 }
 .btn-outline-profile {
-	border-color: rgb(224, 203, 16);
+	border-color: var(--yellow);
 }
 .btn-outline-profile:hover {
-	border-color: #c2a10e;
-	background-color: #c2a10e;
-	color: rgb(228, 214, 214);
+	border-color: var(--yellow);
+	background-color: var(--yellow);
+	color: var(--creamWhite);
 }
 
 .product-item .product-rating {
-	color: #dcb510;
+	color: var(--yellow);
 	font-size: 14px;
 }
 .product-item .product-rating a.small-text {
@@ -130,38 +194,38 @@
 }
 .product-item p.product-description {
 	margin-top: 20px;
-	color: #333333;
+	color: var(--grey);
 	line-height: 1.45;
 	white-space: normal;
 	margin-bottom: 20px;
 }
 .product-item button {
 	border-radius: 2px;
-	background: #dcb510;
+	background: var(--yellow);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .12);
 	border: 0;
-	color: #fff;
+	color: var(--creamWhite);
 	font-weight: 700;
 	font-size: 13px;
 	padding: 8px 20px;
 }
 .product-item button:active {
-	background: #c2a10e;
-	color: #fff;
+	background: var(--yellow);
+	color:var(--creamWhite);
 	border: 0;
 }
 .product-item button:focus,
 .product-item button:focus:active {
-	background: #c2a10e;
+	background: var(--yellow);
 	outline: 0;
-	color: #fff;
+	color:var(--creamWhite);
 }
 .product-item button:hover {
-	background: #c2a10e;
-	color: #fff;
+	background: var(--yellow);
+	color: var(--creamWhite);
 }
 .product-item .product-price {
-	color: #333333;
+	color: var(--grey);
 	font-weight: 700;
 	font-size: 20px;
 	padding-top: 5px;
@@ -175,134 +239,228 @@
 	-ms-transform: none !important;
 	transform: none !important;
 }
-footer {
-	background-color: #292c2f;
-	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
-	box-sizing: border-box;
-	width: 100%;
+
+/* main nav bar */
+#mainNav {
+	max-width: 1920px;
+	z-index: 2;
+	position: relative;
+	width:100%;
+}
+
+.navbar-brand {
+	font-family: var(--designFont);
+	color: var(--yellow);
+}
+
+/* index search bar */
+
+.masthead #intro-search form {
+	margin-top: 35vh
+}
+
+.masthead #intro-search input {
+	margin-right:5px; 
+	width:85%;
+}
+
+.masthead #intro-search button {
+	background-color:var(--yellow);
+}
+
+
+/* index body */
+
+.masthead {
+	height: 100vh;
+}
+
+.masthead #intro-lead {
+	font-size: 50px;
+	margin-top: 10%; 
+	color:var(--lightWhite);
+}
+
+.masthead i#intro-button {
+	color: var(--lightWhite);
+	font-size: 100px;
+	padding-top: 0%;
+}
+
+.masthead i#intro-button:hover {
+	color: var(--yellow);
+	transition: all .5s ease;
+}
+
+/* index banner section */
+
+#banner-section {
+	height: 100%; 
+	padding-top:50px
+}
+
+.snip1527 {
+	color: var(--lightWhite);
+	float: left;
+	font-size: 16px;
+	margin: 10px 1%;
+	max-width: 450px;
+	height: 450px;
+	overflow: hidden;
+	position: relative;
 	text-align: left;
-	padding: 55px 50px;
-	margin-top: 80px;
+	width: 100%;
+}
+
+.snip1527 * {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.snip1527 img {
+	max-width: 100%;
+	max-height: 100%;
+	display: block;
+	position: relative;
+}
+
+.snip1527 figcaption {
+	padding: 25px 20px 25px;
+	position: absolute;
+	width: 100%;
 	bottom: 0;
-	color: #fff;
+	z-index: 1;
 }
 
-.footer-navigation h3 {
-	margin: 0;
-	/* font: normal 36px Cookie, cursive; */
-	margin-bottom: 20px;
+.snip1527 figcaption:before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: '';
+	width: 100%;
+	min-width: 250px;
+	background: var(--gradYellow);
+	opacity: 0.8;
+	z-index: -1;
 }
 
-.footer-navigation h3 a {
-	text-decoration: none;
-	color: #fff;
+.snip1527 .date {
+	background-color: var(--ligtGrey);
+	border-radius: 5%;
+	color: var(--lightWhite);
+	font-size: 30px;
+	font-weight: 700;
+	padding: 10px 10px;
+	position: absolute;
+	right: 15px;
+	text-align: center;
+	text-transform: uppercase;
+	top: -25px;
+}
+
+.snip1527 h3 {
+	display: inline-block;
+	font-weight: 1000;
+	letter-spacing: -0.4px;
+	margin-bottom: 5px;
+	color: var(--ligtGrey);
+}
+
+.snip1527 p {
+	font-size: 1.5em;
+	line-height: 1.6em;
+	margin-bottom: 0px;
+	color: var(--ligtGrey);
+}
+
+.snip1527 a {
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position: absolute;
+	z-index: 1;
+}
+
+.snip1527:hover img,
+.snip1527.hover img {
+	-webkit-transform: scale(1.1);
+	transform: scale(1.1);
+}
+
+.modal-content {
+	height: 480px; 
+	width: 480px;
+
+}
+
+
+#model1,
+#model2,
+#model3 {
+	color: var(--ligtGrey);
+	margin-top: 10%;
+}
+
+.model_caption {
+	padding: 20px 20px 20px 20px;
+	position: absolute;
+	height: 95.5%;
+	width: 95%;
+	z-index: 1;
+}
+
+.model_caption:before {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	content: '';
+	width: 100%;
+	background: var(--gradYellow);
+	opacity: 0.8;
+	z-index: -1;
+}
+
+.modle_cpation p {
+	display: block;
+	letter-spacing: -0.4px;
+	margin-bottom: 5px;
+	color: #454444;
+}
+
+.name-brand {
 	font-family: 'Kaushan Script';
 	color: rgb(224, 203, 16);
 }
 
-.footer-navigation h3 span {
-	color: #5383d3;
-}
+/* footer */
 
-.footer-navigation p.links a {
-	color: #fff;
-	text-decoration: none;
-}
+footer{
+	background-color: var(--ligtGrey);
+	position: relative;
+	z-index: 1;
+  }
+  
+  .social-links a {
+	color: var(--lightWhite);
+	margin-left: 5px;
+  }
+  
+  .social-links a :hover{
+	color: var(--yellow);
+  }
 
-.footer-navigation p.company-name {
-	color: #8f9296;
-	font-size: 14px;
-	font-weight: normal;
-	margin-top: 20px;
-}
 
-@media (max-width: 767px) {
-	.footer-contacts {
-		margin: 30px 0;
-	}
-}
 
-.footer-contacts p {
-	display: inline-block;
-	color: #ffffff;
-	vertical-align: middle;
-}
 
-.footer-contacts p a {
-	color: #5383d3;
-	text-decoration: none;
-}
+/* arrangement needed */
 
-.fa.footer-contacts-icon {
-	background-color: #33383b;
-	color: #fff;
-	font-size: 18px;
-	width: 38px;
-	height: 38px;
-	border-radius: 50%;
-	text-align: center;
-	line-height: 38px;
-	margin: 10px 15px 10px 0;
-}
-
-span.new-line-span {
-	display: block;
-	font-weight: normal;
-	display: block;
-	font-weight: normal;
-	font-size: 14px;
-	line-height: 2;
-}
-
-.footer-about h4 {
-	display: block;
-	color: #fff;
-	font-size: 14px;
-	font-weight: bold;
-	margin-bottom: 20px;
-}
-
-.footer-about p {
-	line-height: 20px;
-	color: #92999f;
-	font-size: 13px;
-	font-weight: normal;
-	margin: 0;
-}
-
-div.social-links {
-	margin-top: 20px;
-	color: #fff;
-}
-
-.social-links a {
-	display: inline-block;
-	width: 35px;
-	height: 35px;
-	cursor: pointer;
-	background-color: #33383b;
-	border-radius: 2px;
-	font-size: 20px;
-	color: #ffffff;
-	text-align: center;
-	line-height: 35px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-}
-
-@media (max-width: 767px) {
-	.navigation-clean-search .form-inline .search-field {
-		display: inline-block;
-		width: 80%;
-	}
-	.footer-dark .item:not(.social) {
-		text-align: center;
-		padding-bottom: 20px;
-	}
-	.footer-dark .item.text {
-		margin-bottom: 0;
-	}
-}
 
 #login-box {
 	max-width: 500px;
@@ -407,7 +565,8 @@ div.social-links {
 #submit-id-submit:hover {
 	background-color: #198269;
 }
-/* Custom CSS */
+
+
 .btn-profile {
 	background-color: rgb(224, 203, 16);
 	color: #333333;
@@ -523,17 +682,6 @@ body {
 	margin-bottom: 20px;
 	margin-top: 0px;
 }
-
-/* h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	color: #4e4e4e;
-	font-family: "Open Sans";
-	font-weight: 600;
-} */
 
 .lead {
 	font-size: 16px;
@@ -681,245 +829,6 @@ h6 {
 	top: 0;
 	z-index: 1;
 }
-/*minho css */
-#mainNav {
-	max-width: 1920px;
-	z-index: 2;
-	position: relative;
-}
-
-.navbar-brand {
-	font-family: 'Kaushan Script';
-	color: rgb(224, 203, 16);
-}
-
-input#searchBox::selection {
-	box-shadow: inset;
-}
-
-i#intro-button {
-	color: white;
-}
-
-i#intro-button:hover {
-	color: rgb(224, 203, 16);
-	transition: all .5s ease;
-}
-
-body {
-	font-family: 'Lato', Arial, sans-serif;
-}
-
-.snip1527 {
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-	color: #ffffff;
-	float: left;
-	font-family: 'Lato', Arial, sans-serif;
-	font-size: 16px;
-	margin: 10px 1%;
-	max-width: 500px;
-	max-height: 500px;
-	overflow: hidden;
-	position: relative;
-	text-align: left;
-	width: 100%;
-}
-
-.snip1527 * {
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	-webkit-transition: all 0.25s ease;
-	transition: all 0.25s ease;
-}
-
-.snip1527 img {
-	max-width: 100%;
-	max-height: 100%;
-	display: block;
-	position: relative;
-}
-
-.snip1527 figcaption {
-	padding: 25px 20px 25px;
-	position: absolute;
-	width: 100%;
-	bottom: 0;
-	z-index: 1;
-}
-
-.snip1527 figcaption:before {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	content: '';
-	width: 100%;
-	min-width: 250px;
-	background: -moz-linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	background: -webkit-linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	background: linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	opacity: 0.8;
-	z-index: -1;
-}
-
-.snip1527 .date {
-	background-color: #454444;
-	border-radius: 5%;
-	color: white;
-	font-size: 30px;
-	font-weight: 700;
-	padding: 10px 10px;
-	position: absolute;
-	right: 15px;
-	text-align: center;
-	text-transform: uppercase;
-	top: -25px;
-}
-
-.snip1527 h3 {
-	display: inline-block;
-	font-weight: 1000;
-	letter-spacing: -0.4px;
-	margin-bottom: 5px;
-	color: #454444;
-}
-
-.snip1527 p {
-	font-size: 1.5em;
-	line-height: 1.6em;
-	margin-bottom: 0px;
-	color: #454444;
-}
-
-.snip1527 a {
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	position: absolute;
-	z-index: 1;
-}
-
-.snip1527:hover img,
-.snip1527.hover img {
-	-webkit-transform: scale(1.1);
-	transform: scale(1.1);
-}
-
-img {
-	border-radius: 5px;
-}
-
-.social-links a {
-	color: white;
-	margin-left: 5px;
-}
-
-.social-links a :hover {
-	color: rgb(222, 214, 18);
-}
-
-#model1,
-#model2,
-#model3 {
-	color: #454444;
-}
-
-.model_caption {
-	padding: 20px 20px 20px 20px;
-	position: absolute;
-	height: 95.5%;
-	width: 95%;
-	z-index: 1;
-}
-
-.model_caption:before {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	content: '';
-	width: 100%;
-	background: -moz-linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	background: -webkit-linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	background: linear-gradient(
-		90deg,
-		rgba(255, 212, 35, 1) 0%,
-		rgba(247, 255, 110, 1) 35%,
-		rgba(209, 208, 208, 1) 100%
-	);
-	opacity: 0.8;
-	z-index: -1;
-}
-
-.modle_cpation p {
-	display: block;
-	letter-spacing: -0.4px;
-	margin-bottom: 5px;
-	color: #454444;
-}
-
-.name-brand {
-	font-family: 'Kaushan Script';
-	color: rgb(224, 203, 16);
-}
 
 
-#searchbar {
-	position: relative;
-	z-index: 1;
-	margin-top: 15px;
-	
-}
 
-#searchResult {
-	position: relative;
-	margin-top:20px;
-	max-height: 100vh;
-	overflow: auto;
-}
-
-#filter-bar {
-	position: relative;
-	margin-top: 5px;
-	z-index: 1;
-}
-
-#searchInput {
-	width:85%;
-}
-
-@media screen and (max-width: 700px) {
-	
-	#searchInput {
-		width:85%;
-	}
-
-}
