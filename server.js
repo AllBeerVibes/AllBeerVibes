@@ -14,12 +14,18 @@ app.set('view engine', 'ejs');
 const connectDB = require('./db/db');
 connectDB(); //connect to mongo
 
+// Init Middleware
+app.use(express.json());
+
 //Change this to render if we need to dynamically change
 app.get('/', (req, res) => {
 	res.render('index');
 });
 
 app.use('/beer', require('./routes/beer'));
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/profile', require('./routes/api/profile'));
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
