@@ -10,6 +10,11 @@ const apiMethods = require('../public/js/script');
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
+//Endpoint = /beer/suggest
+router.get('/suggest', (req, res) => {
+	res.render('suggestion');
+});
+
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
 	axios
@@ -20,22 +25,20 @@ router.get('/top-rated', (req, res) => {
 			beers.forEach((beer) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
-				
-				style = style.split(" ");
+
+				style = style.split(' ');
 				style = style[0];
-				
+
 				let color = beer.beer.beer_ibu;
 
-				if(color > 60){
-					color = "black";
+				if (color > 60) {
+					color = 'black';
 				}
-
-				else if(color > 30) {
-					color = "brown";
+				else if (color > 30) {
+					color = 'brown';
 				}
-
-				else{
-					color= "yellow";
+				else {
+					color = 'yellow';
 				}
 
 				div += apiMethods.topRatedDiv(beer, stars, style, color);
