@@ -2,10 +2,10 @@ exports.getBeerByIdURI = (CLIENT_ID, CLIENT_SECRET, id) => {
 	const method = `/beer/info/${id}`;
 	return `https://api.untappd.com/v4${method}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=100`;
 };
-exports.getBeerBySearch = (query) => {
+exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query) => {
 	const fixedQuery = query.trim().replace(' ', '+');
 	const method = `/search/beer?q=${fixedQuery}`;
-	return `https://api.untappd.com/v4${method}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=100`;
+	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
 };
 exports.getTopRatedURI = (CLIENT_ID, CLIENT_SECRET) => {
 	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
@@ -93,7 +93,8 @@ const getBeersById = (beerIds) => {
 		});
 };
 
-exports.topRatedDiv = (beer, stars, style, color) => {
+//Displays beer result into cards
+exports.beerResultDiv = (beer, stars, style, color) => {
 	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">

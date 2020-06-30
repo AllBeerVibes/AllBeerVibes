@@ -15,6 +15,47 @@ router.get('/suggest', (req, res) => {
 	res.render('suggestion');
 });
 
+//Endpoint = /beer/search
+router.get('/search', (req, res) => {
+	res.render('search');
+});
+
+//Endpoint = /beer/result
+router.get('/result', (req, res) => {
+	let searchTerm = req.query.searchterm;
+
+	axios
+		.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, searchTerm))
+		.then((response) => {
+			let beers = response.data.response.beers.items; //array of beers
+			let div = '';
+			beers.forEach((beer) => {
+				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
+				let style = beer.beer.beer_style;
+
+				style = style.split(' ');
+				style = style[0];
+
+				let color = beer.beer.beer_ibu;
+
+				if (color > 60) {
+					color = 'black';
+				}
+				else if (color > 30) {
+					color = 'brown';
+				}
+				else {
+					color = 'yellow';
+				}
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color);
+			});
+			res.render('searchResult', { getSearchResult: div });
+		})
+		.catch((error) => console.error(error));
+});
+
+
 //Endpoint = /beer/map
 router.get('/map', function (req, res) {
     res.render('map');
