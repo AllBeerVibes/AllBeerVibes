@@ -35,7 +35,7 @@
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
                                 href="./compare.html">COMPARE</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./profileSettings.html">PROFILE</a></li>
+                                href="/beer/profile">PROFILE</a></li>
                     </ul>
                 </div>
             </div>
@@ -75,7 +75,7 @@
                             </li>
                             <!--need to check-->
                             <% if (breweryName !== ""){%>
-                            <li>MADE BY <%= breweryName %></li>
+                            <li>MADE BY <p><%= breweryName %></p></li>
                             <% } %>
                             <li>
                                 <button class="btn btn-light" type="button"><strong>Add To Menu</strong></button>
@@ -96,7 +96,7 @@
                 
                 <div class="container-fluid" id="searchResult">
                     <div class="container">
-                        <h3 id="item-page">Related Beers</h3>
+                        <h3 id="item-page">Same Type</h3>
                         <div class="row product-list dev" id="topRatedBeers">
                             <%- getTopRated %>
                         </div>

@@ -20,6 +20,10 @@ router.get('/search', (req, res) => {
 	res.render('search');
 });
 
+router.get('/profile', (req, res)=> {
+	res.render('profile');
+})
+
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
 	let searchTerm = req.query.searchterm;
@@ -111,16 +115,17 @@ router.get('/:bid', (req, res) => {
 				created_at,
 				rating_count,
 				rating_score,
-				brewery_name,
-				brewery_label,
+				
 				country_name,
 				contact,
 				location
 			} = response.data.response.beer; // beer data
 
+			const {brewery_name, brewery_label} = response.data.response.beer.brewery;
+
 			stars = apiMethods.starRatingElement(rating_score);
 			
-			var limit = 4; //need to check, it is not applied
+			var limit = 4; //need to check, it is not applicable
 
 			axios
 				.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, beer_style, limit))
