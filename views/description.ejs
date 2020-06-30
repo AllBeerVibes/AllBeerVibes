@@ -93,16 +93,17 @@
                         <p><%= description %> </p>
                     </div>
                 </div>
-           
-           
-
-            <div class="continer">
-                related beers
-            </div>
-
-
-
-
+                
+                <div class="container-fluid" id="searchResult">
+                    <div class="container">
+                        <h3 id="item-page">Related Beers</h3>
+                        <div class="row product-list dev" id="topRatedBeers">
+                            <%- getTopRated %>
+                        </div>
+                    </div>
+                </div>
+            
+            
             <footer class="footer" style="max-height: 200px; padding-top:5px;">
         
             <div class="row justify-content-center align-items-center" style="padding: 20px; text-align: center;">

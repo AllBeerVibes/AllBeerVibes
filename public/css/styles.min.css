@@ -537,6 +537,17 @@ footer{
 	color: var(--ligtGrey);
 	}
 
+#searchResult #item-page {
+	color: var(--lightWhite);
+}
+
+@media screen and (max-width: 500px) {
+	
+	.beer-title #back	{
+		width: 100%;
+	}
+
+}
 
 /* arrangement needed */
 

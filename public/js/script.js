@@ -2,9 +2,9 @@ exports.getBeerByIdURI = (CLIENT_ID, CLIENT_SECRET, id) => {
 	const method = `/beer/info/${id}`;
 	return `https://api.untappd.com/v4${method}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=100`;
 };
-exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query) => {
+exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query, limit) => {
 	const fixedQuery = query.trim().replace(' ', '+');
-	const method = `/search/beer?q=${fixedQuery}`;
+	const method = `/search/beer?q=${fixedQuery}&limit=${limit}`;
 	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
 };
 exports.getTopRatedURI = (CLIENT_ID, CLIENT_SECRET) => {
