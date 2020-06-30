@@ -15,6 +15,11 @@ router.get('/suggest', (req, res) => {
 	res.render('suggestion');
 });
 
+//Endpoint = /beer/map
+router.get('/map', function (req, res) {
+    res.render('map');
+})
+
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
 	axios
