@@ -87,7 +87,7 @@ router.get('/top-rated', (req, res) => {
 					color = 'yellow';
 				}
 
-				div += apiMethods.topRatedDiv(beer, stars, style, color);
+				div += apiMethods.beerResultDiv(beer, stars, style, color);
 			});
 			res.render('topRated', { getTopRated: div });
 		})
