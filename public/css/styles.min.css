@@ -150,7 +150,7 @@ body {
 	font-size: 15px;
 }
 
-/* item description */
+/* list description */
 
 .product-item h2 {
 	font-size: 18px;
@@ -485,7 +485,57 @@ footer{
 	color: var(--yellow);
   }
 
+/* item-description */
 
+.beer-title {
+	margin-top: 20px;
+	width: 100%;
+	background: var(--lightWhite);
+	padding: 5px 5px 5px 20px;
+}
+
+.beer-title #back{
+	width: 50%;
+}
+
+#description {
+	margin-top: 20px;
+}
+
+#description #beer-image {
+	text-align: center;
+	padding: 20px;
+}
+
+#description #beer-image img {
+	height: 250px;
+	border-radius: 20px;
+}
+
+#description #item-info {
+	font-size: 25px;
+	list-style-type: none;
+	color: var(--lightWhite);
+	padding: 20px;
+	margin-left: 10px;
+}
+
+#description #item-info li {
+	margin-bottom: 5px;;
+}
+
+#description #item-info button {
+	margin-top: 5px;
+	background: none;
+	text-align: left;
+	font-size: 25px;
+	color: var(--gradYellow)
+}
+
+#description #item-info button:hover {
+	background: var(--gradYellow);
+	color: var(--ligtGrey);
+	}
 
 
 /* arrangement needed */
