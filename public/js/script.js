@@ -4,8 +4,8 @@ exports.getBeerByIdURI = (CLIENT_ID, CLIENT_SECRET, id) => {
 };
 exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query, limit) => {
 	const fixedQuery = query.trim().replace(' ', '+');
-	const method = `/search/beer?q=${fixedQuery}&limit=${limit}`;
-	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
+	const method = `/search/beer?q=${fixedQuery}`;
+	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=${limit}`;
 };
 exports.getTopRatedURI = (CLIENT_ID, CLIENT_SECRET) => {
 	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;

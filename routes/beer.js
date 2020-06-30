@@ -125,7 +125,7 @@ router.get('/:bid', (req, res) => {
 
 			stars = apiMethods.starRatingElement(rating_score);
 			
-			var limit = 4; //need to check, it is not applicable
+			var limit = 4;
 
 			axios
 				.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, beer_style, limit))

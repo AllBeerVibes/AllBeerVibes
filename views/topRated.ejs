@@ -17,7 +17,7 @@
     </head>
 
     <body>
-<         <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">All Beer Vibes</a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
@@ -38,14 +38,14 @@
                         href="/beer/profile">PROFILE</a></li>
             </ul>
         </div>
-    </div>
-</nav>
+        </div>
+    </nav>
 
         <div class="result-searchbar">
             <div class="row justify-content-center">
-                <form class="form-inline" method='GET' action='https://www.google.ca'>
-                        <input class="form-control amber-border" id="searchInput" type="text"
-                            placeholder="Search Any keyword of Beer what you want" aria-label="Search">
+                <form class="form-inline" method='GET' action="/beer/result">
+                    <input class="form-control amber-border" id="searchInput" type="text"
+                        placeholder="Search Any keyword of Beer what you want" aria-label="Search" name="searchterm">
                 </form>
             </div>
         </div>
