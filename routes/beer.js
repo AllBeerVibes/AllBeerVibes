@@ -20,9 +20,10 @@ router.get('/search', (req, res) => {
 	res.render('search');
 });
 
-router.get('/profile', (req, res)=> {
+//Endpoint = /beer/profile
+router.get('/profile', (req, res) => {
 	res.render('profile');
-})
+});
 
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
@@ -59,11 +60,10 @@ router.get('/result', (req, res) => {
 		.catch((error) => console.error(error));
 });
 
-
 //Endpoint = /beer/map
-router.get('/map', function (req, res) {
-    res.render('map');
-})
+router.get('/map', function(req, res) {
+	res.render('map');
+});
 
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
@@ -101,38 +101,36 @@ router.get('/top-rated', (req, res) => {
 //Endpoint = /beer/:bid
 router.get('/:bid', (req, res) => {
 	const { bid } = req.params;
-	axios
-		.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, bid))
-		.then((response) => {
-			const {
-				beer_name,
-				beer_label,
-				beer_label_hd,
-				beer_abv,
-				beer_ibu,
-				beer_description,
-				beer_style,
-				created_at,
-				rating_count,
-				rating_score,
-				
-				country_name,
-				contact,
-				location
-			} = response.data.response.beer; // beer data
+	axios.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, bid)).then((response) => {
+		const {
+			beer_name,
+			beer_label,
+			beer_label_hd,
+			beer_abv,
+			beer_ibu,
+			beer_description,
+			beer_style,
+			created_at,
+			rating_count,
+			rating_score,
 
-			const {brewery_name, brewery_label} = response.data.response.beer.brewery;
+			country_name,
+			contact,
+			location
+		} = response.data.response.beer; // beer data
 
-			stars = apiMethods.starRatingElement(rating_score);
-			
-			var limit = 4;
+		const { brewery_name, brewery_label } = response.data.response.beer.brewery;
 
-			axios
-				.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, beer_style, limit))
-				.then((response) => {
-					let beers = response.data.response.beers.items; //array of beers
-					let div = '';
-					beers.forEach((beer) => {
+		stars = apiMethods.starRatingElement(rating_score);
+
+		var limit = 4;
+
+		axios
+			.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, beer_style, limit))
+			.then((response) => {
+				let beers = response.data.response.beers.items; //array of beers
+				let div = '';
+				beers.forEach((beer) => {
 					let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 					let style = beer.beer.beer_style;
 
@@ -153,7 +151,7 @@ router.get('/:bid', (req, res) => {
 
 					div += apiMethods.beerResultDiv(beer, stars, style, color);
 				});
-				
+
 				res.render('description', {
 					bid          : bid,
 					name         : beer_name,
@@ -172,11 +170,10 @@ router.get('/:bid', (req, res) => {
 					country      : country_name,
 					contact      : contact,
 					location     : location,
-					getTopRated: div,
-	
+					getTopRated  : div
 				});
 			})
-		.catch((error) => console.error(error));
+			.catch((error) => console.error(error));
 	});
 });
 
