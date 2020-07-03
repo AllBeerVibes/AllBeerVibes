@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 80;
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,11 +17,7 @@ connectDB(); //connect to mongo
 // Init Middleware
 app.use(express.json());
 
-//Change this to render if we need to dynamically change
-app.get('/', (req, res) => {
-	res.render('index');
-});
-
+app.use('/', require('./routes/root'));
 app.use('/beer', require('./routes/beer'));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
