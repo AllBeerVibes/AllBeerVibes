@@ -7,88 +7,44 @@
         <title>Search Result</title>
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
-        
+
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        
+
         <link rel="stylesheet" href="css/styles.min.css">
-        
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
     </head>
 
     <body>
-    <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">All Beer Vibes</a>
-        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
-            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
-                <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                        href="/beer/suggest">SUGGEST</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" 
-                        href="/beer/map">PUB MAP</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                        href="/beer/compare">COMPARE</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                        href="/beer/profile">PROFILE</a></li>
-            </ul>
-        </div>
-        </div>
-    </nav>
-
-        <div class="result-searchbar">
-            <div class="row justify-content-center">
-                <form class="form-inline" method='GET' action="/beer/result">
-                    <input class="form-control amber-border" id="searchInput" type="text"
-                        placeholder="Search for any beer or brewery" aria-label="Search" name="searchterm">
-                    <button type="submit" class="btn btn-primary">Search</button>
-
-                </form>
-            </div>
-        </div>
-        
-        <!-- need more idea for this filter-->
-        <div class="row justify-content-center" id="filter-bar">
-            <nav class="navbar navbar-dark navbar-expand-md bg-dark">
+        <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">All Beer Vibes</a>
                 <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span>FILTER</span>
+                    <span class="navbar-toggler-icon"></span>
                 </button>
-        
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./Recommend.html">FILTER 1</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" 
-                            href="#">FILTER 2</a></li>
+                                href="/beer/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./searchResult.html">FILTER 3</a></li>
+                                href="/beer/map">PUB MAP</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./compare.html">FILTER 4</a></li>
+                                href="/beer/compare">COMPARE</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./profileSettings.html">FILTER 5</a></li>
+                                href="/beer/profile">PROFILE</a></li>
                     </ul>
                 </div>
-            </nav>
-        </div>
-            
-        
-        <div class="container-fluid" id="searchResult">
-            <div class="container">
-                <div class="row product-list dev" id="topRatedBeers">
-                    <%- getTopRated %>
-                </div>
             </div>
+        </nav>
+
         
-        </div>
 
         <footer class="footer" style="max-height: 200px; padding-top:5px;">
-        
+
             <div class="row justify-content-center align-items-center" style="padding: 20px; text-align: center;">
-                
+
                 <div class="col-md-2 footer-navigation">
                     <h3><a href="#" class="name-brand"><strong>All Beer Vibes</strong></a></h3>
                     <div class="social-links social-icons" style="padding-right: 10px; font-size: 25px;">
@@ -98,22 +54,22 @@
                         <a href="#"><i class="fa fa-github"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-2 footer-contacts" style="color:white;">
                     <div class="row justify-content-center">
                         <div style="margin-right: 10px;">
-                        <i class="fa fa-envelope footer-contacts-icon"></i></div>
+                            <i class="fa fa-envelope footer-contacts-icon"></i></div>
                         <p> <a href="#" target="_blank">allbeervibes@google.com</a></p>
                     </div>
                 </div>
-                
+
                 <div class="clearfix"></div>
-                <div class="col-md-2 footer-about" style="color:white";>
+                <div class="col-md-2 footer-about" style="color:white" ;>
                     <p class="company-name">All Beer Vibes © 2020</p>
-                    
+
                 </div>
             </div>
-        
+
         </footer>
 
 
@@ -122,6 +78,7 @@
         <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
         <script src="js/script.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-    
+
     </body>
+
 </html>

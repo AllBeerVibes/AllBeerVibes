@@ -25,6 +25,11 @@ router.get('/profile', (req, res) => {
 	res.render('profile');
 });
 
+//Endpoint = /beer/compare
+router.get('/compare', (req, res) => {
+	res.render('compare');
+});
+
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
 	let searchTerm = req.query.searchterm;
