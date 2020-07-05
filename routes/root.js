@@ -1,9 +1,16 @@
 require('dotenv').config();
 const express = require('express');
-const http = require('http');
+const { check, validationResult } = require('express-validator');
+const normalize = require('normalize-url');
+const gravatar = require('gravatar');
+const bcrypt = require('bcryptjs');
+const passport = require('passport');
+const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 router.use(express.static('public'));
+
+const User = require('../models/User');
 
 /*
 @route    GET /
@@ -20,8 +27,36 @@ router.get('/', (req, res) => {
 @access   public
 */
 router.get('/register', (req, res) => {
-	let errors = [];
-	res.render('register', { errors });
+	res.render('register');
+});
+
+/*
+@route    GET /login
+@desc     register user
+@access   public
+*/
+router.get('/login', (req, res) => {
+	res.render('login');
+});
+
+/*
+@route    POST /logout
+@desc     logout user
+@access   private
+*/
+router.get('/logout', auth, (req, res) => {
+	req.logout();
+	req.flash('success', 'Successfully logged out');
+	res.redirect('/login');
+});
+
+/*
+@route    GET /profile
+@desc     User profile
+@access   private
+*/
+router.get('/profile', auth, (req, res) => {
+	res.render('profile');
 });
 
 /*
@@ -29,31 +64,93 @@ router.get('/register', (req, res) => {
 @desc     register user
 @access   public
 */
-router.post('/register', (req, res) => {
-	const { name, email, password, password2 } = req.body;
-	const data = JSON.stringify({ name, email, password, password2 });
-	const options = {
-		hostname : 'localhost',
-		port     : 80,
-		path     : '/api/users',
-		method   : 'POST',
-		headers  : {
-			'Content-Type' : 'application/json'
-		}
-	};
-	const request = http.request(options, (response) => {
-		const errors = [];
-		response.on('data', (chunk) => {
-			const json = JSON.parse(chunk);
-			if (json.errors != undefined) {
-				errors.push(json.errors[0].msg);
-				res.render('register', { errors });
-			}
-			console.log(json.token);
-		});
-	});
-	request.write(data);
-	request.end();
-});
+router.post(
+	'/register',
+	[
+		check('name', 'Name is required').not().isEmpty(),
+		check('email', 'Please include a valid email').isEmail(),
+		check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6 })
+	],
+	(req, res) => {
+		const errors = validationResult(req).array();
 
+		const { name, email, password, password2 } = req.body;
+
+		if (password !== password2) {
+			errors.push({ value: '', msg: 'Passwords do not match', param: 'password2', location: 'body' });
+		}
+
+		if (errors.length > 0) {
+			res.render('register', {
+				errors,
+				name,
+				email,
+				password,
+				password2
+			});
+		}
+		else {
+			try {
+				User.findOne({ email }).then((user) => {
+					if (user) {
+						errors.push({ value: '', msg: 'User already exists', param: 'email', location: 'body' });
+						res.render('register', {
+							errors,
+							name,
+							email,
+							password,
+							password2
+						});
+					}
+					else {
+						const avatar = normalize(
+							gravatar.url(email, {
+								s : '200',
+								r : 'pg',
+								d : 'mm'
+							}),
+							{ forceHttps: true }
+						);
+
+						const newUser = new User({
+							name,
+							email,
+							avatar,
+							password
+						});
+
+						bcrypt.genSalt(10, (err, salt) => {
+							bcrypt.hash(newUser.password, salt, (err, hash) => {
+								if (err) throw err;
+								newUser.password = hash;
+								newUser
+									.save()
+									.then((user) => {
+										req.flash('success', 'Successfully Registered');
+										res.redirect('/login');
+									})
+									.catch((err) => console.log(err));
+							});
+						});
+					}
+				});
+			} catch (err) {
+				console.error(err.message);
+			}
+		}
+	}
+);
+
+/*
+@route    POST /login
+@desc     login user
+@access   public
+*/
+router.post('/login', (req, res, next) => {
+	passport.authenticate('local', {
+		successRedirect : '/profile',
+		failureRedirect : '/login',
+		failureFlash    : true
+	})(req, res, next);
+});
 module.exports = router;

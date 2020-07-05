@@ -20,11 +20,6 @@ router.get('/search', (req, res) => {
 	res.render('search');
 });
 
-//Endpoint = /beer/profile
-router.get('/profile', (req, res) => {
-	res.render('profile');
-});
-
 //Endpoint = /beer/compare
 router.get('/compare', (req, res) => {
 	res.render('compare');
