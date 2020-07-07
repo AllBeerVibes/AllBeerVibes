@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const Compare = require('../models/Compare');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -37,10 +38,10 @@ router.get('/result', (req, res) => {
 			beers.forEach((beer) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
-				
+
 				style = style.split(' - ');
 				style = style[0];
-				
+
 				console.log(style);
 
 				let color = apiMethods.getColor(style);
@@ -167,6 +168,77 @@ router.get('/:bid', (req, res) => {
 			})
 			.catch((error) => console.error(error));
 	});
+});
+
+//Endpoint = /beer/add-to-compare/
+router.get('/add-to-compare/:bid', function(req, res) {
+	var beerId = req.params.bid;
+	//1) Check if my Compare property exists
+	//2) If it does, pass my old Compare
+	//3) Otherwise, pass empty object
+	var compare = new Compare(req.session.compare ? req.session.compare : {});
+
+	console.log(beerId);
+	console.log(compare);
+	axios.get(
+		apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beerId, function(err, product) {
+			if (err) {
+				return res.redirect('/beer/search');
+			}
+			compare.addBeerCompare(product, product.bid);
+			req.session.compare = compare;
+			console.log(req.session.compare);
+			res.redirect('/beer/search');
+		})
+	);
+	// axios
+	// 	.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beerId))
+	// 	.then((response) => {
+	// 		const {
+	// 			beer_name,
+	// 			beer_label,
+	// 			beer_label_hd,
+	// 			beer_abv,
+	// 			beer_ibu,
+	// 			beer_description,
+	// 			beer_style,
+	// 			created_at,
+	// 			rating_count,
+	// 			rating_score,
+	// 			brewery_name,
+	// 			brewery_label,
+	// 			country_name,
+	// 			contact,
+	// 			location
+	// 		} = response.data.response.beer; // beer data
+
+	// 		stars = apiMethods.starRatingElement(rating_score);
+	// 		res.redirect('/beer/search', {
+	// 			bid          : beerId,
+	// 			name         : beer_name,
+	// 			image        : beer_label,
+	// 			imageHd      : beer_label_hd,
+	// 			abv          : beer_abv,
+	// 			ibu          : beer_ibu,
+	// 			description  : beer_description,
+	// 			style        : beer_style,
+	// 			created      : created_at,
+	// 			count        : rating_count,
+	// 			score        : rating_score,
+	// 			//stars        : stars,
+	// 			breweryName  : brewery_name,
+	// 			imageBrewery : brewery_label,
+	// 			country      : country_name,
+	// 			contact      : contact,
+	// 			location     : location
+	// 		});
+
+	// 		compare.addBeerCompare(beer_name, beerId);
+	// 		req.session.compare = compare;
+	// 		console.log(req.session.compare);
+	// 		res.redirect('/beer/search');
+	// 	})
+	// 	.catch((error) => console.error(error));
 });
 
 module.exports = router;
