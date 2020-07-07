@@ -37,21 +37,13 @@ router.get('/result', (req, res) => {
 			beers.forEach((beer) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
-
-				style = style.split(' ');
+				
+				style = style.split(' - ');
 				style = style[0];
+				
+				console.log(style);
 
-				let color = beer.beer.beer_ibu;
-
-				if (color > 60) {
-					color = 'black';
-				}
-				else if (color > 30) {
-					color = 'brown';
-				}
-				else {
-					color = 'yellow';
-				}
+				let color = apiMethods.getColor(style);
 
 				div += apiMethods.beerResultDiv(beer, stars, style, color);
 			});

@@ -54,6 +54,34 @@ exports.starRatingElement = (rating) => {
 	return stars;
 };
 
+// not finished. I think we need a speicfic table matched with UNTAPPD's data
+exports.getColor = (style) => {
+	let color= '';
+
+	if (style == 'Lager' || style == 'Pilsner' || style == 'Witbier' || style == 'Berliner Welsse' ||
+		style == 'Malbock' || style == 'Blonde Ale' || style == 'Weissbier') {
+			color = 'yellow';
+			font='#333333';
+		}
+	
+	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') {
+			color == '#EC9706';
+			font='#dadadc';
+		}
+	
+	else if (style == 'Biere de Garder' || style == 'Double IPA' || style == 'Dunkelweizen') {
+		color = '#80400B';
+		font='#dadadc';
+		}
+
+	else if (style == 'Stout') {
+		color = 'black';
+		font='#dadadc';
+		}
+
+	return color;
+}
+
 //takes in search query
 const getBySearch = (search) => {
 	axios
@@ -111,24 +139,26 @@ exports.beerResultDiv = (beer, stars, style, color) => {
 						</div>
 						
 						<div class="row justify-content-center" id="beer-des"">
+							<div class="col-8" id="ibu-color" style="background-color:${color}; color:${font}">
+								<p>${style}</p>
+							</div>
 							<div class="col-4">
 	                            <p>${beer.beer.beer_abv}%</p>
 	                        </div>
-							<div class="col-4" id="ibu-color" style="background-color:${color}">
-								<p>${beer.beer.beer_ibu}</p>
-							</div>
-							<div class="col-4">
-								<p>${style}</p>
-							</div>
 						</div>
 						
+						<!-- I'm not sure we need this since most beers has 4-5 stars
 						<p id="beer-rating">
 							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
 						</p>
-						
+						-->
+
 						<div class="row justify-content-center" id="buttons">
-							<div class="col-12">
-								<button>Add To List</button>
+							<div class="col-6" id="left">
+								<button>Favorite</button>
+							</div>
+							<div class="col-6">
+								<button>Compare</button>
 	                        </div>
 	                    </div>
 					</div>
