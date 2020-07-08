@@ -7,11 +7,11 @@ module.exports = (passport) => {
 	passport.use(
 		new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
 			User.findOne({
-				email
+				email : email.toLowerCase()
 			})
 				.then((user) => {
 					if (!user) {
-						return done(null, false, { message: 'Email is not registered' });
+						return done(null, false, { message: 'Email is not registered or incorrect' });
 					}
 
 					bcrypt.compare(password, user.password, (err, isMatch) => {

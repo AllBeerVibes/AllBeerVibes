@@ -8,14 +8,14 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
-
-require('./middleware/passport')(passport);
-
-//Db
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const URI = `mongodb+srv://${process.env.ADMIN}:${process.env.PASS}@${process.env.DOM}/${process.env
 	.DB_NAME}?retryWrites=true&w=majority`; //mongo db connection
 
+require('./middleware/passport')(passport);
+
+//Db
 try {
 	mongoose.connect(URI, {
 		useNewUrlParser    : true,
@@ -44,7 +44,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
@@ -53,6 +52,7 @@ app.use(flash());
 app.use((req, res, next) => {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
+	res.locals.currentUser = req.user;
 	res.locals.session = req.session; //Allow access to sessions in all route functions without additional work
 	next();
 });
@@ -65,6 +65,7 @@ app.use(express.json());
 
 app.use('/', require('./routes/root'));
 app.use('/beer', require('./routes/beer'));
+app.use('/profile', require('./routes/profile'));
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);

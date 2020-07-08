@@ -26,7 +26,7 @@
                             <form action="#">
                                 <div class="container">
                                     <div class="text-center">
-                                        <img src="./img/profilePic.png" class="rounded" alt="Stock Profile Picture">
+                                        <img src=<%= currentUser.avatar %> class="rounded" alt="Stock Profile Picture">
                                     </div>
                                     <div class="input-group mb-5 col-md-8 col-sm-12 mx-auto">
                                         <div class="custom-file">
@@ -39,17 +39,12 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="col-md-8 mx-auto">
-                                            <input type="text" class="form-control" placeholder="First name">
-                                        </div>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="col-md-8 mx-auto">
-                                            <input type="text" class="form-control" placeholder="Last name">
+                                            <input type="text" class="form-control" placeholder="Name" value=<%= currentUser.name %>>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-8 mx-auto">
-                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" value=<%= currentUser.email %>>
                                         </div>
                                     </div>
                                     <div class="form-row">

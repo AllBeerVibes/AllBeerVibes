@@ -51,15 +51,6 @@ router.get('/logout', auth, (req, res) => {
 });
 
 /*
-@route    GET /profile
-@desc     User profile
-@access   private
-*/
-router.get('/profile', auth, (req, res) => {
-	res.render('profile');
-});
-
-/*
 @route    POST /register
 @desc     register user
 @access   public
@@ -91,7 +82,7 @@ router.post(
 		}
 		else {
 			try {
-				User.findOne({ email }).then((user) => {
+				User.findOne({ email: email.toLowerCase() }).then((user) => {
 					if (user) {
 						errors.push({ value: '', msg: 'User already exists', param: 'email', location: 'body' });
 						res.render('register', {
@@ -114,7 +105,7 @@ router.post(
 
 						const newUser = new User({
 							name,
-							email,
+							email    : email.toLowerCase(),
 							avatar,
 							password
 						});
