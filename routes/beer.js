@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
-const Compare = require('../models/Compare');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -19,16 +18,6 @@ router.get('/suggest', (req, res) => {
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
 	res.render('search');
-});
-
-//Endpoint = /beer/compare
-router.get('/compare', (req, res) => {
-	if (!req.session.compare) {
-		return res.render('compare', { products: null }); // To check if compare list is empty or not
-	}
-
-	var compare = new Compare(req.session.compare);
-	res.render('compare', { products: compare.generateArray() });
 });
 
 //Endpoint = /beer/result
@@ -171,52 +160,6 @@ router.get('/:bid', (req, res) => {
 			})
 			.catch((error) => console.error(error));
 	});
-});
-
-router.get('/add-to-compare/:bid', (req, res) => {
-	var beerId = req.params.bid;
-	//1) Check if my Compare property exists
-	//2) If it does, pass my old Compare
-	//3) Otherwise, pass empty object
-	var compare = new Compare(req.session.compare ? req.session.compare : {});
-
-	axios
-		.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beerId))
-		.then((response) => {
-			let {
-				beer_name,
-				beer_label,
-				beer_label_hd,
-				beer_abv,
-				beer_ibu,
-				beer_description,
-				beer_style,
-				created_at,
-				rating_count,
-				rating_score,
-				contact,
-				location
-			} = response.data.response.beer; // beer data
-
-			let { brewery_name, brewery_label, country_name } = response.data.response.beer.brewery;
-
-			let stars = apiMethods.starRatingElement(response.data.response.beer.rating_score);
-
-			compare.addBeerCompare(response.data.response.beer, beerId);
-			req.session.compare = compare;
-			//console.log(req.session.compare);
-			res.redirect('/beer/search');
-		})
-		.catch((error) => console.error(error));
-});
-
-router.get('/delete-from-compare/:bid', (req, res) => {
-	var beerId = req.params.bid;
-	var compare = new Compare(req.session.compare ? req.session.compare : {});
-
-	compare.deleteBeerCompare(beerId);
-	req.session.compare = compare;
-	res.redirect('/beer/compare');
 });
 
 module.exports = router;

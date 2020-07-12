@@ -1,15 +1,15 @@
 require('dotenv').config();
 
-const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const flash = require('connect-flash');
+const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const URI = `mongodb+srv://${process.env.ADMIN}:${process.env.PASS}@${process.env.DOM}/${process.env
 	.DB_NAME}?retryWrites=true&w=majority`; //mongo db connection
 
@@ -35,12 +35,15 @@ try {
 app.use(
 	session({
 		secret            : process.env.JWTTOKEN,
-		resave            : false, //do not save session if unmodified
-		saveUninitialized : false, //do not create session until something stored
+		resave            : false, //false: do not save session if unmodified
+		saveUninitialized : false, //false: do not create session until something stored
 		store             : new MongoStore({ mongooseConnection: mongoose.connection }),
 		cookie            : { maxAge: 180 * 60 * 1000 } // <- Session will expire in 3 hours
 	})
 );
+
+app.use(flash());
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -48,7 +51,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use(flash());
 app.use((req, res, next) => {
 	res.locals.success = req.flash('success');
 	res.locals.error = req.flash('error');
@@ -65,6 +67,7 @@ app.use(express.json());
 
 app.use('/', require('./routes/root'));
 app.use('/beer', require('./routes/beer'));
+app.use('/compare', require('./routes/compare'));
 app.use('/profile', require('./routes/profile'));
 
 app.listen(PORT, () => {

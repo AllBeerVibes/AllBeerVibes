@@ -162,7 +162,7 @@ exports.beerResultDiv = (beer, stars, style, font, color) => {
 								<button>Favorite</button>
 							</div>
 							<div class="col-6">
-								<a href="/beer/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>
+								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>
 	                        </div>
 	                    </div>
 					</div>
