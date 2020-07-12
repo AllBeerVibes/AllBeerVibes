@@ -34,8 +34,14 @@
                                 href="/beer/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
                                 href="/beer/map">PUB MAP</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/beer/compare">COMPARE</a></li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="/beer/compare">COMPARE
+                                <!-- below two lines of code need better solution -->
+                                <% if (session.compare) { %>
+                                    <span class="badge"><%= session.compare.totalQty %></span>
+                                <% } %>
+                            </a>
+                        </li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
                                 href="/profile">PROFILE</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"

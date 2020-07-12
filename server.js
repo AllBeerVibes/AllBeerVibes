@@ -35,8 +35,8 @@ try {
 app.use(
 	session({
 		secret            : process.env.JWTTOKEN,
-		resave            : false,
-		saveUninitialized : false,
+		resave            : false, //do not save session if unmodified
+		saveUninitialized : false, //do not create session until something stored
 		store             : new MongoStore({ mongooseConnection: mongoose.connection }),
 		cookie            : { maxAge: 180 * 60 * 1000 } // <- Session will expire in 3 hours
 	})

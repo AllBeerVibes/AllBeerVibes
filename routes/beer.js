@@ -23,7 +23,12 @@ router.get('/search', (req, res) => {
 
 //Endpoint = /beer/compare
 router.get('/compare', (req, res) => {
-	res.render('compare');
+	if (!req.session.compare) {
+		return res.render('compare', { products: null }); // To check if compare list is empty or not
+	}
+
+	var compare = new Compare(req.session.compare);
+	res.render('compare', { products: compare.generateArray() });
 });
 
 //Endpoint = /beer/result
@@ -168,7 +173,6 @@ router.get('/:bid', (req, res) => {
 	});
 });
 
-//Endpoint = /beer/add-to-compare
 router.get('/add-to-compare/:bid', (req, res) => {
 	var beerId = req.params.bid;
 	//1) Check if my Compare property exists
@@ -190,23 +194,29 @@ router.get('/add-to-compare/:bid', (req, res) => {
 				created_at,
 				rating_count,
 				rating_score,
-				country_name,
 				contact,
 				location
 			} = response.data.response.beer; // beer data
 
-			let { brewery_name, brewery_label } = response.data.response.beer.brewery;
+			let { brewery_name, brewery_label, country_name } = response.data.response.beer.brewery;
 
 			let stars = apiMethods.starRatingElement(response.data.response.beer.rating_score);
 
-			let style = response.data.response.beer_style;
-
 			compare.addBeerCompare(response.data.response.beer, beerId);
 			req.session.compare = compare;
-			console.log(req.session.compare);
+			//console.log(req.session.compare);
 			res.redirect('/beer/search');
 		})
 		.catch((error) => console.error(error));
+});
+
+router.get('/delete-from-compare/:bid', (req, res) => {
+	var beerId = req.params.bid;
+	var compare = new Compare(req.session.compare ? req.session.compare : {});
+
+	compare.deleteBeerCompare(beerId);
+	req.session.compare = compare;
+	res.redirect('/beer/compare');
 });
 
 module.exports = router;

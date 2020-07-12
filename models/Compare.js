@@ -17,6 +17,12 @@ module.exports = function Compare(oldCompare) {
 		//maybe add else statement here for letting users know that they have selected same beer
 	};
 
+	//Delete any beer from comparison list
+	this.deleteBeerCompare = function(id) {
+		this.totalQty--;
+		delete this.items[id];
+	};
+
 	//Output comparison list as an array
 	this.generateArray = function() {
 		var arr = [];
