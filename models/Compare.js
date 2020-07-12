@@ -12,10 +12,9 @@ module.exports = function Compare(oldCompare) {
 		//Prevent adding already existing beer in comparison list
 		if (!storedItem) {
 			storedItem = this.items[id] = { item: item };
+			this.totalQty++;
 		}
 		//maybe add else statement here for letting users know that they have selected same beer
-
-		this.totalQty++;
 	};
 
 	//Output comparison list as an array
