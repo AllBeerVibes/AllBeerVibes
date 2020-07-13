@@ -35,10 +35,17 @@ router.get('/result', (req, res) => {
 
 				style = style.split(' - ');
 				style = style[0];
-
+				
 				let color = apiMethods.getColor(style);
+				
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
+				}
 
-				div += apiMethods.beerResultDiv(beer, stars, style, color);
+				else {font = '#dadadc'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			res.render('searchResult', { getSearchResult: div });
 		})

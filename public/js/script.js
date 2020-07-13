@@ -58,6 +58,7 @@ exports.starRatingElement = (rating) => {
 exports.getColor = (style) => {
 	let color = '';
 
+	console.log(style);
 	if (
 		style == 'Lager' ||
 		style == 'Pilsner' ||
@@ -65,24 +66,25 @@ exports.getColor = (style) => {
 		style == 'Berliner Welsse' ||
 		style == 'Malbock' ||
 		style == 'Blonde Ale' ||
-		style == 'Weissbier'
-	) {
+		style == 'Weissbier') 
+	{
 		color = 'yellow';
-		font = '#333333';
-	}
-	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') {
-		color == '#EC9706';
-		font = '#dadadc';
-	}
-	else if (style == 'Biere de Garder' || style == 'Double IPA' || style == 'Dunkelweizen') {
-		color = '#80400B';
-		font = '#dadadc';
-	}
-	else if (style == 'Stout') {
-		color = 'black';
-		font = '#dadadc';
 	}
 
+	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') 
+	{
+		color = '#EC9706';
+	}
+	
+	else if (style == 'Biere de Garder' || style == 'Double IPA' || style == 'Dunkelweizen') {
+		color = '#80400B';
+	}
+
+	else if (style == 'Stout') {
+		color = 'black';
+	}
+
+	console.log(color);
 	return color;
 };
 
@@ -126,7 +128,7 @@ const getBeersById = (beerIds) => {
 };
 
 //Displays beer result into cards
-exports.beerResultDiv = (beer, stars, style, font, color) => {
+exports.beerResultDiv = (beer, stars, style, color, font) => {
 	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">
