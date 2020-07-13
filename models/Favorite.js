@@ -18,7 +18,21 @@ const FavoriteSchema = new mongoose.Schema({
     bid     : {
         type : String // UNTAPPD BID
         
-	},
+    },
+    
+    // it will be much simple to get this data as a database, rather than find bid and load each data from Untappd
+    // and I think it doesn't make problem with Untappd since it is too common info 
+    style   : {
+        type : String
+    },
+
+    abv     : {
+        type: Number
+    },
+
+    ibu     : {
+        type: Number
+    }
 	
 });
 
