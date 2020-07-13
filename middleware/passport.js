@@ -7,7 +7,7 @@ module.exports = (passport) => {
 	passport.use(
 		new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
 			User.findOne({
-				email : email.toLowerCase()
+				email : email.trim().toLowerCase()
 			})
 				.then((user) => {
 					if (!user) {

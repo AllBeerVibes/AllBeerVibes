@@ -82,7 +82,7 @@ router.post(
 		}
 		else {
 			try {
-				User.findOne({ email: email.toLowerCase() }).then((user) => {
+				User.findOne({ email: email.trim().toLowerCase() }).then((user) => {
 					if (user) {
 						errors.push({ value: '', msg: 'User already exists', param: 'email', location: 'body' });
 						res.render('register', {
@@ -105,7 +105,7 @@ router.post(
 
 						const newUser = new User({
 							name,
-							email    : email.toLowerCase(),
+							email    : email.trim().toLowerCase(),
 							avatar,
 							password
 						});
