@@ -1,7 +1,7 @@
 //Compare constructor for session storage, not mongoose
 //Will add codes for logged-in users using mongoose
 module.exports = function Compare(oldCompare) {
-	//Assign the values fo the old compare list
+	//Assign the values of the old compare list
 	this.items = oldCompare.items || {};
 	this.totalQty = oldCompare.totalQty || 0;
 
