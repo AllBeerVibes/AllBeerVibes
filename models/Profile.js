@@ -11,9 +11,12 @@ const ProfileSchema = new mongoose.Schema({
 	bio       : {
 		type : String
 	},
-	favorites : {
-		type : [ Number ]
-	},
+	
+	// I deleted it and make separate model cause we cannot contain the list of object with this
+	// favorites : {
+	// 	type : Strin,
+	// },
+
 	date      : {
 		type    : Date,
 		default : Date.now
