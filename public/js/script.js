@@ -58,7 +58,7 @@ exports.starRatingElement = (rating) => {
 exports.getColor = (style) => {
 	let color = '';
 
-	console.log(style);
+	//console.log(style);
 	if (
 		style == 'Lager' ||
 		style == 'Pilsner' ||
@@ -84,7 +84,7 @@ exports.getColor = (style) => {
 		color = 'black';
 	}
 
-	console.log(color);
+	//console.log(color);
 	return color;
 };
 
