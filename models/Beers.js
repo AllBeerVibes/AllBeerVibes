@@ -3,42 +3,37 @@ const mongoose = require('mongoose');
 //For our own Beer DB
 //http://www.worldbeerawards.com/winner/beer/2019/taste
 //https://www.worldbeercup.org/winners/award-winners/
-//if there are duplicated beer, use worldbeerawards.
+//to make united information, we have to match these information with untappd bid
 
 const BeerSchema = new mongoose.Schema({
     
-    name      : {
+    untappd_bid      : {
 		type : String
 	},
     
-    style  : {
+	//To make easy to get list of related beer
+	style  : {
 		type : String
     },
-    
-	abv       : {
+	
+	//To check if we had duplicated beer info
+	beer_name       : {
 		type : String
     },
-    
-    ibu       : {
+	
+	//To check if we had duplicated beer info
+    brewery_name       : {
 		type : String
 	},
     
-    brewery   : {
-		type : String
+	award_category : {
+		type : String //world_beer_awards or world_beer_cup
 	},
-
-    award_title : {
+	
+	award_title : {
 		type : String //world_beer_awards or world_beer_cup
 	},
 
-    description : {
-		type : String
-    },
-    
-    beer_img    : {
-		type : String //manage & use by our own storage
-    },
-	
 });
 
 module.exports = mongoose.model('beers', BeerSchema);

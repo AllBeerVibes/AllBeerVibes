@@ -24,7 +24,7 @@ fs.readFile('./beer.txt', 'utf-8', (err,data) => {
             //check if the data is already stroed in json
             while(check && n < obj.length) {
                 
-                if(d[0] == obj[n].beer_name && d[1] == obj[n].brand_name) {
+                if(d[1] == obj[n].beer_name && d[2] == obj[n].brand_name) {
                     check = false;
                 }
                 n++;
@@ -34,14 +34,13 @@ fs.readFile('./beer.txt', 'utf-8', (err,data) => {
             if(check == true)
             {
                 obj.push({
-                    beer_name: d[0], 
-                    brand_name: d[1],
-                    abv: d[2],
-                    award_category: d[3],
-                    beer_type: d[4],
-                    brewery_name: d[5],
-                    image_link: d[6],
-                
+                    untappd_bid: d[0], 
+                    style: d[1],
+                    beer_name: d[2],
+                    brewery_name: d[3],
+                    award_category: d[4],
+                    award_title: d[5],
+                    
             });
             } 
         }
