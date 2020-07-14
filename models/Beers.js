@@ -41,4 +41,4 @@ const BeerSchema = new mongoose.Schema({
 	
 });
 
-module.exports = mongoose.model('profile', ProfileSchema);
+module.exports = mongoose.model('beers', BeerSchema);

@@ -1,0 +1,4 @@
+beer-name,brand-name,abv,award-category,beer-type,brewery-name,image-link
+Brune N°6,Mira,6.20,Dark Beer,American Style Brown Ale,BRASSERIE MIRA,https://www.worlddrinksawards.com/shares/winners/world-beer-awards-2019/36101-120x400_thumb.jpg?637302726174439652
+Crune N°6,Mira,6.20,Dark Beer,American Style Brown Ale,BRASSERIE MIRA,https://www.worlddrinksawards.com/shares/winners/world-beer-awards-2019/36101-120x400_thumb.jpg?637302726174439652
+Drune N°6,Mira,6.20,Dark Beer,American Style Brown Ale,BRASSERIE MIRA,https://www.worlddrinksawards.com/shares/winners/world-beer-awards-2019/36101-120x400_thumb.jpg?637302726174439652
