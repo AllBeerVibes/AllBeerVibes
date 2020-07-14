@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<% if (products) { %>
+    <h3>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h3>
+
+    <div class="row">
+        <div class = "col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <ul class="list-group">
+                <% for (var i=0; i < session.compare.totalQty; i++) { %>
+                <li class ="list-group-item">
+                    <strong><%= products[i].item.beer_name %></strong><br>
+                    <span><%= products[i].item.brewery.brewery_name %></span><br>
+                    <span><%= products[i].item.brewery.country_name %></span><br>
+                    <span><%= products[i].item.beer_abv %></span><br>
+                    <span><%= products[i].item.beer_style %></span><br>
+                    <span><%= products[i].item.rating_score %></span><br>
+                    <span><%= products[i].item.rating_count %></span>
+                    <div class="btn-group">
+                        <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
+
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+<% } else { %>
+    <div class="row">
+        <div class="container-fluid" >
+            <h3>No Items in Here!</h3>
+        </div>
+    </div>
+<% } %>
+
+<%- include('partials/footer') %>

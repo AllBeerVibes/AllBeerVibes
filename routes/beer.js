@@ -20,11 +20,6 @@ router.get('/search', (req, res) => {
 	res.render('search');
 });
 
-//Endpoint = /beer/profile
-router.get('/profile', (req, res) => {
-	res.render('profile');
-});
-
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
 	let searchTerm = req.query.searchterm;
@@ -38,22 +33,19 @@ router.get('/result', (req, res) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
 
-				style = style.split(' ');
+				style = style.split(' - ');
 				style = style[0];
-
-				let color = beer.beer.beer_ibu;
-
-				if (color > 60) {
-					color = 'black';
-				}
-				else if (color > 30) {
-					color = 'brown';
-				}
-				else {
-					color = 'yellow';
+				
+				let color = apiMethods.getColor(style);
+				
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
 				}
 
-				div += apiMethods.beerResultDiv(beer, stars, style, color);
+				else {font = '#dadadc'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			res.render('searchResult', { getSearchResult: div });
 		})

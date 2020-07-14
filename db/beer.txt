@@ -1,0 +1,1 @@
+untappd_bid,style,beer_name,brewery_name,award_category,award_title

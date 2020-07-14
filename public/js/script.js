@@ -54,6 +54,40 @@ exports.starRatingElement = (rating) => {
 	return stars;
 };
 
+// not finished. I think we need a speicfic table matched with UNTAPPD's data
+exports.getColor = (style) => {
+	let color = '';
+
+	//console.log(style);
+	if (
+		style == 'Lager' ||
+		style == 'Pilsner' ||
+		style == 'Witbier' ||
+		style == 'Berliner Welsse' ||
+		style == 'Malbock' ||
+		style == 'Blonde Ale' ||
+		style == 'Weissbier') 
+	{
+		color = 'yellow';
+	}
+
+	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') 
+	{
+		color = '#EC9706';
+	}
+	
+	else if (style == 'Biere de Garder' || style == 'Double IPA' || style == 'Dunkelweizen') {
+		color = '#80400B';
+	}
+
+	else if (style == 'Stout') {
+		color = 'black';
+	}
+
+	//console.log(color);
+	return color;
+};
+
 //takes in search query
 const getBySearch = (search) => {
 	axios
@@ -94,7 +128,7 @@ const getBeersById = (beerIds) => {
 };
 
 //Displays beer result into cards
-exports.beerResultDiv = (beer, stars, style, color) => {
+exports.beerResultDiv = (beer, stars, style, color, font) => {
 	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">
@@ -111,24 +145,26 @@ exports.beerResultDiv = (beer, stars, style, color) => {
 						</div>
 						
 						<div class="row justify-content-center" id="beer-des"">
+							<div class="col-8" id="ibu-color" style="background-color:${color}; color:${font}">
+								<p>${style}</p>
+							</div>
 							<div class="col-4">
 	                            <p>${beer.beer.beer_abv}%</p>
 	                        </div>
-							<div class="col-4" id="ibu-color" style="background-color:${color}">
-								<p>${beer.beer.beer_ibu}</p>
-							</div>
-							<div class="col-4">
-								<p>${style}</p>
-							</div>
 						</div>
 						
+						<!-- I'm not sure we need this since most beers has 4-5 stars
 						<p id="beer-rating">
 							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
 						</p>
-						
+						-->
+
 						<div class="row justify-content-center" id="buttons">
-							<div class="col-12">
-								<button>Add To List</button>
+							<div class="col-6" id="left">
+								<button>Favorite</button>
+							</div>
+							<div class="col-6">
+								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>
 	                        </div>
 	                    </div>
 					</div>
