@@ -1,82 +1,77 @@
-<!-- <%- include('partials/header') %> -->
-
-<!-- <% if (products) { %>
-    <h3>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h3>
-
-    <div class="row">
-        <div class = "col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
-            <ul class="list-group">
-                <% for (var i=0; i < session.compare.totalQty; i++) { %>
-                <li class ="list-group-item">
-                    <strong><%= products[i].item.beer_name %></strong><br>
-                    <span><%= products[i].item.brewery.brewery_name %></span><br>
-                    <span><%= products[i].item.brewery.country_name %></span><br>
-                    <span><%= products[i].item.beer_abv %></span><br>
-                    <span><%= products[i].item.beer_style %></span><br>
-                    <span><%= products[i].item.rating_score %></span><br>
-                    <span><%= products[i].item.rating_count %></span>
-                    <div class="btn-group">
-                        <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
-
-                    </div>
-                </li>
-                <% } %>
-            </ul>
-        </div>
-    </div>
-<% } else { %>
-    <div class="row">
-        <div class="container-fluid" >
-            <h3>No Items in Here!</h3>
-        </div>
-    </div>
-<% } %> -->
-
-
-
-
 
 <html lang="en" class="no-js">
 
     <head>
         <!-- from: https://codyhouse.co/gem/products-comparison-table/ -->
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet'
             type='text/css'>
-
-        <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-        <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-        <script src="js/modernizr.js"></script> <!-- Modernizr -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+        <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+        <link rel="stylesheet" href="fonts/fontawesome5-overrides.min.css">
+        <link rel="stylesheet" href="css/styles.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
+        <link rel="stylesheet" href="css/comparisonStyle.css"> <!-- Resource style -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> <!-- jQuery package -->
+        <script src="js/comparisonModernizr.js"></script> <!-- Modernizr -->
 
         <title>Beer Comparison</title>
     </head>
 
     <body>
+        <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">All Beer Vibes</a>
+                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
+                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
+                                href="/beer/suggest">SUGGEST</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/beer/map">PUB
+                                MAP</a></li>
+                        <li class="nav-item" role="presentation">
+                            <a class="nav-link js-scroll-trigger" href="/compare/my-comparison">COMPARE
+                                <!-- below two lines of code need better solution -->
+                                <% if (session.compare) { %>
+                                <span class="badge"><%= session.compare.totalQty %></span>
+                                <% } %>
+                            </a>
+                        </li>
+                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
+                                href="/profile">PROFILE</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/logout">LOGOUT</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
         <section class="cd-products-comparison-table">
             <header>
-                <h2>Compare Models</h2>
+                <h2>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h2>
 
                 <div class="actions">
-                    <a href="#0" class="reset">Reset</a>
-                    <a href="#0" class="filter">Filter</a>
+                    <a href="#0" class="reset">Undo Select</a>
+                    <a href="#0" class="filter">Select</a>
                 </div>
             </header>
 
             <div class="cd-products-table">
                 <div class="features">
-                    <div class="top-info">Properties</div>
+                    <div class="top-info">Beers</div>
                     <ul class="cd-features-list">
-                        <li>Location</li>
-                        <li>Date + duration</li>
-                        <li>Price</li>
+                        <li>Company</li>
+                        <li>Country</li>
+                        <li>Alcohol by Volume</li>
+                        <li>Style</li>
                         <li>Customer Rating</li>
-                        <li>Sleeps</li>
-                        <li>Bedrooms</li>
-                        <li>Grading</li>
-                        <li class="feat-items">Features</li>
-                        <li>Full Description</li>
-                        <li>Alternative properties<br>at this location</li>
                     </ul>
                 </div> <!-- .features -->
 
@@ -90,15 +85,20 @@
                                 <img src="https://img.chooseacottage.co.uk/property/128/400/1286451.jpg"
                                     alt="product image">
                                 <h2><%= products[i].item.beer_name %></h2>
-                                <h3><%= products[i].item.brewery.brewery_name %></h3>
                             </div> <!-- .top-info -->
 
                             <ul class="cd-features-list">
+                                <li><%= products[i].item.brewery.brewery_name %></li>
                                 <li><%= products[i].item.brewery.country_name %></li>
                                 <li><%= products[i].item.beer_abv %></li>
                                 <li><%= products[i].item.beer_style %></li>
                                 <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
                                 <!-- <li><img src="http://www.cottages.com/assets/grade3.gif" /></li> -->
+                                <li>
+                                    <div class="btn-group">
+                                        <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
+                                    </div>
+                                </li>
                             </ul>
                         </li> <!-- .product -->
                         <% } %>
@@ -112,17 +112,45 @@
                 </ul>
             </div> <!-- .cd-products-table -->
         </section> <!-- .cd-products-comparison-table -->
-        <script src="js/jquery-2.1.4.js"></script>
-        <script src="js/main.js"></script> <!-- Resource jQuery -->
+
+        <footer class="footer" style="max-height: 200px; padding-top:5px;">
+        
+            <div class="row justify-content-center align-items-center" style="padding: 20px; text-align: center;">
+        
+                <div class="col-md-2 footer-navigation">
+                    <h3><a href="#" class="name-brand"><strong>All Beer Vibes</strong></a></h3>
+                    <div class="social-links social-icons" style="padding-right: 10px; font-size: 25px;">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-github"></i></a>
+                    </div>
+                </div>
+        
+                <div class="col-md-2 footer-contacts" style="color:white;">
+                    <div class="row justify-content-center">
+                        <div style="margin-right: 10px;">
+                            <i class="fa fa-envelope footer-contacts-icon"></i></div>
+                        <p> <a href="#" target="_blank">allbeervibes@google.com</a></p>
+                    </div>
+                </div>
+        
+                <div class="clearfix"></div>
+                <div class="col-md-2 footer-about" style="color:white" ;>
+                    <p class="company-name">All Beer Vibes © 2020</p>
+        
+                </div>
+            </div>
+        
+        </footer>
+        <script src="js/comparisonStyle.js"></script> <!-- Resource jQuery -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+        <script src="js/script.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    
     </body>
 
 </html>
-
-
-
-
-
-
-
-
-<!-- <%- include('partials/footer') %> -->
