@@ -1,3 +1,19 @@
+const mongoose = require('mongoose');
+
+const CompareSchema = new mongoose.Schema({
+    user      : {
+		type : mongoose.Schema.Types.ObjectId,
+		ref  : 'user'
+	},
+	compare: {
+		type: Object,
+		required: true
+	}	
+});
+
+module.exports = mongoose.model('compare', CompareSchema);
+
+
 //Compare constructor for session storage, not mongoose
 //Will add codes for logged-in users using mongoose
 module.exports = function Compare(oldCompare) {
