@@ -29,16 +29,13 @@ try {
 	process.exit(1);
 }
 
-// const connectDB = require('./db/db');
-// connectDB(); //connect to mongo
-
 app.use(
 	session({
 		secret            : process.env.JWTTOKEN,
 		resave            : false, //false: do not save session if unmodified
 		saveUninitialized : false, //false: do not create session until something stored
 		store             : new MongoStore({ mongooseConnection: mongoose.connection }),
-		cookie            : { maxAge: 180 * 60 * 1000 } // <- Session will expire in 3 hours
+		cookie            : { maxAge: 120 * 60 * 1000 } // <- Session will expire in 2 hours
 	})
 );
 

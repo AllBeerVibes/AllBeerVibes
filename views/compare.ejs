@@ -53,10 +53,10 @@
             </div>
         </nav>
 
+        <% if (products) { %>
         <section class="cd-products-comparison-table">
             <header>
                 <h2>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h2>
-
                 <div class="actions">
                     <a href="#0" class="reset">Undo Select</a>
                     <a href="#0" class="filter">Select</a>
@@ -75,7 +75,6 @@
                     </ul>
                 </div> <!-- .features -->
 
-                <% if (products) { %>
                 <div class="cd-products-wrapper">
                     <ul class="cd-products-columns">
                         <% for (var i=0; i < session.compare.totalQty; i++) { %>
@@ -108,7 +107,6 @@
                         <% } %>
                     </ul> <!-- .cd-products-columns -->
                 </div> <!-- .cd-products-wrapper -->
-                <% } %>
 
                 <ul class="cd-table-navigation">
                     <li><a href="#0" class="prev inactive">&#9668;</a></li>
@@ -116,6 +114,9 @@
                 </ul>
             </div> <!-- .cd-products-table -->
         </section> <!-- .cd-products-comparison-table -->
+        <% } else { %>
+            <h2>No beer in your comparison list!</h2>
+        <% } %>
 
         <footer class="footer" style="max-height: 200px; padding-top:5px;">
         
