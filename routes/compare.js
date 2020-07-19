@@ -21,6 +21,24 @@ router.get('/my-comparison', (req, res) => {
 	res.render('compare', { products: compare.generateArray() });
 });
 
+router.get('/add-to-compare-db', (req, res) => {
+	var compare = new Compare({
+		user: req.user,
+		compare: compare
+	});
+
+	compare.save(function (err, result) {
+		if (err) {
+			req.flash('error', err.message);
+			return res.redirect('/compare/my-comparison');
+		}
+		
+		req.flash('success', 'Successfully added comparison list to your account!');
+		req.session.compare = null;
+		res.redirect('/beer/top-rated');
+	})
+});
+
 router.get('/add-to-compare/:bid', (req, res) => {
 	var beerId = req.params.bid;
 	//1) Check if my Compare property exists
