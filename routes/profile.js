@@ -16,19 +16,22 @@ router.use(fileUpload());
 @access   private
 */
 router.get('/', auth, async (req, res) => {
+	errors = [];
 	try {
 		const profile = await Profile.findOne({
 			user : req.user.id
 		});
 
-		if (!profile) {
+		if (profile === null) {
 			errors.push({ value: '', msg: 'This user has no profile', param: 'profile', location: 'body' });
 			res.render('profile', {
-				errors
+				errors,
+				profile
 			});
 		}
-
-		res.render('profile', { profile });
+		else {
+			res.render('profile', { profile });
+		}
 	} catch (err) {
 		errors.push({ value: '', msg: 'Server Error', param: 'profile', location: 'body' });
 		res.render('profile', {
@@ -69,7 +72,7 @@ router.post('/', auth, async (req, res) => {
 		);
 		res.redirect('/profile');
 	} catch (err) {
-		console.error(err.message);
+		console.log(err.message);
 		errors.push({ value: '', msg: 'Server Error', param: 'profile', location: 'body' });
 		res.render('profile', {
 			errors
