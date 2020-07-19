@@ -1,6 +1,6 @@
-<%- include('partials/header') %>
+<!-- <%- include('partials/header') %> -->
 
-<% if (products) { %>
+<!-- <% if (products) { %>
     <h3>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h3>
 
     <div class="row">
@@ -30,6 +30,99 @@
             <h3>No Items in Here!</h3>
         </div>
     </div>
-<% } %>
+<% } %> -->
 
-<%- include('partials/footer') %>
+
+
+
+
+<html lang="en" class="no-js">
+
+    <head>
+        <!-- from: https://codyhouse.co/gem/products-comparison-table/ -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet'
+            type='text/css'>
+
+        <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+        <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+        <script src="js/modernizr.js"></script> <!-- Modernizr -->
+
+        <title>Beer Comparison</title>
+    </head>
+
+    <body>
+        <section class="cd-products-comparison-table">
+            <header>
+                <h2>Compare Models</h2>
+
+                <div class="actions">
+                    <a href="#0" class="reset">Reset</a>
+                    <a href="#0" class="filter">Filter</a>
+                </div>
+            </header>
+
+            <div class="cd-products-table">
+                <div class="features">
+                    <div class="top-info">Properties</div>
+                    <ul class="cd-features-list">
+                        <li>Location</li>
+                        <li>Date + duration</li>
+                        <li>Price</li>
+                        <li>Customer Rating</li>
+                        <li>Sleeps</li>
+                        <li>Bedrooms</li>
+                        <li>Grading</li>
+                        <li class="feat-items">Features</li>
+                        <li>Full Description</li>
+                        <li>Alternative properties<br>at this location</li>
+                    </ul>
+                </div> <!-- .features -->
+
+                <% if (products) { %>
+                <div class="cd-products-wrapper">
+                    <ul class="cd-products-columns">
+                        <% for (var i=0; i < session.compare.totalQty; i++) { %>
+                        <li class="product">
+                            <div class="top-info">
+                                <div class="check"></div>
+                                <img src="https://img.chooseacottage.co.uk/property/128/400/1286451.jpg"
+                                    alt="product image">
+                                <h2><%= products[i].item.beer_name %></h2>
+                                <h3><%= products[i].item.brewery.brewery_name %></h3>
+                            </div> <!-- .top-info -->
+
+                            <ul class="cd-features-list">
+                                <li><%= products[i].item.brewery.country_name %></li>
+                                <li><%= products[i].item.beer_abv %></li>
+                                <li><%= products[i].item.beer_style %></li>
+                                <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
+                                <!-- <li><img src="http://www.cottages.com/assets/grade3.gif" /></li> -->
+                            </ul>
+                        </li> <!-- .product -->
+                        <% } %>
+                    </ul> <!-- .cd-products-columns -->
+                </div> <!-- .cd-products-wrapper -->
+                <% } %>
+
+                <ul class="cd-table-navigation">
+                    <li><a href="#0" class="prev inactive">&#9668;</a></li>
+                    <li><a href="#0" class="next">&#9658;</a></li>
+                </ul>
+            </div> <!-- .cd-products-table -->
+        </section> <!-- .cd-products-comparison-table -->
+        <script src="js/jquery-2.1.4.js"></script>
+        <script src="js/main.js"></script> <!-- Resource jQuery -->
+    </body>
+
+</html>
+
+
+
+
+
+
+
+
+<!-- <%- include('partials/footer') %> -->
