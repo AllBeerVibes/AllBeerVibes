@@ -82,8 +82,13 @@
                         <li class="product">
                             <div class="top-info">
                                 <div class="check"></div>
-                                <img src="https://img.chooseacottage.co.uk/property/128/400/1286451.jpg"
-                                    alt="product image">
+
+                                <% if (products[i].item.beer_label_hd !== "") { %>
+                                    <img src="<%= products[i].item.beer_label_hd %>" 
+                                <% } else { %> 
+                                    <img src="<%= products[i].item.beer_label %>" 
+                                <% } %>
+
                                 <h2><%= products[i].item.beer_name %></h2>
                             </div> <!-- .top-info -->
 
@@ -93,7 +98,6 @@
                                 <li><%= products[i].item.beer_abv %></li>
                                 <li><%= products[i].item.beer_style %></li>
                                 <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
-                                <!-- <li><img src="http://www.cottages.com/assets/grade3.gif" /></li> -->
                                 <li>
                                     <div class="btn-group">
                                         <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
