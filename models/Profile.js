@@ -12,11 +12,22 @@ const ProfileSchema = new mongoose.Schema({
 		type : String
 	},
 	
-	// I deleted it and make separate model cause we cannot contain the list of object with this
-	// favorites : {
-	// 	type : Strin,
-	// },
+	//make favorites as object array
+	favorites : [{
 
+		like      : {
+			type: Number, 
+			required: true, 
+			enum:[-1, 0, 1], default: 0, //-1: dislike, 0: determine later, 1: like
+			
+		},
+		
+		bid     : {
+			type : String // UNTAPPD BID
+			
+		},
+	}],
+	
 	date      : {
 		type    : Date,
 		default : Date.now

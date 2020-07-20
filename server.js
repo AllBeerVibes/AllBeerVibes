@@ -66,6 +66,7 @@ app.use('/', require('./routes/root'));
 app.use('/beer', require('./routes/beer'));
 app.use('/compare', require('./routes/compare'));
 app.use('/profile', require('./routes/profile'));
+app.use('/suggest', require('./routes/suggest_menu'));
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);

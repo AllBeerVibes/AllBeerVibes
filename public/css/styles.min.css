@@ -259,6 +259,28 @@ body {
 	transform: none !important;
 }
 
+/* favorite button modal */
+#fav__modal {
+	display: none;
+	position: fixed;
+	margin:0;
+	height: 100%;
+	overflow: auto;
+	background: rgba(0, 0, 0, .5);
+	left: 0;
+	top: 0;
+	z-index: 999;
+}
+
+#fav__modal .mod__content {
+	background-color: var(--lightWhite);
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border-radius: 20px;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+
 /* main nav bar */
 #mainNav {
 	max-width: 1920px;
@@ -561,6 +583,11 @@ footer{
 	}
 
 }
+
+
+
+
+
 
 /* arrangement needed */
 

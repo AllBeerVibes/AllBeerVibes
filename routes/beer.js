@@ -10,11 +10,6 @@ const apiMethods = require('../public/js/script');
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
-//Endpoint = /beer/suggest
-router.get('/suggest', (req, res) => {
-	res.render('suggestion');
-});
-
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
 	res.render('search');
@@ -47,10 +42,24 @@ router.get('/result', (req, res) => {
 
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
-			res.render('searchResult', { getSearchResult: div });
+			
+			//add userId to utilize it(manage favorite list)
+			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
 		})
 		.catch((error) => console.error(error));
 });
+
+router.post('/result', (req, res) => {
+
+	console.log(req.session.passport.user); //user id
+	console.log(req.body); //like number/bid
+
+	//need to upload it on mongoDB;
+
+	//I wanted to stay in current page, but need more time to study how to do that
+	res.redirect('/profile');
+});
+
 
 //Endpoint = /beer/map
 router.get('/map', function(req, res) {
