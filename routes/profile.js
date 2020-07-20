@@ -60,7 +60,9 @@ router.post('/', auth, async (req, res) => {
 	};
 	const profileFields = {
 		user     : req.user.id,
-		location
+		location : '',
+		bio: '',
+		favorites: [],
 	};
 
 	try {

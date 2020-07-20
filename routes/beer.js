@@ -10,6 +10,11 @@ const apiMethods = require('../public/js/script');
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
+//mongoDB
+const Profile = require('../models/Profile');
+
+const async = require('async');
+
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
 	res.render('search');
@@ -51,15 +56,40 @@ router.get('/result', (req, res) => {
 
 router.post('/result', (req, res) => {
 
-	console.log(req.session.passport.user); //user id
-	console.log(req.body); //like number/bid
+	let userId = req.session.passport.user;
+	let favoriteInfo = (req.body.button).split('/');
 
-	//need to upload it on mongoDB;
+	let favorite = {
+		like: favoriteInfo[0],
+		bid: favoriteInfo[1],
+	};
 
-	//I wanted to stay in current page, but need more time to study how to do that
-	res.redirect('/profile');
+	console.log(favorite);
+	console.log(userId);
+
+	async.parallel({
+		user: function(callback) {
+			Profile.find({user: userId})
+				.exec(callback);
+		},
+	}, function (err, results) {
+		if(err) {console.log("we got error");}
+		else {
+			
+			//need to add a function to check if user already added this beer
+
+			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid}}},
+				//{safe: true, upsert: true, new : true},
+				function (err) {
+					if(!err){
+						console.log('success');
+						//I wanted to stay in current page, but need more time to study how to do that
+						res.redirect('/profile');
+					}
+			});
+		}
+	});
 });
-
 
 //Endpoint = /beer/map
 router.get('/map', function(req, res) {

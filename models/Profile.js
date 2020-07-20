@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 
 const ProfileSchema = new mongoose.Schema({
 	user      : {
-		type : mongoose.Schema.Types.ObjectId,
+		
+		type : mongoose.Schema.Types.ObjectId, 
 		ref  : 'user'
 	},
 	location  : {
@@ -23,8 +24,8 @@ const ProfileSchema = new mongoose.Schema({
 		},
 		
 		bid     : {
-			type : String // UNTAPPD BID
-			
+			type : Number, // UNTAPPD BID
+			required: true, 
 		},
 	}],
 	
