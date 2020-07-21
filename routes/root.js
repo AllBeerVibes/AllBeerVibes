@@ -65,10 +65,15 @@ router.post(
 	(req, res) => {
 		const errors = validationResult(req).array();
 
-		const { name, email, password, password2 } = req.body;
+		let { name, email, password, password2 } = req.body;
 
 		if (password !== password2) {
 			errors.push({ value: '', msg: 'Passwords do not match', param: 'password2', location: 'body' });
+		}
+
+		if (password.length !== 0 && password2.length !== 0) {
+			password = password.trim();
+			password2 = password2.trim();
 		}
 
 		if (errors.length > 0) {

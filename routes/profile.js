@@ -1,15 +1,14 @@
 require('dotenv').config();
 const express = require('express');
-const checkObjectId = require('../middleware/checkObjectId');
+const bcrypt = require('bcryptjs');
 const { auth } = require('../middleware/auth');
 const router = express.Router();
-const fileUpload = require('express-fileupload');
 router.use(express.static('public'));
 
 const User = require('../models/User');
 const Profile = require('../models/Profile');
+const { validationResult } = require('express-validator');
 
-router.use(fileUpload());
 /*
 @route    GET /profile
 @desc     User profile
@@ -59,10 +58,10 @@ router.post('/', auth, async (req, res) => {
 		date
 	};
 	const profileFields = {
-		user     : req.user.id,
-		location : '',
-		bio: '',
-		favorites: [],
+		user      : id,
+		location  : '',
+		bio       : '',
+		favorites : []
 	};
 
 	try {
@@ -82,33 +81,91 @@ router.post('/', auth, async (req, res) => {
 	}
 });
 
-// Not working yet!!!!! Might just take avatar out of model because this isnt an sns. Also might take out bio!
 /*
-@route    POST /profile/avatar
-@desc     Update profile
+@route    POST /profile/password
+@desc     Update password
 @access   private
 */
-router.post('/avatar', (req, res) => {
+router.post('/password', auth, async (req, res) => {
 	let errors = [];
-	if (req.files === null || !req.files || Object.keys(req.files).length === 0) {
-		errors.push({ value: '', msg: 'No file uploaded', param: 'avatar', location: 'body' });
-		res.render('profile', {
-			errors
+	let { oldPassword, newPassword, confirmPassword } = req.body;
+	const profile = await Profile.findOne({
+		user : req.user.id
+	});
+
+	if (newPassword.length < 6) {
+		errors.push({
+			value    : '',
+			msg      : 'New password must be 6 or more characters',
+			param    : 'newPassword',
+			location : 'body'
 		});
 	}
-	else {
-		const fileName = Date.now();
-		const { avatar } = req.files;
-		avatar.mv(`/media/${fileName}.jpg`, (err) => {
-			if (err) {
-				errors.push({ value: '', msg: 'Upload Failed', param: 'avatar', location: 'body' });
+
+	if (newPassword !== confirmPassword) {
+		errors.push({ value: '', msg: 'Passwords do not match', param: 'confirmPassword', location: 'body' });
+	}
+
+	if (oldPassword.length !== 0 && newPassword.length !== 0 && confirmPassword.length !== 0) {
+		oldPassword = oldPassword.trim();
+		newPassword = newPassword.trim();
+		confirmPassword = confirmPassword.trim();
+	}
+
+	if (newPassword === oldPassword) {
+		errors.push({
+			value    : '',
+			msg      : 'Old password and new password are the same',
+			param    : 'oldPassword',
+			location : 'body'
+		});
+	}
+
+	const { id, name, email, password, avatar, date } = req.user;
+
+	bcrypt.compare(oldPassword, password, (err, result) => {
+		if (err) throw err;
+		if (!result) {
+			errors.push({ value: '', msg: 'Old password does not match!', param: 'oldPassword', location: 'body' });
+		}
+	});
+
+	let userFields = {
+		id,
+		name,
+		email,
+		password,
+		avatar,
+		date
+	};
+
+	bcrypt.genSalt(10, async (err, salt) => {
+		bcrypt.hash(newPassword, salt, async (err, hash) => {
+			if (err) throw err;
+			userFields.password = hash;
+
+			if (errors.length > 0) {
 				res.render('profile', {
-					errors
+					errors,
+					profile
 				});
 			}
-			req.flash('success', 'File Uploaded');
-			res.redirect('/profile');
+			else {
+				try {
+					const updatedUser = await User.findOneAndReplace({ _id: id }, userFields);
+					req.logout();
+					req.flash('success', 'Password changed successfully');
+					res.redirect('/login');
+				} catch (err) {
+					console.log(err.message);
+					errors.push({ value: '', msg: 'Server Error', param: 'profile', location: 'body' });
+					res.render('profile', {
+						errors,
+						profile
+					});
+				}
+			}
 		});
-	}
+	});
 });
 module.exports = router;
