@@ -29,29 +29,7 @@
     </head>
 
     <body style="background-color: #333333;">
-        <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/">All Beer Vibes</a>
-                <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
-                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/beer/suggest">SUGGEST</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" 
-                                href="/beer/map">PUB MAP</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/beer/top-rated">LIST</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./compare.html">COMPARE</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="./profileSettings.html">PROFILE</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <%- include('partials/header') %>
         <div class="highlight-phone" style="height: 180px;background-color: rgb(213,174,39);">
             <div class="container">
                 <div class="row">
@@ -73,37 +51,7 @@
       <div class="container-map">
         <div id="map"></div>
       </div>
-              <div class="footer-dark">
-                <footer>
-                    <div class="row">
-                        <div class="col-sm-6 col-md-4 footer-navigation">
-                            <h3><a href="#"><strong>All Beer Vibes</strong></a></h3>
-                            <p class="links"><a href="#">Home</a><strong> · </strong><a href="#">Blog</a><strong> ·
-                                </strong><a href="#"></a><a href="#">About</a><strong> ·&nbsp;</strong><a href="#">Contact</a></p>
-                            <p class="company-name">All Beer Vibes © 2020</p>
-                        </div>
-                        <div class="col-sm-6 col-md-4 footer-contacts">
-                            <div><span class="fa fa-map-marker footer-contacts-icon"> </span>
-                                <p><span class="new-line-span">21 Revolution Street</span> Calgary, Canada</p>
-                            </div>
-                            <div><i class="fa fa-phone footer-contacts-icon"></i>
-                                <p class="footer-center-info email text-left"> +1 403 123456</p>
-                            </div>
-                            <div><i class="fa fa-envelope footer-contacts-icon"></i>
-                                <p> <a href="#" target="_blank">allbeervibes@google.com</a></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-md-4 footer-about">
-                            <h4>About the company</h4>
-                            <p>Company description here...</p>
-                            <div class="social-links social-icons"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i
-                                        class="fa fa-twitter"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i
-                                        class="fa fa-github"></i></a></div>
-                        </div>
-                    </div>
-                </footer>
-        </div>
+      <%- include('partials/footer') %>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
