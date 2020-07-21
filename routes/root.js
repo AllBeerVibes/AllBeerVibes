@@ -142,12 +142,17 @@ router.post(
 @desc     login user
 @access   public
 */
-router.post('/login', (req, res, next) => {
-	passport.authenticate('local', {
-		successRedirect : '/profile',
-		failureRedirect : '/login',
-		failureFlash    : true
-	})(req, res, next);
+router.post('/login', passport.authenticate('local', {
+	failureRedirect: '/login',
+	failureFlash: true
+}), function (req, res, next) {
+	if (req.session.oldUrl) {
+		var oldUrl = req.session.oldUrl;
+		req.session.oldUrl = null;
+		res.redirect(oldUrl); // To re-direct user to "/compare/my-comparison" page after clicking "Login to Save" button on comparison chart
+	} else {
+		res.redirect('/profile');
+	}
 });
 
 module.exports = router;

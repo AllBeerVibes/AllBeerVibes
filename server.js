@@ -35,7 +35,7 @@ app.use(
 		resave            : false, //false: do not save session if unmodified
 		saveUninitialized : false, //false: do not create session until something stored
 		store             : new MongoStore({ mongooseConnection: mongoose.connection }),
-		cookie            : { maxAge: 120 * 60 * 1000 } // <- Session will expire in 2 hours
+		cookie            : { maxAge: 60 * 1000 } // <- Session will expire in 2 hours
 	})
 );
 

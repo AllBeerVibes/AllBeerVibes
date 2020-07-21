@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const Compare = require('../models/Compare');
+const CompareTest = require('../models/CompareTest');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -21,21 +22,23 @@ router.get('/my-comparison', (req, res) => {
 	res.render('compare', { products: compare.generateArray() });
 });
 
-router.get('/add-to-compare-db', (req, res) => {
-	var compare = new Compare({
+router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
+	var compare = new Compare(req.session.compare);
+
+	var compareTest = new CompareTest({
 		user: req.user,
 		compare: compare
 	});
 
-	compare.save(function (err, result) {
+	compareTest.save(function (err, result) {
 		if (err) {
 			req.flash('error', err.message);
 			return res.redirect('/compare/my-comparison');
 		}
 		
-		req.flash('success', 'Successfully added comparison list to your account!');
-		req.session.compare = null;
-		res.redirect('/beer/top-rated');
+		// req.flash('success', 'Successfully added comparison list to your account!');
+		// req.session.compare = null;
+		res.redirect('/profile');
 	})
 });
 
@@ -85,3 +88,13 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 });
 
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		}
+		
+		req.session.oldUrl = '/compare/my-comparison';
+		// req.flash('error', 'Login required');
+		res.redirect('/login');
+}
