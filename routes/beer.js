@@ -77,6 +77,7 @@ router.post('/result', (req, res) => {
 		else {
 			
 			//need to add a function to check if user already added this beer
+			//users can change their like here
 
 			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid}}},
 				//{safe: true, upsert: true, new : true},
