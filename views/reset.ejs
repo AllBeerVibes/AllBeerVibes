@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+<%- include('partials/messages') %>
+<div class="d-flex flex-column justify-content-center" id="login-box">
+    <div class="login-box-header">
+        <h4 style="color:#333333;margin-bottom:0px;font-weight:400;font-size:27px;">Change Password</h4>
+    </div>
+    <div style="padding:10px 20px;padding-bottom:23px;padding-top:18px;">
+        <p style="margin-bottom:0px;">Enter a new password</p>
+    </div>
+    <form action="/reset" method="post">
+        <div class="email-login" style="background-color:#ffffff;">
+            <input type="hidden" name="uid" value=<%= uid %>>
+            <input type="password" class="form-control" name="newPassword" placeholder="New Password" required>
+            <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" required>
+        </div>
+        <div class="submit-row" style="margin-bottom:8px;padding-top:0px;">
+            <button class="btn btn-profile btn-block box-shadow" id="submit-id-submit" type="submit">Submit</button>
+    </form>
+
+</div>
+<div id="login-box-footer" style="padding:10px 20px;padding-bottom:23px;padding-top:18px;">
+    <p style="margin-bottom:0px;">Don't you have an account?<a id="register-link" href="/register">Sign Up!</a></p>
+</div>
+</div>
+<%- include('partials/footer') %>

@@ -63,6 +63,7 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 
 app.use('/', require('./routes/root'));
+app.use('/reset', require('./routes/reset'));
 app.use('/beer', require('./routes/beer'));
 app.use('/compare', require('./routes/compare'));
 app.use('/profile', require('./routes/profile'));
