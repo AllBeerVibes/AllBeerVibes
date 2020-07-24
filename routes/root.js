@@ -46,6 +46,7 @@ router.get('/register', (req, res) => {
 @access   public
 */
 router.get('/login', (req, res) => {
+	errors = [];
 	res.render('login');
 });
 

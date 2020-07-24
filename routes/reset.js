@@ -50,7 +50,7 @@ router.post(
 					if (result) {
 						errors.push({
 							value    : '',
-							msg      : 'New password must be different',
+							msg      : 'New password has recently been used. Enter a new password',
 							param    : 'newPassword',
 							location : 'body'
 						});
