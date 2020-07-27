@@ -6,12 +6,14 @@ const beer__list = document.querySelector('#beerResult');
 
 //pop-up the select menu to add to favorite list
 beer__list.addEventListener('click', e => {
-    
+
+    console.log(userId);
+
     content.innerHTML = '';
 
     const targetData = e.target.closest('button');
     
-    if(userId == '') {
+    if(userId == 'null') {
         window.alert("you should sign-on before use this function")
     }
 

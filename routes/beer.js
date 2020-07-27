@@ -15,6 +15,8 @@ const Profile = require('../models/Profile');
 
 const async = require('async');
 
+const { auth } = require('../middleware/auth');
+
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
 	res.render('search');
@@ -22,6 +24,9 @@ router.get('/search', (req, res) => {
 
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
+	
+	//I didn't use 'auth' since users should be able to search any beer even though they are not log-on yet
+
 	let searchTerm = req.query.searchterm;
 
 	axios
@@ -49,23 +54,31 @@ router.get('/result', (req, res) => {
 			});
 			
 			//add userId to utilize it(manage favorite list)
-			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			if(req.session.passport){
+				console.log('this??')
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			}
+			
+			else {
+				res.render('searchResult', { getSearchResult: div, userId: "null"});
+			}
+			
 		})
 		.catch((error) => console.error(error));
 });
 
 router.post('/result', (req, res) => {
 
-	let userId = req.session.passport.user;
+	if(req.session.passport){
+		let userId = req.session.passport.user;
+	}
+		
 	let favoriteInfo = (req.body.button).split('/');
 
 	let favorite = {
 		like: favoriteInfo[0],
 		bid: favoriteInfo[1],
 	};
-
-	console.log(favorite);
-	console.log(userId);
 
 	async.parallel({
 		user: function(callback) {
@@ -84,8 +97,8 @@ router.post('/result', (req, res) => {
 				function (err) {
 					if(!err){
 						console.log('success');
-						//I wanted to stay in current page, but need more time to study how to do that
-						res.redirect('/profile');
+						//I don't wanted to refresh the page, but need more time to study how to do that
+						res.redirect('back');
 					}
 			});
 		}
