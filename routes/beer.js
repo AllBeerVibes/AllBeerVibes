@@ -55,7 +55,6 @@ router.get('/result', (req, res) => {
 			
 			//add userId to utilize it(manage favorite list)
 			if(req.session.passport){
-				console.log('this??')
 				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
 			}
 			
@@ -67,6 +66,7 @@ router.get('/result', (req, res) => {
 		.catch((error) => console.error(error));
 });
 
+//add beer list on mongo
 router.post('/result', (req, res) => {
 
 	if(req.session.passport){
@@ -112,6 +112,7 @@ router.get('/map', function(req, res) {
 
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
+	
 	axios
 		.get(apiMethods.getTopRatedURI(CLIENT_ID, CLIENT_SECRET))
 		.then((response) => {
@@ -121,24 +122,31 @@ router.get('/top-rated', (req, res) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
 
-				style = style.split(' ');
+				style = style.split(' - ');
 				style = style[0];
+				
+				let color = apiMethods.getColor(style);
 
-				let color = beer.beer.beer_ibu;
-
-				if (color > 60) {
-					color = 'black';
-				}
-				else if (color > 30) {
-					color = 'brown';
-				}
-				else {
-					color = 'yellow';
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
 				}
 
-				div += apiMethods.beerResultDiv(beer, stars, style, color);
+				else {font = '#dadadc'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
-			res.render('topRated', { getTopRated: div });
+			
+			if(req.session.passport){
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			}
+			
+			else {
+				res.render('searchResult', { getSearchResult: div, userId: "null"});
+			}
+			
+			
+			//res.render('topRated', { getTopRated: div });
 		})
 		.catch((error) => console.error(error));
 });

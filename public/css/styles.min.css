@@ -58,7 +58,7 @@ body {
 	background-color:var(--lightWhite);
 	border-radius: 20px;
 	width:100%;
-	height: 380px;
+	height: 400px;
 }
 
 .product-item .product-container:hover {

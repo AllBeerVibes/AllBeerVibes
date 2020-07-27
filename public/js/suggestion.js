@@ -7,14 +7,13 @@ const beer__list = document.querySelector('#beerResult');
 //pop-up the select menu to add to favorite list
 beer__list.addEventListener('click', e => {
 
-    console.log(userId);
-
     content.innerHTML = '';
 
     const targetData = e.target.closest('button');
     
     if(userId == 'null') {
         window.alert("you should sign-on before use this function")
+        //will update the layout like modal form later
     }
 
     else {
@@ -41,7 +40,6 @@ beer__list.addEventListener('click', e => {
     }
 })
 
-//close the pop-up
 window.onclick = function(e) {
     if(e.target == favorite__modal) {
     favorite__modal.style.display = "none";

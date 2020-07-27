@@ -8,7 +8,7 @@ exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query, limit) => {
 	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=${limit}`;
 };
 exports.getTopRatedURI = (CLIENT_ID, CLIENT_SECRET) => {
-	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
+	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=${limit}`;
 };
 
 const emptyStar = '<i class="fa fa-star-o" style="color: rgb(225,204,95);"></i>';
@@ -143,7 +143,11 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 							<a href="/beer/${beer.beer.bid}">
 								${beer.beer.beer_name}</a>
 						</div>
-						
+						<div class="col-md-12>
+						<p id="beer-rating">
+							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
+						</p>
+						</div>
 						<div class="row justify-content-center" id="beer-des"">
 							<div class="col-8" id="ibu-color" style="background-color:${color}; color:${font}">
 								<p>${style}</p>
@@ -153,12 +157,6 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 	                        </div>
 						</div>
 						
-						<!-- I'm not sure we need this since most beers has 4-5 stars
-						<p id="beer-rating">
-							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
-						</p>
-						-->
-
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
 								<button value=${beer.beer.bid}>My List</button>
