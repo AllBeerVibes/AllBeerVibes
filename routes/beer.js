@@ -66,16 +66,16 @@ router.get('/result', (req, res) => {
 		.catch((error) => console.error(error));
 });
 
-//add beer list on mongo
+//add user's beer list on mongo
 router.post('/result', (req, res) => {
 
 	if(req.session.passport){
-		let userId = req.session.passport.user;
+		var userId = req.session.passport.user;
 	}
 		
 	let favoriteInfo = (req.body.button).split('/');
 
-	let favorite = {
+	var favorite = {
 		like: favoriteInfo[0],
 		bid: favoriteInfo[1],
 	};
@@ -85,22 +85,34 @@ router.post('/result', (req, res) => {
 			Profile.find({user: userId})
 				.exec(callback);
 		},
+
+		duplicateBid: function(callback) {
+			Profile.find({favorites: { $elemMatch: {bid: favorite.bid}}})
+				.exec(callback);
+		},
+
 	}, function (err, results) {
 		if(err) {console.log("we got error");}
 		else {
 			
-			//need to add a function to check if user already added this beer
-			//users can change their like here
-
+			console.log(results);
+			
+			if((results.duplicateBid).length > 0)
+			{
+				console.log("duplicated beer");
+				res.redirect('back');
+				//Also, need to be more updated version to make users can change their like
+			}
+			
+			else {
 			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid}}},
-				//{safe: true, upsert: true, new : true},
 				function (err) {
 					if(!err){
 						console.log('success');
-						//I don't wanted to refresh the page, but need more time to study how to do that
 						res.redirect('back');
 					}
-			});
+				});
+			}
 		}
 	});
 });
