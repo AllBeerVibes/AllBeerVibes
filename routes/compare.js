@@ -19,27 +19,46 @@ router.get('/my-comparison', (req, res) => {
 	}
 
 	var compare = new Compare(req.session.compare);
+
+	if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
+		console.log('run');
+		var compareTest = new CompareTest({
+			user: req.user,
+			compare: compare
+		});
+
+		compareTest.save(function (err, result) {
+			if (err) {
+				req.flash('error', err.message);
+				return res.redirect('/compare/my-comparison');
+			}
+			// req.session.compare = null;
+		});
+	}
+	
 	res.render('compare', { products: compare.generateArray() });
 });
 
 router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
-	var compare = new Compare(req.session.compare);
+	req.session.compare = null;
+	res.redirect('/compare/my-comparison');
+	// var compare = new Compare(req.session.compare);
 
-	var compareTest = new CompareTest({
-		user: req.user,
-		compare: compare
-	});
+	// var compareTest = new CompareTest({
+	// 	user: req.user,
+	// 	compare: compare
+	// });
 
-	compareTest.save(function (err, result) {
-		if (err) {
-			req.flash('error', err.message);
-			return res.redirect('/compare/my-comparison');
-		}
+	// compareTest.save(function (err, result) {
+	// 	if (err) {
+	// 		req.flash('error', err.message);
+	// 		return res.redirect('/compare/my-comparison');
+	// 	}
 		
-		// req.flash('success', 'Successfully added comparison list to your account!');
-		// req.session.compare = null;
-		res.redirect('/profile');
-	})
+	// 	// req.flash('success', 'Successfully added comparison list to your account!');
+	// 	req.session.compare = null;
+	// 	res.redirect('/profile');
+	// });
 });
 
 router.get('/add-to-compare/:bid', (req, res) => {
@@ -95,6 +114,5 @@ function isLoggedIn(req, res, next) {
 		}
 		
 		req.session.oldUrl = '/compare/my-comparison';
-		// req.flash('error', 'Login required');
 		res.redirect('/login');
 }
