@@ -56,26 +56,18 @@ router.get('/my-comparison', (req, res) => {
 	}
 });
 
-router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
-	req.session.compare = null;
-	res.redirect('/compare/my-comparison');
-	// var compare = new Compare(req.session.compare);
-
-	// var compareTest = new CompareTest({
-	// 	user: req.user,
-	// 	compare: compare
-	// });
-
-	// compareTest.save(function (err, result) {
-	// 	if (err) {
-	// 		req.flash('error', err.message);
-	// 		return res.redirect('/compare/my-comparison');
-	// 	}
-		
-	// 	// req.flash('success', 'Successfully added comparison list to your account!');
-	// 	req.session.compare = null;
-	// 	res.redirect('/profile');
-	// });
+router.get('/reset-compare-list', (req, res) => {
+	if (req.user) {
+		CompareTest.deleteOne({ user: req.user }, function (err, obj) {
+			if (err) {
+				return res.write('Error');
+			}
+		});
+	} else {
+		req.session.compare = null;
+	}
+	
+	res.redirect('/profile');
 });
 
 router.get('/add-to-compare/:bid', (req, res) => {
