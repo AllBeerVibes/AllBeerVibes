@@ -20,7 +20,8 @@ router.get('/my-comparison', (req, res) => {
 
 	var compare = new Compare(req.session.compare);
 
-	if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
+	// if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
+	if (req.user) {
 		console.log('run');
 		var compareTest = new CompareTest({
 			user: req.user,
@@ -32,11 +33,27 @@ router.get('/my-comparison', (req, res) => {
 				req.flash('error', err.message);
 				return res.redirect('/compare/my-comparison');
 			}
-			// req.session.compare = null;
+			req.flash('success', 'Successfully added the comparison list to your account!');
+			req.session.compare = null;
+			console.log('run2');
 		});
+
+		CompareTest.find({ user: req.user }, function (err, tests) {
+			if (err) {
+				return res.write('Error');
+			}
+			var compare;
+
+			compare = new Compare(compareTest.compare);
+
+			var testsss = compare.generateArray();
+
+			res.render('compare', { products: testsss, totalQty: compare.totalQty  });
+			console.log('run3');
+		});
+	} else {
+		res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
 	}
-	
-	res.render('compare', { products: compare.generateArray() });
 });
 
 router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
