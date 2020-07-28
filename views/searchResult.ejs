@@ -38,8 +38,8 @@
             <div class="container-fluid" id="searchResult">
                 <div class="container">
                     <div class="row product-list dev" id="beerResult">
-                        <!-- added this invisible div to use the user id from server side session storage-->
-                        <% if(userId != 'null') {%><div class="beerResult__userId" style="display:none"><%- userId %></div><% } %>
+                        <!-- added this invisible input to use the user id from server side session storage-->
+                        <input class="beerResult__userId" style="display:none" value= '<%- userId %>'/>
                         <%- getSearchResult %>
                     </div>
                 </div>

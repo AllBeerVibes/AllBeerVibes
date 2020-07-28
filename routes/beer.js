@@ -53,15 +53,16 @@ router.get('/result', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			if(req.session.passport) {
-			//add userId to utilize it(manage favorite list)
-			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			//before login, passport is undefined
+			//after logout, passport is null
+
+			if(req.session.passport == undefined || req.session.passport == null){
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
 			
 			else {
-			res.render('searchResult', { getSearchResult: div, userId: 'null'});
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
 			}
-
 			
 		})
 		.catch((error) => console.error(error));
@@ -149,16 +150,15 @@ router.get('/top-rated', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			if(req.session.passport){
-				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			if(req.session.passport == undefined || req.session.passport == null){
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
 			
 			else {
-				res.render('searchResult', { getSearchResult: div, userId: "null"});
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
 			}
 			
 			
-			//res.render('topRated', { getTopRated: div });
 		})
 		.catch((error) => console.error(error));
 });
