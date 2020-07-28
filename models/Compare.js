@@ -18,9 +18,11 @@ module.exports = function Compare(oldCompare) {
 	};
 
 	//Delete any beer from comparison list
-	this.deleteBeerCompare = function(id) {
-		this.totalQty--;
-		delete this.items[id];
+	this.deleteBeerCompare = function (id) {
+		if (this.totalQty > 0) {
+			this.totalQty--;
+			delete this.items[id];
+		}
 	};
 
 	//Output comparison list as an array

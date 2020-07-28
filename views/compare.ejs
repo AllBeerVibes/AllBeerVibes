@@ -36,12 +36,12 @@
                                 href="/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/beer/map">PUB
                                 MAP</a></li>
+                        
                         <li class="nav-item" role="presentation">
                             <a class="nav-link js-scroll-trigger" href="/compare/my-comparison">COMPARE
-                                <!-- below two lines of code need better solution -->
-                                <% if (session.compare) { %>
-                                <span class="badge"><%= session.compare.totalQty %></span>
-                                <% } %>
+                                <%if(products) {%>
+                                <span class="badge"><%= totalQty %></span>
+                                <%}%>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
@@ -114,7 +114,8 @@
                 </ul>
             </div> <!-- .cd-products-table -->
         </section> <!-- .cd-products-comparison-table -->        
-        <a href="/compare/reset-compare-list" role="button"> Reset Comparison List </a>
+        <a href="/compare/clear-compare-list" role="button"> Reset Comparison List </a>
+
         <% } else { %>
             <h2>No beer in your comparison list!</h2>
         <% } %>
