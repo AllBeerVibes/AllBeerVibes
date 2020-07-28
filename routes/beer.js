@@ -53,10 +53,15 @@ router.get('/result', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			console.log(req.session);
-
+			if(req.session.passport) {
 			//add userId to utilize it(manage favorite list)
-			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });			
+			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			}
+			
+			else {
+			res.render('searchResult', { getSearchResult: div, userId: 'null'});
+			}
+
 			
 		})
 		.catch((error) => console.error(error));
@@ -65,10 +70,8 @@ router.get('/result', (req, res) => {
 //add user's beer list on mongo
 router.post('/result', (req, res) => {
 
-	if(req.session.passport){
-		var userId = req.session.passport.user;
-	}
-		
+	var userId = req.session.passport.user;
+	
 	let favoriteInfo = (req.body.button).split('/');
 
 	var favorite = {
@@ -89,7 +92,8 @@ router.post('/result', (req, res) => {
 		},
 
 	}, function (err, results) {
-		if(err) {console.log("we got error");}
+		
+		if(err) {console.log("we got add error");}
 		else {
 			
 			if((results.duplicateBid).length > 0)
