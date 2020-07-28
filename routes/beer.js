@@ -53,14 +53,10 @@ router.get('/result', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
+			console.log(req.session);
+
 			//add userId to utilize it(manage favorite list)
-			if(req.session.passport){
-				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
-			}
-			
-			else {
-				res.render('searchResult', { getSearchResult: div, userId: "null"});
-			}
+			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });			
 			
 		})
 		.catch((error) => console.error(error));
@@ -78,6 +74,7 @@ router.post('/result', (req, res) => {
 	var favorite = {
 		like: favoriteInfo[0],
 		bid: favoriteInfo[1],
+		style: favoriteInfo[2],
 	};
 
 	async.parallel({
@@ -95,17 +92,16 @@ router.post('/result', (req, res) => {
 		if(err) {console.log("we got error");}
 		else {
 			
-			console.log(results);
-			
 			if((results.duplicateBid).length > 0)
 			{
 				console.log("duplicated beer");
 				res.redirect('back');
+				//need to make a notice about duplication
 				//Also, need to be more updated version to make users can change their like
 			}
 			
 			else {
-			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid}}},
+			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid, style: favorite.style}}},
 				function (err) {
 					if(!err){
 						console.log('success');

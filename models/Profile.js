@@ -27,6 +27,13 @@ const ProfileSchema = new mongoose.Schema({
 			type : Number, // UNTAPPD BID
 			required: true, 
 		},
+
+		//added style data since it is so redundant 
+		//and take more proceess time to find again users's favorite style on suggestion
+		style	: {
+			type : String,
+			required: true,
+		}
 	}],
 	
 	date      : {

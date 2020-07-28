@@ -13,39 +13,74 @@ const Profile = require('../models/Profile');
 
 const async = require('async');
 
+const { auth } = require('../middleware/auth');
+const e = require('express');
 
 router.get('/', (req,res) => {
     res.render('suggestion');
 });
 
-router.get('/profile', async (req, res) => {
+router.get('/profile', auth, async (req, res) => {
     
-    if(req.session.passport.user) {
-
         userId = req.session.passport.user;
 
         const user = await Profile.findOne({user: userId})
         console.log(user.favorites);
 
+        const likeBeer = [];
+
+        for(var i =0; i <user.favorites.length; i++) {
+            if(user.favorites[i].like == 1) {
+                likeBeer.push(user.favorites[i].style);
+            }
+        }
+        
         //check if users added more than 3 like beer
-        //if not render page with error message("should add more than 3 like beer")
-        
-        //get style info with UNTAPPD bid
-        let styleList = [];
+        if(likeBeer.length < 3) {
+            const errMessage = "You need more than 3 likes"
+            res.render('suggestion', {error: errMessage});
+        }
 
-        //get majority favorite style
-        
-        //matching with our own awarded data and list-up
 
-        //render page
-    }
-    
-    //users are not log-in yet
-    else{
-        
-        //render page with error message("should login first")
-        console.log("login first")
-    }
-})
+        //check majority
+        //it is not perfect solution cause it will not be correct if there are no majority
+        //also there might be faster way to get majority
+
+        else {
+            likeBeer.sort();
+            
+            console.log(likeBeer);
+
+            var nominate = likeBeer[0];
+            var candidate = likeBeer[0];
+            var count = 1, countComp = 0, saveComp = 0;
+            
+            for(let i=1; i< likeBeer.length ; i++) {
+
+                if(likeBeer[i] == candidate) {
+                    count++;
+                }
+                
+                if(likeBeer[i] != candidate || i == likeBeer.length - 1) {
+                    
+                    if(count > saveComp) {
+                        nominate = candidate;
+                        saveComp = count;
+                    }
+
+                    candidate = likeBeer[i];
+                    count = 1;
+                }
+            }
+            
+            console.log(nominate);
+
+            console.log("These are our suggestion");
+
+            //show the beer list based on our own awarded data
+            //render page
+        }
+
+    });
 
 module.exports = router;

@@ -1,22 +1,24 @@
-const userId = document.querySelector(".beerResult__userId").innerHTML;
 const favorite__modal = document.querySelector('#fav__modal');
 const content = document.querySelector('.mod__content');
 
-const beer__list = document.querySelector('#beerResult');
+const list_button = document.querySelector('.list_button');
 
 //pop-up the select menu to add to favorite list
-beer__list.addEventListener('click', e => {
+list_button.addEventListener('click', e => {
 
     content.innerHTML = '';
 
-    const targetData = e.target.closest('button');
+    const targetData = list_button.value;
     
-    if(userId == 'null') {
+    if(document.querySelector(".beerResult__userId") == null) {
+
         window.alert("you should sign-on before use this function")
         //will update the layout like modal form later
     }
 
     else {
+        const userId = document.querySelector(".beerResult__userId").innerHTML;
+        
         content.innerHTML = `
         <form method="POST" action='' class="modal_form">
                         <table class="submit">

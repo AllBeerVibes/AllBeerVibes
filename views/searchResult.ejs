@@ -39,7 +39,7 @@
                 <div class="container">
                     <div class="row product-list dev" id="beerResult">
                         <!-- added this invisible div to use the user id from server side session storage-->
-                        <div class="beerResult__userId" style="display:none"><% if(userId) {%><%- userId %></div><% } %>
+                        <% if(userId) {%><div class="beerResult__userId" style="display:none"><%- userId %></div><% } %>
                         <%- getSearchResult %>
                     </div>
                 </div>

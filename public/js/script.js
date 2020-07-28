@@ -8,7 +8,7 @@ exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query, limit) => {
 	return `https://api.untappd.com/v4${method}?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=${limit}`;
 };
 exports.getTopRatedURI = (CLIENT_ID, CLIENT_SECRET) => {
-	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=${limit}`;
+	return `https://api.untappd.com/v4/beer/top_rated?&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
 };
 
 const emptyStar = '<i class="fa fa-star-o" style="color: rgb(225,204,95);"></i>';
@@ -159,7 +159,7 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 						
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
-								<button value=${beer.beer.bid}>My List</button>
+								<button class="list_button" value='${beer.beer.bid}/${style}'>My List</button>
 							</div>
 							<div class="col-6">
 								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>
