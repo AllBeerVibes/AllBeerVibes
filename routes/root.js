@@ -5,12 +5,22 @@ const normalize = require('normalize-url');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
+const nodemailer = require('nodemailer');
+
 const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 router.use(express.static('public'));
 
 const User = require('../models/User');
+
+const transporter = nodemailer.createTransport({
+	service : 'gmail',
+	auth    : {
+		user : process.env.EMAIL_USER,
+		pass : process.env.EMAIL_PASS
+	}
+});
 
 /*
 @route    GET /
@@ -36,7 +46,17 @@ router.get('/register', (req, res) => {
 @access   public
 */
 router.get('/login', (req, res) => {
+	errors = [];
 	res.render('login');
+});
+
+/*
+@route    GET /forgot
+@desc     get forgot password page
+@access   public
+*/
+router.get('/forgot', (req, res) => {
+	res.render('forgot');
 });
 
 /*
@@ -142,12 +162,77 @@ router.post(
 @desc     login user
 @access   public
 */
-router.post('/login', (req, res, next) => {
+router.post(
+	'/login',
 	passport.authenticate('local', {
-		successRedirect : '/profile',
 		failureRedirect : '/login',
 		failureFlash    : true
-	})(req, res, next);
+	}),
+	function(req, res, next) {
+		if (req.session.oldUrl) {
+			var oldUrl = req.session.oldUrl;
+			req.session.oldUrl = null;
+			res.redirect(oldUrl); // To re-direct user to "/compare/my-comparison" page after clicking "Login to Save" button on comparison chart
+		}
+		else {
+			res.redirect('/profile');
+		}
+	}
+);
+
+/*
+@route    POST /forgot
+@desc     reset password
+@access   public
+*/
+router.post('/forgot', [ check('email', 'Please include a valid email').isEmail() ], (req, res) => {
+	const errors = validationResult(req).array();
+	let { email } = req.body;
+	email = email.toLowerCase().trim();
+
+	if (errors.length > 0) {
+		res.render('forgot', {
+			errors
+		});
+	}
+	else {
+		try {
+			User.findOne({ email }).then((user) => {
+				if (!user) {
+					errors.push({ value: '', msg: 'Incorrect email entered', param: 'email', location: 'body' });
+					res.render('forgot', {
+						errors
+					});
+				}
+				else {
+					const mailOptions = {
+						from    : process.env.EMAIL_USER,
+						to      : email,
+						subject : 'Forgot Password',
+						html    : `<h1>Forgot Password</h1>
+						<h3>Click the button below to change your password.</h3>
+						<button><a href="http://localhost:5000/reset/${user._id}">Reset Password</a></button>`
+					};
+
+					const send = async () => {
+						await transporter.sendMail(mailOptions, (err, info) => {
+							if (err) {
+								console.error(err);
+							}
+							else {
+								console.log(`Email sent: ${info.response}`);
+							}
+						});
+					};
+					send();
+					req.flash('success', 'Email sent');
+					res.redirect('/login');
+				}
+			});
+		} catch (err) {
+			console.error(err.message);
+		}
+	}
 });
 
 module.exports = router;

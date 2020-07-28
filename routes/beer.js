@@ -15,6 +15,8 @@ const Profile = require('../models/Profile');
 
 const async = require('async');
 
+const { auth } = require('../middleware/auth');
+
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
 	res.render('search');
@@ -22,6 +24,9 @@ router.get('/search', (req, res) => {
 
 //Endpoint = /beer/result
 router.get('/result', (req, res) => {
+	
+	//I didn't use 'auth' since users should be able to search any beer even though they are not log-on yet
+
 	let searchTerm = req.query.searchterm;
 
 	axios
@@ -48,46 +53,66 @@ router.get('/result', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
+			if(req.session.passport) {
 			//add userId to utilize it(manage favorite list)
 			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			}
+			
+			else {
+			res.render('searchResult', { getSearchResult: div, userId: 'null'});
+			}
+
+			
 		})
 		.catch((error) => console.error(error));
 });
 
+//add user's beer list on mongo
 router.post('/result', (req, res) => {
 
-	let userId = req.session.passport.user;
+	var userId = req.session.passport.user;
+	
 	let favoriteInfo = (req.body.button).split('/');
 
-	let favorite = {
+	var favorite = {
 		like: favoriteInfo[0],
 		bid: favoriteInfo[1],
+		style: favoriteInfo[2],
 	};
-
-	console.log(favorite);
-	console.log(userId);
 
 	async.parallel({
 		user: function(callback) {
 			Profile.find({user: userId})
 				.exec(callback);
 		},
+
+		duplicateBid: function(callback) {
+			Profile.find({favorites: { $elemMatch: {bid: favorite.bid}}})
+				.exec(callback);
+		},
+
 	}, function (err, results) {
-		if(err) {console.log("we got error");}
+		
+		if(err) {console.log("we got add error");}
 		else {
 			
-			//need to add a function to check if user already added this beer
-			//users can change their like here
-
-			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid}}},
-				//{safe: true, upsert: true, new : true},
+			if((results.duplicateBid).length > 0)
+			{
+				console.log("duplicated beer");
+				res.redirect('back');
+				//need to make a notice about duplication
+				//Also, need to be more updated version to make users can change their like
+			}
+			
+			else {
+			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid, style: favorite.style}}},
 				function (err) {
 					if(!err){
 						console.log('success');
-						//I wanted to stay in current page, but need more time to study how to do that
-						res.redirect('/profile');
+						res.redirect('back');
 					}
-			});
+				});
+			}
 		}
 	});
 });
@@ -99,6 +124,7 @@ router.get('/map', function(req, res) {
 
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
+	
 	axios
 		.get(apiMethods.getTopRatedURI(CLIENT_ID, CLIENT_SECRET))
 		.then((response) => {
@@ -108,24 +134,31 @@ router.get('/top-rated', (req, res) => {
 				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 				let style = beer.beer.beer_style;
 
-				style = style.split(' ');
+				style = style.split(' - ');
 				style = style[0];
+				
+				let color = apiMethods.getColor(style);
 
-				let color = beer.beer.beer_ibu;
-
-				if (color > 60) {
-					color = 'black';
-				}
-				else if (color > 30) {
-					color = 'brown';
-				}
-				else {
-					color = 'yellow';
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
 				}
 
-				div += apiMethods.beerResultDiv(beer, stars, style, color);
+				else {font = '#dadadc'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
-			res.render('topRated', { getTopRated: div });
+			
+			if(req.session.passport){
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			}
+			
+			else {
+				res.render('searchResult', { getSearchResult: div, userId: "null"});
+			}
+			
+			
+			//res.render('topRated', { getTopRated: div });
 		})
 		.catch((error) => console.error(error));
 });

@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/beer/suggest">SUGGEST</a></li>
+                                href="/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/beer/map">PUB
                                 MAP</a></li>
                         <li class="nav-item" role="presentation">
@@ -115,7 +115,10 @@
             </div> <!-- .cd-products-table -->
         </section> <!-- .cd-products-comparison-table -->
 
-        <a href="/compare/add-to-compare-db" role="button"> Login to save and look at your comparison list through your account anytime </a>
+            <% if (session.passport.user) { %>
+            <% } else { %>
+                <a href="/compare/add-to-compare-db" role="button"> Login to save and look at your comparison list through your account anytime </a>
+            <%} %>
         <% } else { %>
             <h2>No beer in your comparison list!</h2>
         <% } %>

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const Compare = require('../models/Compare');
+const CompareTest = require('../models/CompareTest');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -18,25 +19,46 @@ router.get('/my-comparison', (req, res) => {
 	}
 
 	var compare = new Compare(req.session.compare);
+
+	if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
+		console.log('run');
+		var compareTest = new CompareTest({
+			user: req.user,
+			compare: compare
+		});
+
+		compareTest.save(function (err, result) {
+			if (err) {
+				req.flash('error', err.message);
+				return res.redirect('/compare/my-comparison');
+			}
+			// req.session.compare = null;
+		});
+	}
+	
 	res.render('compare', { products: compare.generateArray() });
 });
 
-router.get('/add-to-compare-db', (req, res) => {
-	var compare = new Compare({
-		user: req.user,
-		compare: compare
-	});
+router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
+	req.session.compare = null;
+	res.redirect('/compare/my-comparison');
+	// var compare = new Compare(req.session.compare);
 
-	compare.save(function (err, result) {
-		if (err) {
-			req.flash('error', err.message);
-			return res.redirect('/compare/my-comparison');
-		}
+	// var compareTest = new CompareTest({
+	// 	user: req.user,
+	// 	compare: compare
+	// });
+
+	// compareTest.save(function (err, result) {
+	// 	if (err) {
+	// 		req.flash('error', err.message);
+	// 		return res.redirect('/compare/my-comparison');
+	// 	}
 		
-		req.flash('success', 'Successfully added comparison list to your account!');
-		req.session.compare = null;
-		res.redirect('/beer/top-rated');
-	})
+	// 	// req.flash('success', 'Successfully added comparison list to your account!');
+	// 	req.session.compare = null;
+	// 	res.redirect('/profile');
+	// });
 });
 
 router.get('/add-to-compare/:bid', (req, res) => {
@@ -85,3 +107,12 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 });
 
 module.exports = router;
+
+function isLoggedIn(req, res, next) {
+		if (req.isAuthenticated()) {
+			return next();
+		}
+		
+		req.session.oldUrl = '/compare/my-comparison';
+		res.redirect('/login');
+}

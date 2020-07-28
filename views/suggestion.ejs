@@ -1,19 +1,8 @@
 <%- include('partials/header') %>
-        <!-- <header class="masthead" style="background-image:url('assets/img/header-bg.jpg');"></header> -->
-        <div class="highlight-phone" style="height: 200px;background-color: rgb(213,174,39);">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="intro">
-                            <p style="color: rgb(228,214,214);margin-bottom: 3px;">Recommendations</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="container" style="padding-top: 50px;">
+        <div class="container">
                 <h1 class="text-center" style="font-size: 45px;margin-top: 108px;">Recommendation Options</h1>
+                <% if(error) {%>
+                <p class="error"><%- error %></p><% } %>
             </div>
         </div>
         <div class="container text-center" style="margin-top: 50px;margin-bottom: 50px;">
@@ -23,6 +12,11 @@
                         <tr></tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td><a href='/beer/top-rated/'><button class="btn btn-primary" type="button"
+                                style="height: 70px;width: 230px;font-size: 20px;">
+                                Top Rated Beers</button></a></td>
+                        </tr>
                         <tr>
                             <td><a href='/suggest/profile/'><button class="btn btn-primary" type="button"
                                 style="height: 70px;width: 230px;font-size: 20px;">

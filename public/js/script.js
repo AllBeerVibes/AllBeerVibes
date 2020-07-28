@@ -143,7 +143,11 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 							<a href="/beer/${beer.beer.bid}">
 								${beer.beer.beer_name}</a>
 						</div>
-						
+						<div class="col-md-12>
+						<p id="beer-rating">
+							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
+						</p>
+						</div>
 						<div class="row justify-content-center" id="beer-des"">
 							<div class="col-8" id="ibu-color" style="background-color:${color}; color:${font}">
 								<p>${style}</p>
@@ -153,15 +157,9 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 	                        </div>
 						</div>
 						
-						<!-- I'm not sure we need this since most beers has 4-5 stars
-						<p id="beer-rating">
-							${stars} <span id="reviews">${beer.beer.rating_count} reviews</span> 
-						</p>
-						-->
-
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
-								<button value=${beer.beer.bid}>Favorite</button>
+								<button class="list_button" value='${beer.beer.bid}/${style}'>My List</button>
 							</div>
 							<div class="col-6">
 								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>

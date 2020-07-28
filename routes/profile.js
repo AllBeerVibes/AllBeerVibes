@@ -7,7 +7,6 @@ router.use(express.static('public'));
 
 const User = require('../models/User');
 const Profile = require('../models/Profile');
-const { validationResult } = require('express-validator');
 
 /*
 @route    GET /profile
