@@ -1,9 +1,15 @@
 //Compare constructor for session storage, not mongoose
 //Will add codes for logged-in users using mongoose
 module.exports = function Compare(oldCompare) {
-	//Assign the values of the old compare list
-	this.items = oldCompare.items || {};
-	this.totalQty = oldCompare.totalQty || 0;
+	if (oldCompare.user) {
+		this.items = oldCompare.compare.items;
+		this.totalQty = oldCompare.compare.totalQty;
+	}
+	else {
+		//Assign the values of the old compare list
+		this.items = oldCompare.items || {};
+		this.totalQty = oldCompare.totalQty || 0;
+	}
 
 	//Add new beer for comparison
 	this.addBeerCompare = function(item, id) {
@@ -18,7 +24,7 @@ module.exports = function Compare(oldCompare) {
 	};
 
 	//Delete any beer from comparison list
-	this.deleteBeerCompare = function (id) {
+	this.deleteBeerCompare = function(id) {
 		if (this.totalQty > 0) {
 			this.totalQty--;
 			delete this.items[id];
