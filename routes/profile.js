@@ -49,13 +49,24 @@ router.post('/', auth, async (req, res) => {
 	const { name, email, location } = req.body;
 	let userFields = {};
 	if (req.user.googleId) {
-		const { id, googleId, name, email, avatar } = req.user;
+		const { id, googleId, name, email, avatar, date } = req.user;
 		userFields = {
 			id,
 			googleId,
 			name,
 			email,
 			avatar
+		};
+	}
+	else if (req.user.githubId) {
+		const { id, githubId, name, email, avatar, date } = req.user;
+		userFields = {
+			id,
+			githubId,
+			name,
+			email,
+			avatar,
+			date
 		};
 	}
 	else {
@@ -80,6 +91,9 @@ router.post('/', auth, async (req, res) => {
 	try {
 		if (req.user.googleId) {
 			const user = await Google.findOneAndReplace({ _id: req.user.id }, userFields);
+		}
+		else if (req.user.githubId) {
+			const user = await Github.findOneAndReplace({ _id: req.user.id }, userFields);
 		}
 		else {
 			const user = await User.findOneAndReplace({ _id: req.user.id }, userFields);

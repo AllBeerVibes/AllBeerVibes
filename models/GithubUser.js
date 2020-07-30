@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-	googleId : {
+	githubId : {
 		type     : String,
 		required : true
 	},
@@ -23,4 +23,4 @@ const UserSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('googleuser', UserSchema);
+module.exports = mongoose.model('githubuser', UserSchema);
