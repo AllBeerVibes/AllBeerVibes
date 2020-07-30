@@ -10,8 +10,11 @@ const passport = require('passport');
 const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const URI = `mongodb+srv://${process.env.ADMIN}:${process.env.PASS}@${process.env.DOM}/${process.env
 	.DB_NAME}?retryWrites=true&w=majority`; //mongo db connection
+
+app.use(cors());
 
 require('./middleware/passport')(passport);
 
@@ -68,6 +71,7 @@ app.use('/beer', require('./routes/beer'));
 app.use('/compare', require('./routes/compare'));
 app.use('/profile', require('./routes/profile'));
 app.use('/suggest', require('./routes/suggest_menu'));
+app.use('/auth', require('./routes/auth'));
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);

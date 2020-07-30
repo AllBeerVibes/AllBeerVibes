@@ -4,7 +4,9 @@ module.exports = {
 		if (req.isAuthenticated()) {
 			return next();
 		}
-		req.flash('error', 'Login required');
-		res.redirect('/login');
+		else {
+			req.flash('error', 'Login required');
+			res.redirect('/login');
+		}
 	}
 };
