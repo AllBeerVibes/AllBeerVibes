@@ -14,110 +14,62 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 //Endpoint = /compare/my-comparison
 router.get('/my-comparison', (req, res) => {
-	// if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
 	if (req.user) {
 		if (req.session.compare) {
 			let compare = new Compare(req.session.compare);
+
 			let compareTest = new CompareTest({
-				user    : req.user.id,
-				compare : compare
+				user: req.user,
+				compare: compare
 			});
-			compareTest
-				.save()
-				.then((data) => {
-					req.session.compare = null;
-					return res.render('compare', {
-						products : data.compare.generateArray(),
-						totalQty : data.compare.totalQty
-					});
-				})
-				.catch((err) => {
+
+			compareTest.save(function (err, result) {
+				if (err) {
 					req.flash('error', err.message);
 					return res.redirect('/compare/my-comparison');
-				});
-		}
-		else {
-			CompareTest.findOne({ user: req.user.id }).then((data) => {
-				const compare = new Compare(data);
-				return res.render('compare', {
-					products : compare.generateArray(),
-					totalQty : compare.totalQty
-				});
+				}
+				req.session.compare = null;
+				return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
+			});
+		} else {
+			CompareTest.findOne({ user: req.user }).then((data) => {
+				if (data != null) {
+					let compare = new Compare(data.compare);
+					
+					return res.render('compare', {
+						products: compare.generateArray(),
+						totalQty: compare.totalQty
+					});
+				} else {
+					return res.render('compare', {
+						products: null
+					});
+				}
 			});
 		}
-	}
-	else {
-		if (!req.session.compare) {
-			return res.render('compare', { products: null }); // To check if compare list is empty or not
-		}
-		else {
+	} else {
+		if (req.session.compare) {
 			let compare = new Compare(req.session.compare);
 			return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
+		} else {
+			return res.render('compare', { products: null }); // To check if compare list is empty or not
+
 		}
 	}
 });
 
-//Endpoint = /compare/my-comparison
-// router.get('/my-comparison2', (req, res) => {
-// 	if (!req.session.compare) {
-// 		return res.render('compare', { products: null }); // To check if compare list is empty or not
-// 	}
-
-// 	var compare = new Compare(req.session.compare);
-
-// 	// if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
-// 	if (req.user) {
-// 		// req.session.oldUrl = '/compare/my-comparison';
-
-// 		console.log('run');
-// 		var compareTest = new CompareTest({
-// 			user    : req.user,
-// 			compare : compare
-// 		});
-
-// 		compareTest.save(function(err, result) {
-// 			if (err) {
-// 				req.flash('error', err.message);
-// 				return res.redirect('/compare/my-comparison');
-// 			}
-// 			req.session.compare = null;
-// 			console.log('run2');
-// 		});
-
-// 		CompareTest.find({ user: req.user }, function(err, tests) {
-// 			if (err) {
-// 				return res.write('Error');
-// 			}
-// 			var compare;
-
-// 			compare = new Compare(compareTest.compare);
-
-// 			res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
-// 			console.log('run3');
-// 		});
-
-// 		if (CompareTest.find({ user: req.user }).countDocuments() > 0) {
-// 			console.log('user match found');
-// 		}
-// 	}
-// 	else {
-// 		res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
-// 	}
-// });
-
 router.get('/clear-compare-list', (req, res) => {
 	if (req.user) {
-		CompareTest.deleteOne({ user: req.user }, function(err, obj) {
+		CompareTest.deleteOne({ user: req.user }, function (err, obj) {
 			if (err) {
 				return res.write('Error');
 			}
 		});
-	}
-	else {
+	} else {
 		delete req.session.compare;
 		req.flash('success', 'Comparison list cleared!');
 	}
-
+	
 	res.redirect('/compare/my-comparison');
 });
 
@@ -165,8 +117,7 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 
 	if (compare.totalQty > 0) {
 		req.session.compare = compare;
-	}
-	else {
+	} else {
 		delete req.session.compare;
 	}
 
@@ -179,7 +130,7 @@ module.exports = router;
 // 		if (req.isAuthenticated()) {
 // 			return next();
 // 		}
-
+		
 // 		req.session.oldUrl = '/compare/my-comparison';
 // 		res.redirect('/login');
 // }

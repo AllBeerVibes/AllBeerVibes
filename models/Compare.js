@@ -1,16 +1,10 @@
 //Compare constructor for session storage, not mongoose
 //Will add codes for logged-in users using mongoose
 module.exports = function Compare(oldCompare) {
-	if (oldCompare.user) {
-		this.items = oldCompare.compare.items;
-		this.totalQty = oldCompare.compare.totalQty;
-	}
-	else {
-		//Assign the values of the old compare list
-		this.items = oldCompare.items || {};
-		this.totalQty = oldCompare.totalQty || 0;
-	}
-
+	//Assign the values of the old compare list
+	this.items = oldCompare.items || {};
+	this.totalQty = oldCompare.totalQty || 0;
+	
 	//Add new beer for comparison
 	this.addBeerCompare = function(item, id) {
 		var storedItem = this.items[id];
