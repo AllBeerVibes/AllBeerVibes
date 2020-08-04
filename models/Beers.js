@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const BeerSchema = new mongoose.Schema({
     
-    untappd_bid      : {
+    bid      : {
 		type : String
 	},
     

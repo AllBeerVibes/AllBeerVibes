@@ -253,7 +253,7 @@ router.post('/abv/db/management', (req,res) => {
 	
 	var data_list = [{
 
-		untappd_bid: '',
+		bid: '',
 		style: '',
 		beer_name: '',
 		brewery_name: '',
@@ -268,6 +268,7 @@ router.post('/abv/db/management', (req,res) => {
 		.pipe(csv()) //to use this we need csv-parser module
 		.on('data', (row) => {
 			data_list.push(row);
+			console.log(row);
 		})
 		.on('end', () => {
 			console.log(data_list);
@@ -302,7 +303,7 @@ router.post('/abv/db/management', (req,res) => {
 					if(check == true)
 					{
 						obj.push({
-							untappd_bid: data_list[i].untappd_bid, 
+							bid: data_list[i].bid,
 							style: data_list[i].style,
 							beer_name: data_list[i].beer_name,
 							brewery_name: data_list[i].brewery_name,
