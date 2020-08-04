@@ -71,7 +71,7 @@ router.get('/result', (req, res) => {
 //add user's beer list on mongo
 router.post('/result', (req, res) => {
 
-	var userId = req.session.passport.user;
+	var userId = req.session.passport.user.id;
 	
 	let favoriteInfo = (req.body.button).split('/');
 
@@ -94,6 +94,7 @@ router.post('/result', (req, res) => {
 
 	}, function (err, results) {
 		
+		//fixed, there was a change of data type of passport.user
 		if(err) {console.log("we got add error");}
 		else {
 			
