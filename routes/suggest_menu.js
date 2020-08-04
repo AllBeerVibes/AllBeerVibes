@@ -22,7 +22,7 @@ router.get('/', (req,res) => {
 
 router.get('/profile', auth, async (req, res) => {
     
-        userId = req.session.passport.user;
+        userId = req.session.passport.user.id;
 
         const user = await Profile.findOne({user: userId})
         console.log(user.favorites);
