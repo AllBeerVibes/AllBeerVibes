@@ -61,7 +61,7 @@ router.get('/result', (req, res) => {
 			}
 			
 			else {
-				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
 			}
 			
 		})
@@ -156,7 +156,7 @@ router.get('/top-rated', (req, res) => {
 			}
 			
 			else {
-				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
 			}
 			
 			

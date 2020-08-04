@@ -59,8 +59,15 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(express.static('public'));
+const path = require('path');
+
+//to fix the mime type error on top-rated page
+//https://stackoverflow.com/questions/48248832/stylesheet-not-loaded-because-of-mime-type
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 
 // Init Middleware
 app.use(express.json());
