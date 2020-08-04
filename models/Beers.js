@@ -34,6 +34,10 @@ const BeerSchema = new mongoose.Schema({
 		type : String //world_beer_awards or world_beer_cup
 	},
 
+	year : {
+		type: String //award winning year
+	}
+
 });
 
 module.exports = mongoose.model('beers', BeerSchema);

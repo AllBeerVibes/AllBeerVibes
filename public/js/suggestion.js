@@ -11,6 +11,8 @@ button.addEventListener('click', e => {
     content.innerHTML = '';
 
     const targetData = e.target.value;
+
+    console.log(targetData);
     
     if(id.value == '') {
 
