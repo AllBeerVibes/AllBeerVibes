@@ -14,24 +14,7 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 //Endpoint = /compare/my-comparison
 router.get('/my-comparison', (req, res) => {
-	if (req.user) {
-		if (req.session.compare) {
-			let compare = new Compare(req.session.compare);
-
-			let compareTest = new CompareTest({
-				user: req.user,
-				compare: compare
-			});
-
-			compareTest.save(function (err) {
-				if (err) {
-					req.flash('error', err.message);
-					return res.redirect('/compare/my-comparison');
-				}
-				req.session.compare = null;
-				return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
-			});
-		} else {
+	if (req.user) {	
 			CompareTest.findOne({ user: req.user }).then((data) => {
 				if (data != null) {
 					let compare = new Compare(data.compare);
@@ -46,14 +29,13 @@ router.get('/my-comparison', (req, res) => {
 					});
 				}
 			});
-		}
+		
 	} else {
 		if (req.session.compare) {
 			let compare = new Compare(req.session.compare);
 			return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
 		} else {
 			return res.render('compare', { products: null }); // To check if compare list is empty or not
-
 		}
 	}
 });
@@ -128,6 +110,8 @@ router.get('/add-to-compare/:bid', (req, res) => {
 					});
 				}
 			});
+
+			res.redirect('back');
 		})	
 		.catch((error) => console.error(error));
 	} else {
@@ -160,11 +144,10 @@ router.get('/add-to-compare/:bid', (req, res) => {
 
 			compare.addBeerCompare(response.data.response.beer, beerId);
 			req.session.compare = compare;
+			res.redirect('back');
 		})
 		.catch((error) => console.error(error));		
 	}
-
-	res.redirect('back');
 });
 
 router.get('/delete-from-compare/:bid', (req, res) => {

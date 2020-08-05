@@ -13,6 +13,8 @@ const router = express.Router();
 router.use(express.static('public'));
 
 const User = require('../models/User');
+const Compare = require('../models/Compare');
+const CompareTest = require('../models/CompareTest');
 
 const transporter = nodemailer.createTransport({
 	service : 'gmail',
@@ -175,10 +177,22 @@ router.post(
 		failureFlash    : true
 	}),
 	function(req, res, next) {
-		if (req.session.oldUrl) {
-			var oldUrl = req.session.oldUrl;
-			req.session.oldUrl = null;
-			res.redirect(oldUrl); // To re-direct user to "/compare/my-comparison" page after clicking "Login to Save" button on comparison chart
+		if (req.session.compare) {
+			let compare = new Compare(req.session.compare);
+
+			let compareTest = new CompareTest({
+				user: req.user,
+				compare: compare
+			});
+
+			compareTest.save(function (err) {
+				if (err) {
+					req.flash('error', err.message);
+					return res.redirect('/profile');
+				}
+				req.session.compare = null;
+				return res.redirect('/profile');
+			});
 		}
 		else {
 			res.redirect('/profile');
