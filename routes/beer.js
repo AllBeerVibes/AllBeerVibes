@@ -55,13 +55,12 @@ router.get('/result', (req, res) => {
 			
 			//before login, passport is undefined
 			//after logout, passport is null
-
-			if(req.session.passport == undefined || req.session.passport == null){
-				res.render('searchResult', { getSearchResult: div, userId: ""});
-			}
+			//{} cannot be recognized as null, so I changed to 'try(get id)&catch(cannot get id)'
 			
-			else {
+			try {
 				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
 			
 		})
@@ -151,12 +150,10 @@ router.get('/top-rated', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			if(req.session.passport == undefined || req.session.passport == null){
-				res.render('searchResult', { getSearchResult: div, userId: ""});
-			}
-			
-			else {
+			try {
 				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
 			
 			

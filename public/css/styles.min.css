@@ -508,7 +508,10 @@ body {
 footer{
 	background-color: var(--ligtGrey);
 	position: relative;
+	width: 100%;
 	z-index: 1;
+	bottom: 0;
+	margin-top: 50px;
   }
   
   .social-links a {
@@ -584,7 +587,32 @@ footer{
 
 }
 
+/* suggest menu */
 
+.suggest-container {
+	text-align: center;
+	height: 100%;
+}
+
+.suggest-title {
+	margin-top: 50px;
+	color: var(--lightWhite);
+}
+
+.suggest-container table {
+	margin-top: 50px;
+	border-style: none;
+	width: 100%;
+}
+
+.suggest-container table button{
+	height: 70px;
+	width: 230px;
+	font-size: 25px;
+	background-color: var(--yellow);
+	border: none;
+	border-radius: 5px;
+}
 
 
 
