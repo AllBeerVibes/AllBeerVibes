@@ -53,15 +53,15 @@ router.get('/result', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			if(req.session.passport) {
-			//add userId to utilize it(manage favorite list)
-			res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
-			}
+			//before login, passport is undefined
+			//after logout, passport is null
+			//{} cannot be recognized as null, so I changed to 'try(get id)&catch(cannot get id)'
 			
-			else {
-			res.render('searchResult', { getSearchResult: div, userId: 'null'});
+			try {
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
-
 			
 		})
 		.catch((error) => console.error(error));
@@ -70,7 +70,7 @@ router.get('/result', (req, res) => {
 //add user's beer list on mongo
 router.post('/result', (req, res) => {
 
-	var userId = req.session.passport.user;
+	var userId = req.session.passport.user.id;
 	
 	let favoriteInfo = (req.body.button).split('/');
 
@@ -93,6 +93,7 @@ router.post('/result', (req, res) => {
 
 	}, function (err, results) {
 		
+		//fixed, there was a change of data type of passport.user
 		if(err) {console.log("we got add error");}
 		else {
 			
@@ -149,16 +150,13 @@ router.get('/top-rated', (req, res) => {
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
 			
-			if(req.session.passport){
-				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user });
+			try {
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: ""});
 			}
 			
-			else {
-				res.render('searchResult', { getSearchResult: div, userId: "null"});
-			}
 			
-			
-			//res.render('topRated', { getTopRated: div });
 		})
 		.catch((error) => console.error(error));
 });

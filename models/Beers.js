@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 
 const BeerSchema = new mongoose.Schema({
     
-    untappd_bid      : {
+    bid      : {
 		type : String
 	},
     
@@ -33,6 +33,10 @@ const BeerSchema = new mongoose.Schema({
 	award_title : {
 		type : String //world_beer_awards or world_beer_cup
 	},
+
+	year : {
+		type: String //award winning year
+	}
 
 });
 

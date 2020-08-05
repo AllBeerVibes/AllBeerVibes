@@ -36,12 +36,12 @@
                                 href="/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/beer/map">PUB
                                 MAP</a></li>
+                        
                         <li class="nav-item" role="presentation">
                             <a class="nav-link js-scroll-trigger" href="/compare/my-comparison">COMPARE
-                                <!-- below two lines of code need better solution -->
-                                <% if (session.compare) { %>
-                                <span class="badge"><%= session.compare.totalQty %></span>
-                                <% } %>
+                                <%if(products) {%>
+                                <span class="badge"><%= totalQty %></span>
+                                <%}%>
                             </a>
                         </li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
@@ -56,7 +56,7 @@
         <% if (products) { %>
         <section class="cd-products-comparison-table">
             <header>
-                <h2>Total of <%= session.compare.totalQty %> beer(s) in your comparison list!</h2>
+                <h2>Total of <%= totalQty %> beer(s) in your comparison list!</h2>
                 <div class="actions">
                     <a href="#0" class="reset">Undo Select</a>
                     <a href="#0" class="filter">Select</a>
@@ -77,15 +77,15 @@
 
                 <div class="cd-products-wrapper">
                     <ul class="cd-products-columns">
-                        <% for (var i=0; i < session.compare.totalQty; i++) { %>
+                        <% for (var i=0; i < totalQty; i++) { %>
                         <li class="product">
                             <div class="top-info">
                                 <div class="check"></div>
 
                                 <% if (products[i].item.beer_label_hd !== "") { %>
-                                    <img src="<%= products[i].item.beer_label_hd %>" 
+                                    <img src="<%= products[i].item.beer_label_hd %>"> 
                                 <% } else { %> 
-                                    <img src="<%= products[i].item.beer_label %>" 
+                                    <img src="<%= products[i].item.beer_label %>" >
                                 <% } %>
 
                                 <h2><%= products[i].item.beer_name %></h2>
@@ -113,12 +113,9 @@
                     <li><a href="#0" class="next">&#9658;</a></li>
                 </ul>
             </div> <!-- .cd-products-table -->
-        </section> <!-- .cd-products-comparison-table -->
+        </section> <!-- .cd-products-comparison-table -->        
+        <a href="/compare/clear-compare-list" role="button"> Clear Comparison List </a>
 
-            <% if (session.passport.user) { %>
-            <% } else { %>
-                <a href="/compare/add-to-compare-db" role="button"> Login to save and look at your comparison list through your account anytime </a>
-            <%} %>
         <% } else { %>
             <h2>No beer in your comparison list!</h2>
         <% } %>

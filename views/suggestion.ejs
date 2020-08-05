@@ -1,36 +1,26 @@
 <%- include('partials/header') %>
-        <div class="container">
-                <h1 class="text-center" style="font-size: 45px;margin-top: 108px;">Recommendation Options</h1>
-                <% if(error) {%>
-                <p class="error"><%- error %></p><% } %>
-            </div>
-        </div>
-        <div class="container text-center" style="margin-top: 50px;margin-bottom: 50px;">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr></tr>
-                    </thead>
+    <div class="suggest-container">
+        <h1 class="suggest-title">Recommendation Options</h1>
+        
+                <table>
                     <tbody>
                         <tr>
-                            <td><a href='/beer/top-rated/'><button class="btn btn-primary" type="button"
-                                style="height: 70px;width: 230px;font-size: 20px;">
+                            <td><a href='/beer/top-rated/'><button>
                                 Top Rated Beers</button></a></td>
                         </tr>
                         <tr>
-                            <td><a href='/suggest/profile/'><button class="btn btn-primary" type="button"
-                                style="height: 70px;width: 230px;font-size: 20px;">
-                                Based on your favorites</button></a></td>
+                            <td><a href='/suggest/profile/'><button>
+                                Based on My List</button></a></td>
                         </tr>
                         <tr>
-                            <td><button class="btn btn-primary" type="button"
-                                    style="height: 70px;width: 230px;font-size: 20px;"
-                                    onclick="location.href='Recommend-Q&A1.html'">Quiz</button></td>
+                            <td><a href=#><button>
+                                Quiz</button></a></td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-
+         
+        
+    
+    </div>
 
 <%- include('partials/footer') %>

@@ -4,7 +4,7 @@ module.exports = function Compare(oldCompare) {
 	//Assign the values of the old compare list
 	this.items = oldCompare.items || {};
 	this.totalQty = oldCompare.totalQty || 0;
-
+	
 	//Add new beer for comparison
 	this.addBeerCompare = function(item, id) {
 		var storedItem = this.items[id];
@@ -19,8 +19,10 @@ module.exports = function Compare(oldCompare) {
 
 	//Delete any beer from comparison list
 	this.deleteBeerCompare = function(id) {
-		this.totalQty--;
-		delete this.items[id];
+		if (this.totalQty > 0) {
+			this.totalQty--;
+			delete this.items[id];
+		}
 	};
 
 	//Output comparison list as an array

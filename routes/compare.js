@@ -14,105 +14,125 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 //Endpoint = /compare/my-comparison
 router.get('/my-comparison', (req, res) => {
-	if (!req.session.compare) {
-		return res.render('compare', { products: null }); // To check if compare list is empty or not
+	if (req.user) {
+		if (req.session.compare) {
+			let compare = new Compare(req.session.compare);
+
+			let compareTest = new CompareTest({
+				user: req.user,
+				compare: compare
+			});
+
+			compareTest.save(function (err, result) {
+				if (err) {
+					req.flash('error', err.message);
+					return res.redirect('/compare/my-comparison');
+				}
+				req.session.compare = null;
+				return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
+			});
+		} else {
+			CompareTest.findOne({ user: req.user }).then((data) => {
+				if (data != null) {
+					let compare = new Compare(data.compare);
+					
+					return res.render('compare', {
+						products: compare.generateArray(),
+						totalQty: compare.totalQty
+					});
+				} else {
+					return res.render('compare', {
+						products: null
+					});
+				}
+			});
+		}
+	} else {
+		if (req.session.compare) {
+			let compare = new Compare(req.session.compare);
+			return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
+		} else {
+			return res.render('compare', { products: null }); // To check if compare list is empty or not
+
+		}
 	}
-
-	var compare = new Compare(req.session.compare);
-
-	if (req.user && (CompareTest.find({ user: req.user }).count() > 0)) {
-		console.log('run');
-		var compareTest = new CompareTest({
-			user: req.user,
-			compare: compare
-		});
-
-		compareTest.save(function (err, result) {
-			if (err) {
-				req.flash('error', err.message);
-				return res.redirect('/compare/my-comparison');
-			}
-			// req.session.compare = null;
-		});
-	}
-	
-	res.render('compare', { products: compare.generateArray() });
 });
 
-router.get('/add-to-compare-db', isLoggedIn, (req, res) => {
-	req.session.compare = null;
+router.get('/clear-compare-list', (req, res) => {
+	if (req.user) {
+		CompareTest.deleteOne({ user: req.user }, function (err, obj) {
+			if (err) {
+				return res.write('Error');
+			}
+		});
+	} else {
+		delete req.session.compare;
+		req.flash('success', 'Comparison list cleared!');
+	}
+	
 	res.redirect('/compare/my-comparison');
-	// var compare = new Compare(req.session.compare);
-
-	// var compareTest = new CompareTest({
-	// 	user: req.user,
-	// 	compare: compare
-	// });
-
-	// compareTest.save(function (err, result) {
-	// 	if (err) {
-	// 		req.flash('error', err.message);
-	// 		return res.redirect('/compare/my-comparison');
-	// 	}
-		
-	// 	// req.flash('success', 'Successfully added comparison list to your account!');
-	// 	req.session.compare = null;
-	// 	res.redirect('/profile');
-	// });
 });
 
 router.get('/add-to-compare/:bid', (req, res) => {
-	var beerId = req.params.bid;
-	//1) Check if my Compare property exists
-	//2) If it does, pass my old Compare
-	//3) Otherwise, pass empty object
-	var compare = new Compare(req.session.compare ? req.session.compare : {});
+	let beerId = req.params.bid;
 
-	axios
-		.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beerId))
-		.then((response) => {
-			let {
-				beer_name,
-				beer_label,
-				beer_label_hd,
-				beer_abv,
-				beer_ibu,
-				beer_description,
-				beer_style,
-				created_at,
-				rating_count,
-				rating_score,
-				contact,
-				location
-			} = response.data.response.beer; // beer data
+	if (req.user) {
+		
+	} else {
+		//1) Check if my Compare property exists
+		//2) If it does, pass my old Compare
+		//3) Otherwise, pass empty object
+		let compare = new Compare(req.session.compare ? req.session.compare : {});
 
-			let { brewery_name, brewery_label, country_name } = response.data.response.beer.brewery;
+		axios
+			.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beerId))
+			.then((response) => {
+				let {
+					beer_name,
+					beer_label,
+					beer_label_hd,
+					beer_abv,
+					beer_ibu,
+					beer_description,
+					beer_style,
+					created_at,
+					rating_count,
+					rating_score,
+					contact,
+					location
+				} = response.data.response.beer; // beer data
 
-			let stars = apiMethods.starRatingElement(response.data.response.beer.rating_score);
+				let { brewery_name, brewery_label, country_name } = response.data.response.beer.brewery;
 
-			compare.addBeerCompare(response.data.response.beer, beerId);
-			req.session.compare = compare;
-			res.redirect('back');
-		})
-		.catch((error) => console.error(error));
+				let stars = apiMethods.starRatingElement(response.data.response.beer.rating_score);
+
+				compare.addBeerCompare(response.data.response.beer, beerId);
+				req.session.compare = compare;
+				res.redirect('back');
+			})
+			.catch((error) => console.error(error));
+	}
 });
 
 router.get('/delete-from-compare/:bid', (req, res) => {
-	var beerId = req.params.bid;
-	var compare = new Compare(req.session.compare ? req.session.compare : {});
+	let beerId = req.params.bid;
 
-	compare.deleteBeerCompare(beerId);
-	req.session.compare = compare;
+	if (req.user) {
+
+	} else {
+		let compare = new Compare(req.session.compare ? req.session.compare : {});
+
+		compare.deleteBeerCompare(beerId);
+
+		if (compare.totalQty > 0) {
+			req.session.compare = compare;
+		} else {
+			delete req.session.compare;
+		}
+	}
+	
 	res.redirect('/compare/my-comparison');
 });
 
-module.exports = router;
 
-function isLoggedIn(req, res, next) {
-		if (req.isAuthenticated()) {
-			return next();
-		}
-		
-		req.session.oldUrl = '/compare/my-comparison';
-		res.redirect('/login');
-}
+module.exports = router;

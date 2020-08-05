@@ -2,6 +2,7 @@ const favorite__modal = document.querySelector('#fav__modal');
 const content = document.querySelector('.mod__content');
 const list_button = document.querySelectorAll('.list_button');
 
+const id = document.querySelector(".beerResult__userId");
 
 for (const button  of list_button) {
 //pop-up the select menu to add to favorite list
@@ -10,8 +11,10 @@ button.addEventListener('click', e => {
     content.innerHTML = '';
 
     const targetData = e.target.value;
+
+    console.log(targetData);
     
-    if(document.querySelector(".beerResult__userId").innerHTML == '') {
+    if(id.value == '') {
 
         window.alert("you should sign-on before use this function")
         //will update the layout like modal form later

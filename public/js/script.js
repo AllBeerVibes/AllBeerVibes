@@ -1,6 +1,6 @@
 exports.getBeerByIdURI = (CLIENT_ID, CLIENT_SECRET, id) => {
 	const method = `/beer/info/${id}`;
-	return `https://api.untappd.com/v4${method}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&limit=100`;
+	return `https://api.untappd.com/v4${method}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
 };
 exports.getBeerBySearch = (CLIENT_ID, CLIENT_SECRET, query, limit) => {
 	const fixedQuery = query.trim().replace(' ', '+');
@@ -103,7 +103,7 @@ const getBySearch = (search) => {
 };
 
 //Takes in array of BIDS
-const getBeersById = (beerIds) => {
+exports.getBeersById = (beerIds) => {
 	requests = [];
 	beerIds.forEach((beerId) => {
 		const request = axios.get(getBeerByIdURI(beerId));
@@ -132,7 +132,7 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">
-							<img src="./img/beer.png"></a>
+							<img src="/img/beer.png"></a>
 							<img class="act-image" src="${beer.beer.beer_label}">
 						
 						<p class="bre-name">
