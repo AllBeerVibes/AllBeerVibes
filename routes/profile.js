@@ -9,6 +9,11 @@ const User = require('../models/User');
 const Google = require('../models/GoogleUser');
 const Profile = require('../models/Profile');
 
+const apiMethods = require('../public/js/script');
+const axios = require('axios');
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+
 /*
 @route    GET /profile
 @desc     User profile
@@ -16,20 +21,60 @@ const Profile = require('../models/Profile');
 */
 router.get('/', auth, async (req, res) => {
 	errors = [];
+
 	try {
 		const profile = await Profile.findOne({
 			user : req.user.id
 		});
 
 		if (profile === null) {
+			let beers = [];
 			errors.push({ value: '', msg: 'This user has no profile', param: 'profile', location: 'body' });
 			res.render('profile', {
 				errors,
-				profile
+				profile,
+				beers
 			});
 		}
 		else {
-			res.render('profile', { profile });
+			let links = [];
+			profile.favorites.forEach((beer) => {
+				links.push(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beer.bid));
+			});
+			if (links.length > 0) {
+				axios.all(links.map((link) => axios.get(link))).then((response) => {
+					let beers = [];
+					response.forEach((result) => {
+						const {
+							bid,
+							beer_label,
+							brewery_name,
+							beer_name,
+							rating_score,
+							rating_count,
+							beer_style,
+							beer_abv
+						} = result.data.response.beer;
+						const stars = apiMethods.starRatingElement(rating_score);
+						const data = {
+							bid,
+							beer_label,
+							brewery_name,
+							beer_name,
+							stars,
+							rating_count,
+							beer_style,
+							beer_abv
+						};
+						beers.push(data);
+					});
+					res.render('profile', { profile, beers });
+				});
+			}
+			else {
+				const beers = [];
+				res.render('profile', { profile, beers });
+			}
 		}
 	} catch (err) {
 		errors.push({ value: '', msg: 'Server Error', param: 'profile', location: 'body' });
@@ -81,12 +126,24 @@ router.post('/', auth, async (req, res) => {
 		};
 	}
 
-	const profileFields = {
-		user      : req.user.id,
-		location  : location,
-		bio       : '',
-		favorites : []
-	};
+	const profile = await Profile.findOne({
+		user : req.user.id
+	});
+	let profileFields = {};
+	if (!profile) {
+		profileFields = {
+			user      : req.user.id,
+			location  : location,
+			favorites : []
+		};
+	}
+	else {
+		profileFields = {
+			user      : req.user.id,
+			location  : location,
+			favorites : profile.favorites
+		};
+	}
 
 	try {
 		if (req.user.googleId) {
@@ -201,4 +258,5 @@ router.post('/password', auth, async (req, res) => {
 		});
 	});
 });
+
 module.exports = router;

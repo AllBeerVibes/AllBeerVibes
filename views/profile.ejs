@@ -67,32 +67,40 @@
                             <hr>
                             <div class="container">
                                 <div class="row product-list dev">
-                                    <!-- Repeat -->
-                                    <div class="col-md-6 product-item">
-                                        <div class="product-container">
-                                            <div class="row">
-                                                <div class="col-md-12"><a class="product-image" href="#"><img src="assets/img/corona.jpg"></a></div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-8">
-                                                    <h2><a href="#">Corona</a></h2>
+                                    <% if(beers.length === 0) {%>
+                                        <h1 class="col-lg-12">No Favorites</h1>
+                                    <% }else{ %>  
+                                        <% beers.forEach(beer=>{ %>
+                                        <div class="col-sm-12 col-md-6 col-lg-4 product-item">
+                                            <div class="product-container">
+                                                <a class="product-image" href=<%= `/beer/${beer.bid}` %>>
+                                                    <img src="/img/beer.png"></a>
+                                                <img class="act-image" src=<%= beer.beer_label %>>
+                                                    <br><br><br>
+                                                <div class="col-12 beer-name">
+                                                    <a href=<%= `/beer/${beer.bid}` %>>
+                                                        <%= beer.beer_name %>
+                                                    </a>
                                                 </div>
-                                                <div class="col-4 btn btn-outline-profile btn-sm"><a class="small-text" href="#">Add To Menu </a></div>
-                                            </div>
-                                            <div class="product-rating"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-                                                    class="fa fa-star"></i><i class="fa fa-star-half"></i><a class="small-text" href="#">82 reviews</a>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <p class="product-description">This beer is not associated with the virus.</p>
-                                                    <div class="row">
-                                                        <div class="col-6"><button class="btn btn-light" type="button">Add To Favorites</button></div>
-                                
-                                                    </div>
+                                                <div class="col-md-12">
+                                                    <p id=" beer-rating">
+                                                        <%- beer.stars %> <span id="reviews"><%= beer.rating_count %> reviews</span>
+                                                    </p>
+                                                </div>
+                                                <div class="row justify-content-center" id="beer-des"">
+                                        							<div class=" col-8" id="ibu-color">
+                                                    <p><%= beer.beer_style %> </p>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p><%= beer.beer_abv %> %</p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        </div>
+                                        <% }) %>
+                                    <% } %> 
+                                    <!-- Repeat -->
+                                    
                                 </div>
                             </div>
                         </div>

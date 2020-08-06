@@ -1066,3 +1066,12 @@ body {
 	color: #dadadc;
 	background-color: #343a40;
 }
+.rounded {
+	max-width: 200px;
+	max-height: 200px;
+}
+#item-1-2 > div > div > div > div > div.product-container,
+#item-1-2 > div > div > div > div > div.product-container > div.beer-name > a {
+	background-color: #181a1b;
+	color: #d2cec8;
+}
