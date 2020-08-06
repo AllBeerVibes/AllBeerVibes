@@ -1,15 +1,20 @@
 /* main concept */
 
 :root {
-    --ligtGrey: #454444;
+	--ligtGrey: #454444;
 	--grey: #333333;
-	--yellow: #FFD423;
+	--yellow: #ffd423;
 	--brown: #391c0e;
 	--lightWhite: #fff;
 	--creamWhite: #dadadc;
-	--gradYellow: linear-gradient(90deg, rgba(255,212,35,1) 0%, rgba(247,255,110,1) 35%, rgba(209,208,208,1) 100%);
+	--gradYellow: linear-gradient(
+		90deg,
+		rgba(255, 212, 35, 1) 0%,
+		rgba(247, 255, 110, 1) 35%,
+		rgba(209, 208, 208, 1) 100%
+	);
 	--designFont: 'Kaushan Script';
-  }
+}
 
 body {
 	font-family: 'Lato', Arial, sans-serif;
@@ -26,7 +31,7 @@ body {
 
 #searchResult {
 	position: relative;
-	margin-top:20px;
+	margin-top: 20px;
 	max-height: 100vh;
 	overflow: auto;
 }
@@ -55,14 +60,14 @@ body {
 
 .product-item .product-container {
 	text-align: center;
-	background-color:var(--lightWhite);
+	background-color: var(--lightWhite);
 	border-radius: 20px;
-	width:100%;
+	width: 100%;
 	height: 400px;
 }
 
 .product-item .product-container:hover {
-	background-color:var(--creamWhite);
+	background-color: var(--creamWhite);
 	outline: none !important;
 	box-shadow: 0 0px 20px var(--yellow);
 	transition: .5s ease-in-out;
@@ -70,12 +75,12 @@ body {
 
 .product-item a.product-image {
 	display: block;
-	left:0;
-	right:0;
+	left: 0;
+	right: 0;
 	margin-top: 5px;
 	margin-left: 16px;
 	position: absolute;
-	z-index:1;
+	z-index: 1;
 	text-align: center;
 	width: 100%;
 }
@@ -87,7 +92,7 @@ body {
 .product-item .act-image {
 	text-align: center;
 	margin-top: 70px;
-	position:relative;
+	position: relative;
 	width: 90px;
 }
 
@@ -111,9 +116,8 @@ body {
 
 .product-item #beer-des {
 	width: 100%;
-	padding-left:15px;
+	padding-left: 15px;
 	margin: 0;
-	
 }
 
 .product-item #beer-des p {
@@ -134,7 +138,7 @@ body {
 	margin-bottom: 0px;
 }
 
-.product-item #beer-rating #reviews{
+.product-item #beer-rating #reviews {
 	font-size: 12px;
 	margin-right: 0;
 }
@@ -148,19 +152,16 @@ body {
 	margin-left: 8px;
 	color: var(--lightWhite);
 	box-shadow: 5px 5px black;
-	
 }
 
-.product-item #buttons button{
+.product-item #buttons button {
 	width: 95%;
 	color: var(--grey);
 	font-size: 15px;
-	
 }
 
-.product-item #buttons #left{
+.product-item #buttons #left {
 	border-right: 1px solid black;
-	
 }
 
 /* list description */
@@ -230,14 +231,14 @@ body {
 }
 .product-item button:active {
 	background: var(--yellow);
-	color:var(--creamWhite);
+	color: var(--creamWhite);
 	border: 0;
 }
 .product-item button:focus,
 .product-item button:focus:active {
 	background: var(--yellow);
 	outline: 0;
-	color:var(--creamWhite);
+	color: var(--creamWhite);
 }
 .product-item button:hover {
 	background: var(--yellow);
@@ -263,7 +264,7 @@ body {
 #fav__modal {
 	display: none;
 	position: fixed;
-	margin:0;
+	margin: 0;
 	height: 100%;
 	overflow: auto;
 	background: rgba(0, 0, 0, .5);
@@ -274,19 +275,18 @@ body {
 
 #fav__modal .mod__content {
 	background-color: var(--lightWhite);
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border-radius: 20px;
-    width: 80%; /* Could be more or less, depending on screen size */
+	margin: 15% auto; /* 15% from the top and centered */
+	padding: 20px;
+	border-radius: 20px;
+	width: 80%; /* Could be more or less, depending on screen size */
 }
-
 
 /* main nav bar */
 #mainNav {
 	max-width: 1920px;
 	z-index: 2;
 	position: relative;
-	width:100%;
+	width: 100%;
 }
 
 .navbar-brand {
@@ -297,7 +297,7 @@ body {
 /* index search bar */
 
 .masthead #intro-search form {
-	margin-top: 35vh
+	margin-top: 35vh;
 }
 
 .masthead #intro-search input {
@@ -307,7 +307,6 @@ body {
 }
 
 .masthead #intro-search input:focus {
-	
 	border-color: 10px solid var(--yellow);
 	outline: none !important;
 	box-shadow: 0 0px 60px var(--yellow);
@@ -315,23 +314,18 @@ body {
 }
 
 @media screen and (max-width: 700px) {
-	
 	.masthead #intro-search input,
 	.result-searchbar #searchInput {
-		width:500px;
+		width: 500px;
 	}
-
 }
 
 @media screen and (max-width: 500px) {
-	
 	.masthead #intro-search input,
 	.result-searchbar #searchInput {
-		width:400px;
+		width: 400px;
 	}
-
 }
-
 
 /* index body */
 
@@ -341,8 +335,8 @@ body {
 
 .masthead #intro-lead {
 	font-size: 50px;
-	margin-top: 10%; 
-	color:var(--lightWhite);
+	margin-top: 10%;
+	color: var(--lightWhite);
 }
 
 .masthead i#intro-button {
@@ -359,8 +353,8 @@ body {
 /* index banner section */
 
 #banner-section {
-	height: 100%; 
-	padding-top:50px
+	height: 100%;
+	padding-top: 50px;
 }
 
 .snip1527 {
@@ -457,11 +451,9 @@ body {
 }
 
 .modal-content {
-	height: 480px; 
+	height: 480px;
 	width: 480px;
-
 }
-
 
 #model1,
 #model2,
@@ -505,23 +497,23 @@ body {
 
 /* footer */
 
-footer{
+footer {
 	background-color: var(--ligtGrey);
 	position: relative;
 	width: 100%;
 	z-index: 1;
 	bottom: 0;
 	margin-top: 50px;
-  }
-  
-  .social-links a {
+}
+
+.social-links a {
 	color: var(--lightWhite);
 	margin-left: 5px;
-  }
-  
-  .social-links a :hover{
+}
+
+.social-links a :hover {
 	color: var(--yellow);
-  }
+}
 
 /* item-description */
 
@@ -532,7 +524,7 @@ footer{
 	padding: 5px 5px 5px 20px;
 }
 
-.beer-title #back{
+.beer-title #back {
 	width: 50%;
 }
 
@@ -559,7 +551,7 @@ footer{
 }
 
 #description #item-info li {
-	margin-bottom: 5px;;
+	margin-bottom: 5px;
 }
 
 #description #item-info button {
@@ -567,24 +559,22 @@ footer{
 	background: none;
 	text-align: left;
 	font-size: 25px;
-	color: var(--gradYellow)
+	color: var(--gradYellow);
 }
 
 #description #item-info button:hover {
 	background: var(--gradYellow);
 	color: var(--ligtGrey);
-	}
+}
 
 #searchResult #item-page {
 	color: var(--lightWhite);
 }
 
 @media screen and (max-width: 500px) {
-	
-	.beer-title #back	{
+	.beer-title #back {
 		width: 100%;
 	}
-
 }
 
 /* suggest menu */
@@ -605,7 +595,7 @@ footer{
 	width: 100%;
 }
 
-.suggest-container table button{
+.suggest-container table button {
 	height: 70px;
 	width: 230px;
 	font-size: 25px;
@@ -614,11 +604,7 @@ footer{
 	border-radius: 5px;
 }
 
-
-
-
 /* arrangement needed */
-
 
 #login-box {
 	max-width: 500px;
@@ -723,7 +709,6 @@ footer{
 #submit-id-submit:hover {
 	background-color: #198269;
 }
-
 
 .btn-profile {
 	background-color: rgb(224, 203, 16);
@@ -990,31 +975,31 @@ body {
 
 #map {
 	height: 100%;
-  }
+}
 
 .container-map {
 	width: 800px;
 	height: 500px;
 	margin-left: 30%;
-  }
+}
 
 #description {
 	font-family: Roboto;
 	font-size: 15px;
 	font-weight: 300;
-  }
+}
 
 #infowindow-content .title {
 	font-weight: bold;
-  }
+}
 
 #infowindow-content {
 	display: none;
-  }
+}
 
 #map #infowindow-content {
 	display: inline;
-  }
+}
 
 .pac-card {
 	margin: 10px 10px 0 0;
@@ -1025,23 +1010,23 @@ body {
 	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 	background-color: #fff;
 	font-family: Roboto;
-  }
+}
 
 #pac-container {
 	padding-bottom: 12px;
 	margin-right: 12px;
-  }
+}
 
 .pac-controls {
 	display: inline-block;
 	padding: 5px 11px;
-  }
+}
 
 .pac-controls label {
 	font-family: Roboto;
 	font-size: 13px;
 	font-weight: 300;
-  }
+}
 
 #pac-input {
 	background-color: #fff;
@@ -1052,11 +1037,11 @@ body {
 	padding: 0 11px 0 13px;
 	text-overflow: ellipsis;
 	width: 400px;
-  }
+}
 
 #pac-input:focus {
 	border-color: #4d90fe;
-  }
+}
 
 #title {
 	color: #fff;
@@ -1064,8 +1049,20 @@ body {
 	font-size: 25px;
 	font-weight: 500;
 	padding: 6px 12px;
-  }
+}
 
 #target {
 	width: 345px;
-  }
+}
+#navbarResponsive > ul > li.nav-item.dropdown.show > div {
+	background-color: #343a40;
+}
+
+#navbarResponsive > ul > li.nav-item.dropdown.show > div > a {
+	color: rgba(255, 255, 255, .5);
+}
+
+#navbarResponsive > ul > li.nav-item.dropdown.show > div > a:hover {
+	color: #dadadc;
+	background-color: #343a40;
+}

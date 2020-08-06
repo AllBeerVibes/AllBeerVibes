@@ -29,7 +29,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="nav navbar-nav mr-auto mt-2 mt-lg-0 text-uppercase">
+                    <ul class="nav navbar-nav ml-auto mt-2 mt-lg-0 text-uppercase">
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
                                 href="/suggest">SUGGEST</a></li>
                         <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
@@ -42,10 +42,24 @@
                                 <% } %>
                             </a>
                         </li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/profile">PROFILE</a></li>
-                        <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
-                                href="/logout">LOGOUT</a></li>
+                        <% if(!currentUser) {%> 
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a href="/login" class="dropdown-item">Login</a>
+                                <a href="/register" class="dropdown-item">Register</a>
+                            </div>
+                        </li>
+                        <% }else {%>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"><%= currentUser.name %> </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a href="/profile" class="dropdown-item">Profile</a>
+                                    <a href="/logout" class="dropdown-item">Logout</a>
+                                </div>
+                            </li>
+                            <% } %>
                     </ul>
                 </div>
             </div>
