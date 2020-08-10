@@ -159,7 +159,9 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 						
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
-								<button class="list_button" value='${beer.beer.bid}/${style}'>My List</button>
+								<form action="" method="post">
+									<button type="submit" name="favorite" value=${beer.beer.bid}/${style}>My List</button>
+								</form>	
 							</div>
 							<div class="col-6">
 								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>

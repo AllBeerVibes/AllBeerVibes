@@ -68,16 +68,17 @@ router.get('/result', (req, res) => {
 });
 
 //add user's beer list on mongo
-router.post('/result', (req, res) => {
+router.post('/result', auth, (req, res) => {
 
 	var userId = req.session.passport.user.id;
 	
-	let favoriteInfo = (req.body.button).split('/');
+	console.log(req.body);
+
+	let favoriteInfo = (req.body.favorite).split('/');
 
 	var favorite = {
-		like: favoriteInfo[0],
-		bid: favoriteInfo[1],
-		style: favoriteInfo[2],
+		bid: favoriteInfo[0],
+		style: favoriteInfo[1],
 	};
 
 	async.parallel({
@@ -106,7 +107,7 @@ router.post('/result', (req, res) => {
 			}
 			
 			else {
-			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid, style: favorite.style}}},
+				Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {bid: favorite.bid, style: favorite.style}}},
 				function (err) {
 					if(!err){
 						console.log('success');
@@ -160,6 +161,58 @@ router.get('/top-rated', (req, res) => {
 		})
 		.catch((error) => console.error(error));
 });
+
+router.post('/top-rated', auth, (req, res) => {
+
+	var userId = req.session.passport.user.id;
+	
+	console.log(req.body);
+
+	let favoriteInfo = (req.body.favorite).split('/');
+
+	var favorite = {
+		bid: favoriteInfo[0],
+		style: favoriteInfo[1],
+	};
+
+	async.parallel({
+		user: function(callback) {
+			Profile.find({user: userId})
+				.exec(callback);
+		},
+
+		duplicateBid: function(callback) {
+			Profile.find({favorites: { $elemMatch: {bid: favorite.bid}}})
+				.exec(callback);
+		},
+
+	}, function (err, results) {
+		
+		//fixed, there was a change of data type of passport.user
+		if(err) {console.log("we got add error");}
+		else {
+			
+			if((results.duplicateBid).length > 0)
+			{
+				console.log("duplicated beer");
+				res.redirect('back');
+				//need to make a notice about duplication
+				//Also, need to be more updated version to make users can change their like
+			}
+			
+			else {
+				Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {bid: favorite.bid, style: favorite.style}}},
+				function (err) {
+					if(!err){
+						console.log('success');
+						res.redirect('back');
+					}
+				});
+			}
+		}
+	});
+});
+
 
 //Endpoint = /beer/:bid
 router.get('/:bid', (req, res) => {

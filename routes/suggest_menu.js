@@ -28,21 +28,20 @@ router.get('/', (req,res) => {
 
 router.get('/profile', auth, async (req, res) => {
     
-        userId = req.session.passport.user.id;
-
+        userId = req.session.passport.user.id;  
+        
         const user = await Profile.findOne({user: userId})
         
         const likeBeer = [];
 
         for(var i =0; i <user.favorites.length; i++) {
-            if(user.favorites[i].like == 1) {
                 likeBeer.push(user.favorites[i].style);
-            }
         }
         
         //check if users added more than 3 like beer
+        
         if(likeBeer.length < 3) {
-            const errMessage = "You need more than 3 likes"
+            const errMessage = "You need more than 3 beers on your list"
             res.render('suggestion', {error: errMessage});
         }
 
