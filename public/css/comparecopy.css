@@ -12,6 +12,7 @@ object,
 iframe,
 h1,
 h2,
+h3,
 h4,
 h5,
 h6,
@@ -85,6 +86,7 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
+	font: inherit;
 	vertical-align: baseline;
 }
 
@@ -101,9 +103,9 @@ section,
 main {
 	display: block;
 }
-/* body {
+body {
 	line-height: 1;
-} */
+}
 ol,
 ul {
 	list-style: none;
@@ -134,25 +136,18 @@ Primary style
 *::before {
 	box-sizing: border-box;
 }
-
+html {
+	font-size: 62.5%;
+}
 body {
+	font-size: 1.6rem;
+	font-family: "Source Sans Pro", sans-serif;
 	color: #404042;
 	background-color: #ffffff;
 }
 
-#testFont {
-	font-family: "Source Sans Pro", sans-serif;
-}
-
-#testFont h2 {
-	font-size: 1em;
-}
-
-#testFont a {
-	font-size: 1em;
-}
-
 a {
+	color: #9dc997;
 	text-decoration: none;
 }
 
@@ -287,7 +282,6 @@ Main Components
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.06), transparent);
 	opacity: 0;
 }
-
 @media only screen and (min-width: 1170px) {
 	.cd-products-table .features {
 		width: 210px;

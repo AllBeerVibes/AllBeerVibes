@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <!-- from: https://codyhouse.co/gem/products-comparison-table/ -->
         <meta charset="utf-8">
@@ -21,11 +20,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> <!-- jQuery package -->
         <script src="js/comparisonModernizr.js"></script> <!-- Modernizr -->
         <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
-
     </head>
 
     <body>
-
         <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">All Beer Vibes</a>
@@ -72,77 +69,77 @@
             </div>
         </nav>
 
-        <% if (products) { %>
-        <section class="cd-products-comparison-table">
-            <header>
-                <h2>Total of <%= totalQty %> beer(s) in your comparison list!</h2>
-                <div class="actions">
-                    <a href="#0" class="reset">Undo Select</a>
-                    <a href="#0" class="filter">Select</a>
-                </div>
-            </header>
+        <div id="testFont">
+            <% if (products) { %>
+            <section class="cd-products-comparison-table">
+                <header>
+                    <h2>Total of <%= totalQty %> beer(s) in your comparison list!</h2>
+                    <div class="actions">
+                        <a href="#0" class="reset">Undo Select</a>
+                        <a href="#0" class="filter">Select</a>
+                    </div>
+                </header>
 
-            <div class="cd-products-table">
-                <div class="features">
-                    <div class="top-info">Beers</div>
-                    <ul class="cd-features-list">
-                        <li>Company</li>
-                        <li>Country</li>
-                        <li>Alcohol by Volume</li>
-                        <li>Style</li>
-                        <li>Customer Rating</li>
+                <div class="cd-products-table">
+                    <div class="features">
+                        <div class="top-info">Beers</div>
+                        <ul class="cd-features-list">
+                            <li>Company</li>
+                            <li>Country</li>
+                            <li>Alcohol by Volume</li>
+                            <li>Style</li>
+                            <li>Customer Rating</li>
+                        </ul>
+                    </div> <!-- .features -->
+
+                    <div class="cd-products-wrapper">
+                        <ul class="cd-products-columns">
+                            <% for (var i=0; i < totalQty; i++) { %>
+                            <li class="product">
+                                <div class="top-info">
+                                    <div class="check"></div>
+
+                                    <% if (products[i].item.beer_label_hd !== "") { %>
+                                        <img src="<%= products[i].item.beer_label_hd %>"> 
+                                    <% } else { %> 
+                                        <img src="<%= products[i].item.beer_label %>" >
+                                    <% } %>
+
+                                    <h2><%= products[i].item.beer_name %></h2>
+                                </div> <!-- .top-info -->
+
+                                <ul class="cd-features-list">
+                                    <li><%= products[i].item.brewery.brewery_name %></li>
+                                    <li><%= products[i].item.brewery.country_name %></li>
+                                    <li><%= products[i].item.beer_abv %></li>
+                                    <li><%= products[i].item.beer_style %></li>
+                                    <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
+                                    <li>
+                                        <div class="btn-group">
+                                            <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li> <!-- .product -->
+                            <% } %>
+                        </ul> <!-- .cd-products-columns -->
+                    </div> <!-- .cd-products-wrapper -->
+
+                    <ul class="cd-table-navigation">
+                        <li><a href="#0" class="prev inactive">&#9668;</a></li>
+                        <li><a href="#0" class="next">&#9658;</a></li>
                     </ul>
-                </div> <!-- .features -->
+                </div> <!-- .cd-products-table -->
+            </section> <!-- .cd-products-comparison-table -->        
+            <a href="/compare/clear-compare-list" role="button"> Clear Comparison List </a>
 
-                <div class="cd-products-wrapper">
-                    <ul class="cd-products-columns">
-                        <% for (var i=0; i < totalQty; i++) { %>
-                        <li class="product">
-                            <div class="top-info">
-                                <div class="check"></div>
-
-                                <% if (products[i].item.beer_label_hd !== "") { %>
-                                    <img src="<%= products[i].item.beer_label_hd %>"> 
-                                <% } else { %> 
-                                    <img src="<%= products[i].item.beer_label %>" >
-                                <% } %>
-
-                                <h2><%= products[i].item.beer_name %></h2>
-                            </div> <!-- .top-info -->
-
-                            <ul class="cd-features-list">
-                                <li><%= products[i].item.brewery.brewery_name %></li>
-                                <li><%= products[i].item.brewery.country_name %></li>
-                                <li><%= products[i].item.beer_abv %></li>
-                                <li><%= products[i].item.beer_style %></li>
-                                <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
-                                <li>
-                                    <div class="btn-group">
-                                        <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li> <!-- .product -->
-                        <% } %>
-                    </ul> <!-- .cd-products-columns -->
-                </div> <!-- .cd-products-wrapper -->
-
-                <ul class="cd-table-navigation">
-                    <li><a href="#0" class="prev inactive">&#9668;</a></li>
-                    <li><a href="#0" class="next">&#9658;</a></li>
-                </ul>
-            </div> <!-- .cd-products-table -->
-        </section> <!-- .cd-products-comparison-table -->        
-        <a href="/compare/clear-compare-list" role="button"> Clear Comparison List </a>
-
-        <% } else { %>
-            <h2>No beer in your comparison list!</h2>
-        <% } %>
+            <% } else { %>
+                <h2>No beer in your comparison list!</h2>
+            <% } %>
+        </div>
 
         <footer class="footer" style="max-height: 200px; padding-top:5px;">
-
             <div class="row justify-content-center align-items-center" style="margin:0; padding: 20px; text-align: center;">
-
                 <div class="col-md-2 footer-navigation">
                     <h3><a href="#" class="name-brand"><strong>All Beer Vibes</strong></a></h3>
                     <div class="social-links social-icons" style="padding-right: 10px; font-size: 25px;">
@@ -167,7 +164,6 @@
 
                 </div>
             </div>
-
         </footer>
 
         <script src="js/comparisonStyle.js"></script> <!-- Resource jQuery -->
