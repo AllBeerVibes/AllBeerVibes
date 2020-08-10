@@ -160,7 +160,7 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
 								<form action="" method="post">
-									<button type="submit" name="favorite" value=${beer.beer.bid}/${style}>My List</button>
+									<button type="submit" name="favorite" value=${beer.beer.bid}/${style}>Favorite</button>
 								</form>	
 							</div>
 							<div class="col-6">

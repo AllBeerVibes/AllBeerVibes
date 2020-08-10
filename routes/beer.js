@@ -48,7 +48,11 @@ router.get('/result', (req, res) => {
 					font = '#333333';
 				}
 
-				else {font = '#dadadc'};
+				else if(color == '#80400B' || color == 'black') {
+					font = '#dadadc'
+				}
+
+				else {font = 'black'};
 
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
