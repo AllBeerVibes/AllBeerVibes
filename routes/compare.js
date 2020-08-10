@@ -17,20 +17,17 @@ router.get('/my-comparison', (req, res) => {
 	let compare;
 
 	if (req.user) {	
-			CompareTest.findOne({ user: req.user }).then((data) => {
-				if (data != null) {
-					compare = new Compare(data.compare);
-					
-					return res.render('compare', {
-						products: compare.generateArray(),
-						totalQty: compare.totalQty
-					});
-				} else {
-					return res.render('compare', {
-						products: null
-					});
-				}
-			});	
+		CompareTest.findOne({ user: req.user }).then((data) => {
+			if (data != null) {
+				compare = new Compare(data.compare);	
+				return res.render('compare', {
+					products: compare.generateArray(),
+					totalQty: compare.totalQty
+				});
+			} else {
+				return res.render('compare', { products: null });
+			}
+		});
 	} else {
 		if (req.session.compare) {
 			compare = new Compare(req.session.compare);

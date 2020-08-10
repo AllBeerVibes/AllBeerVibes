@@ -178,20 +178,34 @@ router.post(
 	}),
 	function(req, res, next) {
 		if (req.session.compare) {
-			let compare = new Compare(req.session.compare);
+			let compare;
 
-			let compareTest = new CompareTest({
-				user: req.user,
-				compare: compare
-			});
+			CompareTest.findOne({ user: req.user }).then((data) => {
+				if (data != null) {
+					CompareTest.aggregate([
+						{
+							$project: {
+								compare: {$setUnion: []}
+							}
+						}
+					]);
+				} else {
+					compare = new Compare(req.session.compare);
 
-			compareTest.save(function (err) {
-				if (err) {
-					req.flash('error', err.message);
-					return res.redirect('/profile');
+					let compareTest = new CompareTest({
+						user: req.user,
+						compare: compare
+					});
+
+					compareTest.save(function (err) {
+						if (err) {
+							req.flash('error', err.message);
+							return res.redirect('/profile');
+						}
+						req.session.compare = null;
+						return res.redirect('/profile');
+					});
 				}
-				req.session.compare = null;
-				return res.redirect('/profile');
 			});
 		}
 		else {
