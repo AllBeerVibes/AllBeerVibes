@@ -137,11 +137,16 @@ Primary style
 
 body {
 	color: #404042;
-	background-color: #ffffff;
+	/* background-color: #ffffff; */
+}
+
+html {
+	height: 100%;
 }
 
 #testFont {
 	font-family: "Source Sans Pro", sans-serif;
+	color: white;
 }
 
 #testFont h2 {
@@ -165,6 +170,7 @@ h1 {
 	text-align: center;
 	padding: 4em 5%;
 }
+
 @media only screen and (min-width: 1170px) {
 	h1 {
 		font-size: 4rem;
