@@ -606,20 +606,45 @@ footer {
 
 
 /* quiz */
+
 .quiz .hidden {
 	display : none;
 	opacity: 0;
-	transition: opacity 0.5s ease-out;
-	height: 0;
 }
 
 .quiz .current {
-	display : flex;
-	height: 400px;
-	padding: 10px;	
+	position: relative;
+	display : block;
+	height: 100%;
+	padding: 10px;
+	
+	-webkit-animation-name: fadeIn;
+	-webkit-animation-duration: 0.5s;
+	animation-name: fadeIn;
+	animation-duration: 0.5s;
 }
 
+@-webkit-keyframes fadeIn {
+	0% { opacity: 0; }
+	20% { opacity: 0; }
+	40% { opacity: 0.3; }
+	60% { opacity: 0.5; }
+	80% { opacity: 0.9; }
+	100% { opacity: 1; }
+	}
+	
+	@keyframes fadeIn {
+	0% { opacity: 0; }
+	20% { opacity: 0; }
+	40% { opacity: 0.3; }
+	60% { opacity: 0.5; }
+	80% { opacity: 0.9; }
+	100% { opacity: 1; }
+	}
+	
+
 .quiz .quiz-process .current{
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -627,29 +652,35 @@ footer {
 }
 
 .quiz .quiz-process .question{
+	position: relative;
 	color: white;
-	height: 50px;
+	height: 100px;
 	margin-top: 50px;
-	margin-bottom: 50px;
+	margin-bottom: 25px;
 	
 }
 
-.quiz .quiz-process .button-list {
+.quiz .quiz-process .button-list{
+	position: relative;
+	overflow: auto;
 	display: grid;
 	grid-gap: 10px;
     grid-template-columns: repeat(3, 1fr);	
 }
 
-
 .quiz .quiz-process .button-list button{
 	color: black;
 	border-style: none;
-	border-radius: 50%;
-	width: 100px;
+	border-radius: 5%;
+	width: 150px;
 	height: 100px;
-	margin: 5px;
-	padding: 0;
+	padding: 5px;
 	
+}
+
+.quiz button:hover{
+	background-color: var(--yellow);
+	transition: 0.5s ease-out;
 }
 
 .quiz .quiz-result .result {
@@ -658,12 +689,45 @@ footer {
 	align-items: center;
 }
 
-.quiz .quiz-result .result h3{
+.quiz .quiz-result .result .head{
 	color:white;
+	margin-top: 50px;
+	height: 100px;	
+}
+
+.quiz .quiz-result .result .head span {
+	color: var(--yellow);
 }
 
 .quiz .quiz-result .result .content{
+	margin-top: 0;
 	color:white;
+	width: 350px;
+}
+
+.quiz .quiz-result .result .content form{
+	text-align: center;
+}
+
+.quiz .quiz-result .result .content button{
+	margin-top: 20px;
+	font-size: 20px;
+	color: black;
+	border-style: none;
+	border-radius: 5%;
+	width: 150px;
+	height: 70px;
+	padding: 5px;
+}
+
+
+
+
+
+@media screen and (max-width: 500px) {
+	.quiz .quiz-process .button-list{
+		grid-template-columns: repeat(2, 1fr);	
+	}
 }
 
 

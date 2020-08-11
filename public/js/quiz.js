@@ -1,4 +1,7 @@
 var array = [];
+var charArray = ['a','b','c','d','e','f'];
+var answerArray = ["IPA", "Stout", "Witbier", "Sour Ale", "Larger", "Barleywine"];
+var answerStyle = '';
 
 //sessionStorage.setItem('quizArray', array);
 
@@ -6,6 +9,7 @@ const quizMenu = document.querySelector('.quiz-process');
 const result = document.querySelector('.quiz-result');
 
 const resultContent = document.querySelector('.quiz-result .content');
+const resultHead = document.querySelector('.quiz-result .like');
 
 quizMenu.addEventListener('click', e => {
     
@@ -51,7 +55,22 @@ quizMenu.addEventListener('click', e => {
             
             console.log(nominate);
 
-            resultContent.innerHTML = `<h1>${nominate}</h1>`;
+            var num = charArray.indexOf(nominate);
+
+            console.log(num);
+
+            answerStyle = answerArray[num];
+
+            resultHead.innerHTML = answerStyle;
+                       
+            var content = 
+                `<p>blah blah blah 2~3 sentence to explain this style</p>
+                <form method='GET' action="/beer/result">
+                    <input type="hidden" name="searchterm" value=${answerStyle}/>
+                    <button type="submit">Search Beer</button>
+                </form>
+                `
+            resultContent.innerHTML = content;
 
     }
 

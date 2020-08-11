@@ -27,6 +27,8 @@ router.get('/result', (req, res) => {
 	
 	//I didn't use 'auth' since users should be able to search any beer even though they are not log-on yet
 
+	console.log(req.query);
+
 	let searchTerm = req.query.searchterm;
 
 	axios
