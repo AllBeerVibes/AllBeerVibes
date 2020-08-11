@@ -12,6 +12,7 @@ let infoWindow;
 let currentInfoWindow;
 
 function initMap() {
+  var gmarkers = [];
   var geocoder = new google.maps.Geocoder();
   var bounds = new google.maps.LatLngBounds();
   infoWindow = new google.maps.InfoWindow;
@@ -45,15 +46,22 @@ function initMap() {
             console.log("Returned place contains no geometry");
             return;
           }
-
           if (place.geometry.viewport) {
             // Only geocodes have viewport.
             bounds.union(place.geometry.viewport);
           } else {
             bounds.extend(place.geometry.location);
           }
-        });        
-        //getNearbyPlaces(pos);
+          //alert(place.geometry.location.lng);
+          // Sets the lat/lng to the entered location
+          pos = {
+            lat: place.geometry.location.lat(),
+            lng: place.geometry.location.lng(),
+          };       
+        });
+        removeMarkers();       
+        // Creates the new markers at the new pos
+        getNearbyPlaces(pos);
       });
       getNearbyPlaces(pos);
     }, () => {
@@ -90,6 +98,8 @@ function initMap() {
         map: map,
         title: place.name,
       });
+
+      gmarkers.push(marker);
 
       // Add click listener to each marker
       google.maps.event.addListener(marker, "click", () => {
@@ -164,5 +174,15 @@ function initMap() {
     );
     infoWindow.open(map);
     currentInfoWindow = infoWindow;
+
+    // Call Places Nearby Search on the default location
+    getNearbyPlaces(pos);
   }
+
+  function removeMarkers() {
+    for(i = 0; i < gmarkers.length; i++) {
+        gmarkers[i].setMap(null);
+    }
+}
+
 }
