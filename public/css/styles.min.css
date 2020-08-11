@@ -614,31 +614,41 @@ footer {
 }
 
 .quiz .current {
-	display : block;
-	height: auto;
-	opacity: 1;	
+	display : flex;
+	height: 400px;
+	padding: 10px;	
 }
 
 .quiz .quiz-process .current{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
 }
 
 .quiz .quiz-process .question{
 	color: white;
+	height: 50px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	
 }
 
-.quiz .quiz-process button{
+.quiz .quiz-process .button-list {
+	display: grid;
+	grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);	
+}
+
+
+.quiz .quiz-process .button-list button{
 	color: black;
 	border-style: none;
 	border-radius: 50%;
 	width: 100px;
 	height: 100px;
-	margin: 10px;
+	margin: 5px;
+	padding: 0;
 	
 }
 
