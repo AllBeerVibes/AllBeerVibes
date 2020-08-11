@@ -604,6 +604,59 @@ footer {
 	border-radius: 5px;
 }
 
+
+/* quiz */
+.quiz .hidden {
+	display : none;
+	opacity: 0;
+	transition: opacity 0.5s ease-out;
+	height: 0;
+}
+
+.quiz .current {
+	display : block;
+	height: auto;
+	opacity: 1;	
+}
+
+.quiz .quiz-process .current{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.quiz .quiz-process .question{
+	color: white;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	
+}
+
+.quiz .quiz-process button{
+	color: black;
+	border-style: none;
+	border-radius: 50%;
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+	
+}
+
+.quiz .quiz-result .result {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.quiz .quiz-result .result h3{
+	color:white;
+}
+
+.quiz .quiz-result .result .content{
+	color:white;
+}
+
+
 /* arrangement needed */
 
 #login-box {
