@@ -41,7 +41,7 @@ router.get('/profile', auth, async (req, res) => {
         //check if users added more than 3 like beer
         
         if(likeBeer.length < 3) {
-            const errMessage = "You need more than 3 beers on your list"
+            const errMessage = "We need at least 3 favorite beers on your list"
             res.render('suggestion', {error: errMessage});
         }
 
@@ -135,9 +135,8 @@ router.post('/profile', (req, res) => {
 	let favoriteInfo = (req.body.button).split('/');
 
 	var favorite = {
-		like: favoriteInfo[0],
-		bid: favoriteInfo[1],
-		style: favoriteInfo[2],
+		bid: favoriteInfo[0],
+		style: favoriteInfo[1],
 	};
 
 	async.parallel({

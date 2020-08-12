@@ -106,8 +106,55 @@ router.post('/result', auth, (req, res) => {
 			
 			if((results.duplicateBid).length > 0)
 			{
-				console.log("duplicated beer");
-				res.redirect('back');
+				var errM = "You already added this beer on your list";
+				
+	//need to make as a module to make compact code
+	console.log(req.query);
+
+	let searchTerm = req.query.searchterm;
+
+	axios
+		.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, searchTerm))
+		.then((response) => {
+			let beers = response.data.response.beers.items; //array of beers
+			let div = '';
+			beers.forEach((beer) => {
+				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
+				let style = beer.beer.beer_style;
+
+				style = style.split(' - ');
+				style = style[0];
+				
+				let color = apiMethods.getColor(style);
+				
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
+				}
+
+				else if(color == '#80400B' || color == 'black') {
+					font = '#dadadc'
+				}
+
+				else {font = 'black'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
+			});
+			
+			//before login, passport is undefined
+			//after logout, passport is null
+			//{} cannot be recognized as null, so I changed to 'try(get id)&catch(cannot get id)'
+			
+			try {
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id, error: errM});
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: "", error: errM});
+			}
+			
+		})
+		.catch((error) => console.error(error));
+
+
 				//need to make a notice about duplication
 				//Also, need to be more updated version to make users can change their like
 			}
@@ -117,7 +164,53 @@ router.post('/result', auth, (req, res) => {
 				function (err) {
 					if(!err){
 						console.log('success');
-						res.redirect('back');
+						var sucM = "Added successfully";
+				
+	//need to make as a module to make compact code
+	console.log(req.query);
+
+	let searchTerm = req.query.searchterm;
+
+	axios
+		.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, searchTerm))
+		.then((response) => {
+			let beers = response.data.response.beers.items; //array of beers
+			let div = '';
+			beers.forEach((beer) => {
+				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
+				let style = beer.beer.beer_style;
+
+				style = style.split(' - ');
+				style = style[0];
+				
+				let color = apiMethods.getColor(style);
+				
+				let font = '';
+				if(color =='yellow' || color =='#EC9706'){
+					font = '#333333';
+				}
+
+				else if(color == '#80400B' || color == 'black') {
+					font = '#dadadc'
+				}
+
+				else {font = 'black'};
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
+			});
+			
+			//before login, passport is undefined
+			//after logout, passport is null
+			//{} cannot be recognized as null, so I changed to 'try(get id)&catch(cannot get id)'
+			
+			try {
+				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id, success: sucM});
+			} catch {
+				res.render('searchResult', { getSearchResult: div, userId: "", success: sucM});
+			}
+			
+		})
+		.catch((error) => console.error(error));
 					}
 				});
 			}
