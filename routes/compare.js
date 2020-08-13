@@ -16,23 +16,26 @@ const CLIENT_SECRET = process.env.CLIENT_SECRET;
 router.get('/my-comparison', (req, res) => {
 	let compare;
 
-	if (req.user) {	
+	if (req.user) {
 		CompareTest.findOne({ user: req.user }).then((data) => {
 			if (data != null) {
-				compare = new Compare(data.compare);	
+				compare = new Compare(data.compare);
 				return res.render('compare', {
-					products: compare.generateArray(),
-					totalQty: compare.totalQty
+					products : compare.generateArray(),
+					totalQty : compare.totalQty
 				});
-			} else {
+			}
+			else {
 				return res.render('compare', { products: null });
 			}
 		});
-	} else {
+	}
+	else {
 		if (req.session.compare) {
 			compare = new Compare(req.session.compare);
 			return res.render('compare', { products: compare.generateArray(), totalQty: compare.totalQty });
-		} else {
+		}
+		else {
 			return res.render('compare', { products: null }); // To check if compare list is empty or not
 		}
 	}
@@ -40,16 +43,17 @@ router.get('/my-comparison', (req, res) => {
 
 router.get('/clear-compare-list', (req, res) => {
 	if (req.user) {
-		CompareTest.deleteOne({ user: req.user }, function (err) {
+		CompareTest.deleteOne({ user: req.user }, function(err) {
 			if (err) {
 				return res.write('Error');
 			}
 		});
-	} else {
+	}
+	else {
 		delete req.session.compare;
 		req.flash('success', 'Comparison list cleared!');
 	}
-	
+
 	res.redirect('/compare/my-comparison');
 });
 
@@ -85,22 +89,23 @@ router.get('/add-to-compare/:bid', (req, res) => {
 						compare = new Compare(data.compare);
 						compare.addBeerCompare(response.data.response.beer, beerId);
 
-						CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function (err) {
+						CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function(err) {
 							if (err) {
 								req.flash('error', err.message);
 								return res.redirect('/compare/my-comparison');
 							}
 						});
-					} else {
+					}
+					else {
 						compare = new Compare({});
 						compare.addBeerCompare(response.data.response.beer, beerId);
 
 						let compareTest = new CompareTest({
-							user: req.user,
-							compare: compare
+							user    : req.user,
+							compare : compare
 						});
 
-						compareTest.save(function (err) {
+						compareTest.save(function(err) {
 							if (err) {
 								req.flash('error', err.message);
 								return res.redirect('/compare/my-comparison');
@@ -108,7 +113,8 @@ router.get('/add-to-compare/:bid', (req, res) => {
 						});
 					}
 				});
-			} else {
+			}
+			else {
 				//1) Check if my Compare property exists
 				//2) If it does, pass my old Compare
 				//3) Otherwise, pass empty object
@@ -133,33 +139,35 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 			compare.deleteBeerCompare(beerId);
 
 			if (compare.totalQty > 0) {
-				CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function (err) {
+				CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function(err) {
 					if (err) {
 						req.flash('error', err.message);
 						return res.redirect('/compare/my-comparison');
 					}
 				});
-			} else {
-				CompareTest.deleteOne({ user: req.user }, function (err) {
+			}
+			else {
+				CompareTest.deleteOne({ user: req.user }, function(err) {
 					if (err) {
 						return res.write('Error');
 					}
 				});
 			}
 		});
-	} else {
+	}
+	else {
 		compare = new Compare(req.session.compare ? req.session.compare : {});
 		compare.deleteBeerCompare(beerId);
 
 		if (compare.totalQty > 0) {
 			req.session.compare = compare;
-		} else {
+		}
+		else {
 			delete req.session.compare;
 		}
 	}
-	
+
 	res.redirect('/compare/my-comparison');
 });
-
 
 module.exports = router;
