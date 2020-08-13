@@ -97,6 +97,10 @@ function initMap() {
         position: place.geometry.location,
         map: map,
         title: place.name,
+        icon: {
+          url: 'https://image.flaticon.com/icons/svg/931/931949.svg',
+          scaledSize: new google.maps.Size(40,40),
+        }
       });
 
       gmarkers.push(marker);
