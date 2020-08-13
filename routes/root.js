@@ -178,20 +178,17 @@ router.post(
 	}),
 	function(req, res, next) {
 		if (req.session.compare) {
-			let compare;
+			let compare = new Compare(req.session.compare);
 
 			CompareTest.findOne({ user: req.user }).then((data) => {
 				if (data != null) {
-					CompareTest.aggregate([
+					CompareTest.update(
+						{ user: req.user },
 						{
-							$project: {
-								compare: {$setUnion: []}
-							}
+							$addToSet: { compare: { $each: compare } }
 						}
-					]);
+					);
 				} else {
-					compare = new Compare(req.session.compare);
-
 					let compareTest = new CompareTest({
 						user: req.user,
 						compare: compare
@@ -202,10 +199,11 @@ router.post(
 							req.flash('error', err.message);
 							return res.redirect('/profile');
 						}
-						req.session.compare = null;
-						return res.redirect('/profile');
 					});
 				}
+				
+				//delete req.session.compare;
+				return res.redirect('/profile');
 			});
 		}
 		else {
