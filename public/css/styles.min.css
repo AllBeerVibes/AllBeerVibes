@@ -285,8 +285,9 @@ body {
 #mainNav {
 	max-width: 1920px;
 	z-index: 2;
-	position: relative;
+	position: fixed;
 	width: 100%;
+	top:0;
 }
 
 .navbar-brand {
@@ -582,6 +583,7 @@ footer {
 .suggest-container {
 	text-align: center;
 	height: 100%;
+	margin-top: 100px;
 }
 
 .suggest-title {
@@ -606,7 +608,9 @@ footer {
 
 
 /* quiz */
-
+.quiz {
+	margin-top: 50px;
+}
 .quiz .hidden {
 	display : none;
 	opacity: 0;
@@ -1181,6 +1185,8 @@ body {
 #target {
 	width: 345px;
 }
+
+
 #navbarResponsive > ul > li.nav-item.dropdown.show > div {
 	background-color: #343a40;
 }
