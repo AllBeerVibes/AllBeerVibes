@@ -66,20 +66,16 @@ exports.getColor = (style) => {
 		style == 'Berliner Welsse' ||
 		style == 'Malbock' ||
 		style == 'Blonde Ale' ||
-		style == 'Weissbier') 
-	{
+		style == 'Weissbier'
+	) {
 		color = 'yellow';
 	}
-
-	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') 
-	{
+	else if (style == 'IPA' || style == 'Saison' || style == 'English Bitter' || style == 'ESB') {
 		color = '#EC9706';
 	}
-	
 	else if (style == 'Biere de Garder' || style == 'Double IPA' || style == 'Dunkelweizen') {
 		color = '#80400B';
 	}
-
 	else if (style == 'Stout') {
 		color = 'black';
 	}
@@ -160,7 +156,8 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 						<div class="row justify-content-center" id="buttons">
 							<div class="col-6" id="left">
 								<form action="" method="post">
-									<button type="submit" name="favorite" value=${beer.beer.bid}/${style}>Favorite</button>
+									<button type="submit" name="favorite" value="${beer.beer.bid}~${style}~${beer.beer.beer_name}~${beer.beer
+		.beer_label}">Favorite</button>
 								</form>	
 							</div>
 							<div class="col-6">

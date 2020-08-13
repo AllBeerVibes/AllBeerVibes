@@ -37,39 +37,9 @@ router.get('/', auth, async (req, res) => {
 			});
 		}
 		else {
-			let links = [];
-			profile.favorites.forEach((beer) => {
-				links.push(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, beer.bid));
-			});
-			if (links.length > 0) {
-				axios.all(links.map((link) => axios.get(link))).then((response) => {
-					let beers = [];
-					response.forEach((result) => {
-						const {
-							bid,
-							beer_label,
-							brewery_name,
-							beer_name,
-							rating_score,
-							rating_count,
-							beer_style,
-							beer_abv
-						} = result.data.response.beer;
-						const stars = apiMethods.starRatingElement(rating_score);
-						const data = {
-							bid,
-							beer_label,
-							brewery_name,
-							beer_name,
-							stars,
-							rating_count,
-							beer_style,
-							beer_abv
-						};
-						beers.push(data);
-					});
-					res.render('profile', { profile, beers });
-				});
+			profile.favorites;
+			if (profile.favorites.length > 0) {
+				res.render('profile', { profile, beers: profile.favorites });
 			}
 			else {
 				const beers = [];
