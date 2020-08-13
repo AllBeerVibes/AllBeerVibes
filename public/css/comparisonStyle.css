@@ -135,13 +135,13 @@ Primary style
 	box-sizing: border-box;
 }
 
-body {
-	color: #404042;
-	/* background-color: #ffffff; */
+#testFont html {
+	font-size: 50%;
 }
 
-html {
-	height: 100%;
+#testFont body {
+	color: #404042;
+	background-color: #ffffff;
 }
 
 #testFont {
@@ -150,11 +150,20 @@ html {
 }
 
 #testFont h2 {
-	font-size: 1em;
+	font-size: 1.3em;
 }
 
 #testFont a {
 	font-size: 1em;
+	color: white;
+}
+
+#testFont ul {
+	font-size: 1em;
+}
+
+#testFont li {
+	font-size: 0.8em;
 }
 
 a {
@@ -162,7 +171,8 @@ a {
 }
 
 img {
-	max-width: 100%;
+	width: 6.5cm;
+	height: 4.5cm;
 }
 
 h1 {
@@ -395,13 +405,14 @@ Main Components
 .features .cd-features-list li,
 .cd-products-table .features .top-info {
 	/* fixed left column - items */
-	font-size: 1.2rem;
 	font-weight: bold;
+	color: rgb(68, 66, 66);
 	/* set line-height value equal to font-size of text inside product cells */
 	line-height: 14px;
 	padding: 25px 10px;
 	text-align: left;
 }
+
 @media only screen and (min-width: 1170px) {
 	.features .cd-features-list li,
 	.cd-products-table .features .top-info {
