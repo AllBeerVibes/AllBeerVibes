@@ -122,8 +122,9 @@ router.get('/add-to-compare/:bid', (req, res) => {
 				compare.addBeerCompare(response.data.response.beer, beerId);
 				req.session.compare = compare;
 			}
-
-			res.redirect('back');
+			req.session.save(() => {
+				res.redirect('back');
+			});
 		})
 		.catch((error) => console.error(error));
 });
