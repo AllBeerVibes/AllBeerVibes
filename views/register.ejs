@@ -1,24 +1,30 @@
 <%- include('partials/header') %>
 <div id="authForms"></div>
-        <div class="d-flex flex-column justify-content-center" id="login-box">
-            <div class="login-box-content">
-                <div class="login-box-header">
-                    <h4 style="color:#333333;margin-bottom:0px;font-weight:400;font-size:27px;">Create an account</h4>
-                </div>
-                <%- include("partials/messages") %> 
-                <div class="login-box-content">
-                <form method="post" action="/register">
-                    <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Full Name" value="<%= typeof name != 'undefined' ? name : '' %>" /></div>
-                    <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email" value="<%= typeof email != 'undefined' ? email : '' %>" /></div>
-                    <div class="form-group"><input class="form-control" type="password" name="password" minlength="6"
-                            placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>"/></div>
-                    <div class="form-group"><input class="form-control" type="password" name="password2" minlength = "6" placeholder="Confirm Password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>"/></div>
-                    <div class="form-group">
-                        <button class="btn btn-profile btn-block box-shadow" type="submit">Sign Up</button>
-                    </div><a
-                        class="already" href="/login">You already have an account? Login here.</a>
-                </form>
-                </div>
-            </div>
+<div id="register">
+<div class="d-flex flex-column justify-content-center" id="login-box">
+    <div class="login-box-content">
+        <div class="login-box-header">
+            <h4 style="margin-bottom:0px;font-weight:400;font-size:27px;">Create an account</h4>
         </div>
+        <%- include("partials/messages") %>
+        <div class="login-box-content">
+            <form method="post" action="/register">
+                <div class="form-group"><input class="form-control" type="text" name="name" placeholder="Full Name"
+                        value="<%= typeof name != 'undefined' ? name : '' %>" /></div>
+                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"
+                        value="<%= typeof email != 'undefined' ? email : '' %>" /></div>
+                <div class="form-group"><input class="form-control" type="password" name="password" minlength="6"
+                        placeholder="Password" value="<%= typeof password != 'undefined' ? password : '' %>" /></div>
+                <div class="form-group"><input class="form-control" type="password" name="password2" minlength="6"
+                        placeholder="Confirm Password"
+                        value="<%= typeof password2 != 'undefined' ? password2 : '' %>" /></div>
+                <div class="form-group">
+                    <button class="btn btn-profile btn-block box-shadow" type="submit">Sign Up</button>
+                </div>You already have an account? <a class="already" href="/login">Login here.</a>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+       
 <%- include('partials/footer') %>
