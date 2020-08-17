@@ -26,14 +26,10 @@ const BeerSchema = new mongoose.Schema({
 		type : String
 	},
     
-	award_category : {
-		type : String //world_beer_awards or world_beer_cup
-	},
-	
 	award_title : {
 		type : String //world_beer_awards or world_beer_cup
 	},
-
+	
 	year : {
 		type: String //award winning year
 	}
