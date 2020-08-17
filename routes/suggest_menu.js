@@ -83,7 +83,9 @@ router.get('/profile', auth, async (req, res) => {
 
             var div = '';
 
-            for(var i=0; i < suggest_list.length; i++) {
+            if(suggest_list.length > 8) {
+
+            for(var i=0; i < 8; i++) {
 
                 //serieze of promis function
                 let data = await axios
@@ -125,6 +127,98 @@ router.get('/profile', auth, async (req, res) => {
                 }
             res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
             }
+        
+        else if(suggest_list.length > 4) {
+
+            for(var i=0; i < 4; i++) {
+
+                //serieze of promis function
+                let data = await axios
+                    .get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, suggest_list[i].bid));
+                                        
+                    let beer = data.data.response.beer;
+
+                    let stars = apiMethods.starRatingElement(beer.rating_score);
+                    let style = beer.beer_style;
+
+                    style = style.split(' - ');
+                    style = style[0];
+                    
+                    let color = apiMethods.getColor(style);
+                    
+                    let font = '';
+                    if(color =='yellow' || color =='#EC9706'){
+                         font = '#333333';
+                     }
+
+                     else {font = '#dadadc'};
+
+                     var beer_data = {
+                         beer: {
+                             bid: beer.bid,
+                             beer_label: beer.beer_label,
+                             beer_name: beer.beer_name,
+                             rating_count: beer.rating_count,
+                             beer_abv: beer.beer_abv                             
+                        },
+
+                        brewery: {
+                            brewery_name: beer.brewery.brewery_name,
+                        }
+                     }
+                
+                div += apiMethods.beerResultDiv(beer_data, stars, style, color, font);
+
+                }
+            res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
+            }
+        
+            else {
+
+                for(var i=0; i < suggest_list.length; i++) {
+    
+                    //serieze of promis function
+                    let data = await axios
+                        .get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, suggest_list[i].bid));
+                                            
+                        let beer = data.data.response.beer;
+    
+                        let stars = apiMethods.starRatingElement(beer.rating_score);
+                        let style = beer.beer_style;
+    
+                        style = style.split(' - ');
+                        style = style[0];
+                        
+                        let color = apiMethods.getColor(style);
+                        
+                        let font = '';
+                        if(color =='yellow' || color =='#EC9706'){
+                             font = '#333333';
+                         }
+    
+                         else {font = '#dadadc'};
+    
+                         var beer_data = {
+                             beer: {
+                                 bid: beer.bid,
+                                 beer_label: beer.beer_label,
+                                 beer_name: beer.beer_name,
+                                 rating_count: beer.rating_count,
+                                 beer_abv: beer.beer_abv                             
+                            },
+    
+                            brewery: {
+                                brewery_name: beer.brewery.brewery_name,
+                            }
+                         }
+                    
+                    div += apiMethods.beerResultDiv(beer_data, stars, style, color, font);
+    
+                    }
+                res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
+                }
+
+        }
             
 });
 		
