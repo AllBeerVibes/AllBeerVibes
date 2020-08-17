@@ -22,6 +22,16 @@ const beers = require('../models/beers');
 const axios = require('axios');
 
 
+//function for randomized selection
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+
+
 router.get('/', (req,res) => {
     res.render('suggestion');
 });
@@ -77,7 +87,7 @@ router.get('/profile', auth, async (req, res) => {
             
             console.log(nominate);
             
-            const suggest_list = await beers.find({style: nominate});
+            var suggest_list = await beers.find({style: nominate});
             //to optimize the operation time, this list should be less than 8.
             //since await function will make slower
 
@@ -85,7 +95,9 @@ router.get('/profile', auth, async (req, res) => {
 
             if(suggest_list.length > 8) {
 
-            for(var i=0; i < 8; i++) {
+                shuffleArray(suggest_list);
+
+                for(var i=0; i < 8; i++) {
 
                 //serieze of promis function
                 let data = await axios
@@ -129,6 +141,8 @@ router.get('/profile', auth, async (req, res) => {
             }
         
         else if(suggest_list.length > 4) {
+
+            shuffleArray(suggest_list);
 
             for(var i=0; i < 4; i++) {
 
