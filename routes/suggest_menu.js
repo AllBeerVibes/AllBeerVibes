@@ -240,13 +240,15 @@ router.post('/profile', (req, res) => {
 
 	var userId = req.session.passport.user.id;
 	
-	let favoriteInfo = (req.body.button).split('/');
-
-	var favorite = {
-		bid: favoriteInfo[0],
-		style: favoriteInfo[1],
-	};
-
+	let favoriteInfo = (req.body.favorite).split('~');
+    
+    var favorite = {
+		bid        : favoriteInfo[0],
+		style      : favoriteInfo[1],
+		beer_name  : favoriteInfo[2],
+		beer_label : favoriteInfo[3]
+    };
+    
 	async.parallel({
 		user: function(callback) {
 			Profile.find({user: userId})
