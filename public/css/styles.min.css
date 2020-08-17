@@ -25,8 +25,8 @@ body {
 
 .result-searchbar {
 	position: relative;
-	z-index: 2;
-	margin-top: 15px;
+	z-index: 1;
+	margin-top: 100px;
 }
 
 #searchResult {
@@ -360,8 +360,18 @@ body {
 
 @media screen and (max-width: 500px) {
 	.masthead #intro-search input,
+	
+	.result-searchbar {
+		margin-top: 80px;
+	}
+	
 	.result-searchbar #searchInput {
-		width: 400px;
+		width: 300px;
+	}
+
+	.result-searchbar button {
+		display: none;
+		margin: 0;
 	}
 }
 
