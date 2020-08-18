@@ -30,33 +30,26 @@
 
     <body style="background-color: #333333;">
         <%- include('partials/header') %>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="intro">
-                        </div>
-                        <h1>Map</h1>
-                    </div>
-                </div>
-            </div>
-        
+        <div class="col-sm-12">       
         <input
         id="pac-input"
         class="controls"
         type="text"
         placeholder="Search Box"
         />
-      <div class="container-map">
+        <div class="container-map">
+        <h2>Find your nearest Pubs, Bars and Liquor Stores!</h2>
+        <p>Enter an address to locate them at the address provided.</p>
         <div id="map"></div>
-          </div>
-      </div>
-      <%- include('partials/footer') %>
+        </div>
+        </div>
+        <%- include('partials/footer') %>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
         
         
-        </body>
+    </body>
         
-        </html>
+</html>

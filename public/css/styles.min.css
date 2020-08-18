@@ -1238,7 +1238,18 @@ body {
 .container-map {
 	width: 800px;
 	height: 500px;
-	margin-left: 30%;
+    margin-right: auto;
+    margin-left: auto;
+	margin-top: 5%;
+	margin-bottom: 8%;
+}
+
+.container-map h2 {
+	color: #ffd423;
+}
+
+.container-map p {
+	color: #ffd423;
 }
 
 #description {
