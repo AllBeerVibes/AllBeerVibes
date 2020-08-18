@@ -30,16 +30,10 @@
 
     <body style="background-color: #333333;">
         <%- include('partials/header') %>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="intro">
-                        </div>
-                        <h1>Map</h1>
-                    </div>
-                </div>
-            </div>
-        
+        <div class="maptext" style="margin-top: 5%; margin-left: 30%; color: #ffd423;" >
+        <h2>Find your nearest Pubs, Bars and Liquor Stores!</h2>
+        <p>Enter an address to locate them at the address provided.</p>
+        </div>
         <input
         id="pac-input"
         class="controls"
@@ -48,8 +42,7 @@
         />
       <div class="container-map">
         <div id="map"></div>
-          </div>
-      </div>
+        </div>
       <%- include('partials/footer') %>
         
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
