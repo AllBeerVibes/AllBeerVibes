@@ -176,18 +176,25 @@ router.post(
 		failureRedirect : '/login',
 		failureFlash    : true
 	}),
-	function(req, res, next) {
+	function(req, res) {
 		if (req.session.compare) {
 			let compare = new Compare(req.session.compare);
 
 			CompareTest.findOne({ user: req.user }).then((data) => {
 				if (data != null) {
-					CompareTest.update(
-						{ user: req.user },
-						{
-							$addToSet: { compare: { $each: compare } }
-						}
-					);
+					let dbCompareData = new Compare(data.compare);
+					let sessionCompareProducts = compare.generateArray();
+
+					for (let i = 0; i < compare.totalQty; i++) {
+						dbCompareData.addBeerCompare(sessionCompareProducts[i].item, sessionCompareProducts[i].item.bid);
+					}
+
+					CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: dbCompareData } }, function(err) {
+							if (err) {
+								req.flash('error', err.message);
+								return res.redirect('/compare/my-comparison');
+							}
+					});				
 				} else {
 					let compareTest = new CompareTest({
 						user: req.user,
@@ -202,7 +209,7 @@ router.post(
 					});
 				}
 				
-				//delete req.session.compare;
+				delete req.session.compare;
 				return res.redirect('/profile');
 			});
 		}
