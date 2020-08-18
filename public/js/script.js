@@ -1,3 +1,12 @@
+require('dotenv').config();
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
+
+const Profile = require('../../models/Profile');
+const apiMethods = require('./script');
+const axios = require('axios');
+const async = require('async');
+
 exports.getBeerByIdURI = (CLIENT_ID, CLIENT_SECRET, id) => {
 	const method = `/beer/info/${id}`;
 	return `https://api.untappd.com/v4${method}?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
@@ -84,6 +93,24 @@ exports.getColor = (style) => {
 	return color;
 };
 
+exports.getFontColor = (color) => {
+	
+	let font = '';
+	if (color == 'yellow' || color == '#EC9706') {
+		font = '#333333';
+	}
+	else if (color == '#80400B' || color == 'black') {
+		font = '#dadadc';
+	}
+	else {
+		font = 'black';
+	}
+
+	return font;
+
+}
+
+
 //takes in search query
 const getBySearch = (search) => {
 	axios
@@ -168,3 +195,171 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 				</div>`;
 	return div;
 };
+
+
+exports.addFavorite = (req, res) => {
+
+	var userId = req.session.passport.user.id;
+
+	let favoriteInfo = req.body.favorite.split('~');
+
+	var favorite = {
+		bid        : favoriteInfo[0],
+		style      : favoriteInfo[1],
+		beer_name  : favoriteInfo[2],
+		beer_label : favoriteInfo[3]
+	};
+	
+	async.parallel(
+		{
+			user         : function(callback) {
+				Profile.findOne({ user: req.user.id }).exec(callback);
+			},
+	
+			duplicateBid : function(callback) {
+				Profile
+				.find({ user: req.user.id })
+				.where({ favorites: { $elemMatch: { bid: favorite.bid } } })
+				.exec(callback);
+			}
+		},
+		function(err, results) {
+			//fixed, there was a change of data type of passport.user
+			if (err) {
+				console.log('we got add error');
+			}
+			else {
+				if (results.duplicateBid.length > 0) {
+					var mes = 'You already added this beer on your list';
+	
+					//need to make as a module to make compact code
+					console.log(req.query);
+					let searchTerm = req.query.searchterm;
+
+					var flag = 'error';
+
+					axiosCall(searchTerm, flag, mes, res);
+
+					//need to make a notice about duplication
+					//Also, need to be more updated version to make users can change their like
+				}
+
+				else {
+					if (!results.user) {
+						let profileFields = {
+							user      : req.user.id,
+							location  : '',
+							favorites : [ favorite ]
+						};
+						const profile = Profile.findOneAndUpdate(
+							{ user: req.user.id },
+							{ $set: profileFields },
+							{ new: true, upsert: true },
+							(err) => {
+								if (!err) {
+									console.log('success');
+									var mes = 'Added successfully';
+	
+									//need to make as a module to make compact code
+									console.log(req.query);
+	
+									let searchTerm = req.query.searchterm;
+	
+									var flag = 'success';
+
+									axiosCall(searchTerm, flag, mes, res);
+								}
+							}
+						);
+					}
+					else {
+						Profile.findOneAndUpdate(
+							{ user: userId },
+							{
+								$push : {
+									favorites : {
+										bid        : favorite.bid,
+										style      : favorite.style,
+										beer_name  : favorite.beer_name,
+										beer_label : favorite.beer_label
+									}
+								}
+							},
+							function(err) {
+								if (!err) {
+									console.log('success');
+									var mes = 'Added successfully';
+	
+									//need to make as a module to make compact code
+									console.log(req.query);
+	
+									let searchTerm = req.query.searchterm;
+	
+									var flag = 'success';
+
+									axiosCall(searchTerm, flag, mes, res);
+								}
+							}
+						);
+					}
+				}
+			}
+		}
+	);
+}
+
+function axiosCall(searchTerm, flag, mes, res) {
+	
+	axios
+		.get(apiMethods.getBeerBySearch(CLIENT_ID, CLIENT_SECRET, searchTerm))
+		.then((response) => {
+			let beers = response.data.response.beers.items; //array of beers
+			let div = '';
+			beers.forEach((beer) => {
+				let stars = apiMethods.starRatingElement(beer.beer.rating_score);
+				let style = beer.beer.beer_style;
+
+				style = style.split(' - ');
+				style = style[0];
+
+				let color = apiMethods.getColor(style);
+				let font = apiMethods.getFontColor(color);								
+
+				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
+			});
+
+			//before login, passport is undefined
+			//after logout, passport is null
+			//{} cannot be recognized as null, so I changed to 'try(get id)&catch(cannot get id)'
+			
+			if(flag == 'error') {
+				try {
+					res.render('searchResult', {
+						getSearchResult : div,
+						userId          : req.session.passport.user.id,
+						error           : mes
+						}
+					);
+				} catch (err) {
+					res.render('searchResult', { getSearchResult: div, userId: '', error: mes });
+				}}
+
+			else if(flag == 'success') {
+				
+				try {
+					res.render('searchResult', {
+						getSearchResult : div,
+						userId          : req.session.passport.user.id,
+						success         : mes
+					});
+				} catch (err) {
+					res.render('searchResult', {
+						getSearchResult : div,
+						userId          : '',
+						success         : mes
+					});
+				}}
+
+		})
+		.catch((error) => console.error(error));
+}

@@ -21,7 +21,6 @@ const beers = require('../models/beers');
 
 const axios = require('axios');
 
-
 //function for randomized selection
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -86,61 +85,16 @@ router.get('/profile', auth, async (req, res) => {
             }
             
             console.log(nominate);
-            
-            var suggest_list = await beers.find({style: nominate});
-            //to optimize the operation time, this list should be less than 8.
-            //since await function will make slower
-
-            var div = '';
-
-            if(suggest_list.length > 8) {
-
-                shuffleArray(suggest_list);
-
-                for(var i=0; i < 8; i++) {
-
-                //serieze of promis function
-                let data = await axios
-                    .get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, suggest_list[i].bid));
-                                        
-                    let beer = data.data.response.beer;
-
-                    let stars = apiMethods.starRatingElement(beer.rating_score);
-                    let style = beer.beer_style;
-
-                    style = style.split(' - ');
-                    style = style[0];
-                    
-                    let color = apiMethods.getColor(style);
-                    
-                    let font = '';
-                    if(color =='yellow' || color =='#EC9706'){
-                         font = '#333333';
-                     }
-
-                     else {font = '#dadadc'};
-
-                     var beer_data = {
-                         beer: {
-                             bid: beer.bid,
-                             beer_label: beer.beer_label,
-                             beer_name: beer.beer_name,
-                             rating_count: beer.rating_count,
-                             beer_abv: beer.beer_abv                             
-                        },
-
-                        brewery: {
-                            brewery_name: beer.brewery.brewery_name,
-                        }
-                     }
-                
-                div += apiMethods.beerResultDiv(beer_data, stars, style, color, font);
-
-                }
-            res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
-            }
         
-        else if(suggest_list.length > 4) {
+        //function(nominate)    ;
+
+        var suggest_list = await beers.find({style: nominate});
+        //to optimize the operation time, this list should be less than 8.
+        //since await function will make slower
+
+        div = '';
+        
+        if(suggest_list.length > 4) {
 
             shuffleArray(suggest_list);
 
@@ -159,13 +113,7 @@ router.get('/profile', auth, async (req, res) => {
                     style = style[0];
                     
                     let color = apiMethods.getColor(style);
-                    
-                    let font = '';
-                    if(color =='yellow' || color =='#EC9706'){
-                         font = '#333333';
-                     }
-
-                     else {font = '#dadadc'};
+                    let font = apiMethods.getFontColor(color);								
 
                      var beer_data = {
                          beer: {
@@ -184,7 +132,7 @@ router.get('/profile', auth, async (req, res) => {
                 div += apiMethods.beerResultDiv(beer_data, stars, style, color, font);
 
                 }
-            res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
+            
             }
         
             else {
@@ -204,13 +152,7 @@ router.get('/profile', auth, async (req, res) => {
                         style = style[0];
                         
                         let color = apiMethods.getColor(style);
-                        
-                        let font = '';
-                        if(color =='yellow' || color =='#EC9706'){
-                             font = '#333333';
-                         }
-    
-                         else {font = '#dadadc'};
+                        let font = apiMethods.getFontColor(color);								
     
                          var beer_data = {
                              beer: {
@@ -229,8 +171,11 @@ router.get('/profile', auth, async (req, res) => {
                     div += apiMethods.beerResultDiv(beer_data, stars, style, color, font);
     
                     }
-                res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
+            
                 }
+
+                res.cookie('sugData', div, {maxAge: 9000, httpOnly:true});
+                res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
 
         }
             
@@ -238,9 +183,11 @@ router.get('/profile', auth, async (req, res) => {
 		
 router.post('/profile', (req, res) => {
 
+    console.log(req.cookies.sugData);
+
 	var userId = req.session.passport.user.id;
-	
-	let favoriteInfo = (req.body.favorite).split('~');
+    
+    let favoriteInfo = req.body.favorite.split('~');
     
     var favorite = {
 		bid        : favoriteInfo[0],
@@ -256,8 +203,10 @@ router.post('/profile', (req, res) => {
 		},
 
 		duplicateBid: function(callback) {
-			Profile.find({favorites: { $elemMatch: {bid: favorite.bid}}})
-				.exec(callback);
+            Profile
+            .find({ user: req.user.id })
+			.where({ favorites: { $elemMatch: { bid: favorite.bid } } })
+			.exec(callback);
 		},
 
 	}, function (err, results) {
@@ -265,21 +214,32 @@ router.post('/profile', (req, res) => {
 		//fixed, there was a change of data type of passport.user
 		if(err) {console.log("we got add error");}
 		else {
-			
-			if((results.duplicateBid).length > 0)
+            
+            if((results.duplicateBid).length > 0)
 			{
-				console.log("duplicated beer");
-				res.redirect('back');
+                console.log("duplicated beer");
+                var mes = 'You already added this beer on your list';
+				res.render('searchResult', { getSearchResult: div, userId: '', error: mes });
 				//need to make a notice about duplication
 				//Also, need to be more updated version to make users can change their like
 			}
 			
 			else {
-			Profile.findOneAndUpdate({user: userId}, {$push: {"favorites": {like: favorite.like, bid: favorite.bid, style: favorite.style}}},
+            Profile.findOneAndUpdate({user: userId}, 
+                {$push: {
+                    favorites : {
+                        bid        : favorite.bid,
+                        style      : favorite.style,
+                        beer_name  : favorite.beer_name,
+                        beer_label : favorite.beer_label
+                        }
+                    }
+                },
 				function (err) {
 					if(!err){
-						console.log('success');
-						res.redirect('back');
+                        console.log('success');
+                        var mes = 'Added successfully';
+						res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id, success: mes });                   
 					}
 				});
 			}
