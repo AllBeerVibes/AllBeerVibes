@@ -35,6 +35,7 @@ router.get('/', auth, async (req, res) => {
 				profile,
 				beers
 			});
+			errors = [];
 		}
 		else {
 			profile.favorites;
@@ -51,6 +52,7 @@ router.get('/', auth, async (req, res) => {
 		res.render('profile', {
 			errors
 		});
+		errors = [];
 	}
 });
 
@@ -138,6 +140,7 @@ router.post('/', auth, async (req, res) => {
 		res.render('profile', {
 			errors
 		});
+		errors = [];
 	}
 });
 
@@ -209,6 +212,7 @@ router.post('/password', auth, async (req, res) => {
 					errors,
 					profile
 				});
+				errors = [];
 			}
 			else {
 				try {
@@ -223,6 +227,7 @@ router.post('/password', auth, async (req, res) => {
 						errors,
 						profile
 					});
+					errors = [];
 				}
 			}
 		});

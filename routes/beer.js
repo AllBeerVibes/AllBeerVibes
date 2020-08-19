@@ -63,9 +63,7 @@ router.get('/result', (req, res) => {
 
 //add user's beer list on mongo
 router.post('/result', auth, (req, res) => {
-	
 	apiMethods.addFavorite(req, res);
-	
 });
 
 //Endpoint = /beer/map
@@ -88,7 +86,7 @@ router.get('/top-rated', (req, res) => {
 				style = style[0];
 
 				let color = apiMethods.getColor(style);
-				let font = apiMethods.getFontColor(color);	
+				let font = apiMethods.getFontColor(color);
 
 				div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 			});
@@ -123,10 +121,9 @@ router.post('/top-rated', auth, (req, res) => {
 			},
 
 			duplicateBid : function(callback) {
-				Profile
-				.find({ user: req.user.id })
-				.where({ favorites: { $elemMatch: { bid: favorite.bid } } })
-				.exec(callback);
+				Profile.find({ user: req.user.id })
+					.where({ favorites: { $elemMatch: { bid: favorite.bid } } })
+					.exec(callback);
 			}
 		},
 		function(err, results) {
@@ -264,6 +261,40 @@ router.get('/:bid', (req, res) => {
 			})
 			.catch((error) => console.error(error));
 	});
+});
+
+router.post('/remove', auth, async (req, res) => {
+	const { beer } = req.body;
+	const profile = await Profile.findOne({
+		user : req.user.id
+	});
+	let favorites = [];
+	for (let i = 0; i < profile.favorites.length; i++) {
+		if (String(profile.favorites[i].bid) !== beer) {
+			favorites.push(profile.favorites[i]);
+		}
+	}
+
+	const profileFields = {
+		user      : req.user.id,
+		location  : profile.location,
+		favorites : favorites
+	};
+
+	try {
+		const profile = await Profile.findOneAndUpdate(
+			{ user: req.user.id },
+			{ $set: profileFields },
+			{ new: true, upsert: true }
+		);
+		res.redirect('/profile');
+	} catch (err) {
+		console.log(err.message);
+		errors.push({ value: '', msg: 'Server Error', param: 'profile', location: 'body' });
+		res.render('profile', {
+			errors
+		});
+	}
 });
 
 module.exports = router;

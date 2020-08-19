@@ -76,28 +76,25 @@
                                                     <img src="/img/beer.png"></a>
                                                 <img class="act-image" src=<%= beer.beer_label %>>
                                                     <br><br>
-                                                <div class="col-12 beer-name">
+                                                <div class="col-12 beer-name-profile">
                                                     <a href=<%= `/beer/${beer.bid}` %>>
                                                         <%= beer.beer_name %>
                                                     </a>
                                                 </div>
                                                 
-                                                <div class="row justify-content-center" id="beer-des"">
+                                                
+                                                <div class="justify-content-center" id="beer-des"">
                                         							<div class=" col-12" id="ibu-color">
                                                     <p><%= beer.style %> </p>
                                                 </div>
                                                 <div class="justify-content-center">
                                                     <form method="POST" action="/beer/remove">
-                                                            <input type="text" value=<%= `${beer.bid}` %> hidden>
+                                                            <input type="text" name="beer" value=<%= `${beer.bid}` %> hidden>
                                                        
-                                                        <button type="submit" class="btn btn-profile">Remove</button>
+                                                        <button type="submit" class="btn btn-profile">Unfavorite</button>
                                                        
                                                     </form>
                                                 </div>
-                                                
-                                                
-                                                
-                                                
                                             </div>
                                         </div>
                                         </div>
