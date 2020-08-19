@@ -215,7 +215,7 @@ Main Components
 	display: table;
 }
 .cd-products-comparison-table h2 {
-	float: left;
+	/* float: left; */
 	font-weight: bold;
 }
 .cd-products-comparison-table .actions {
@@ -494,8 +494,8 @@ Main Components
 .cd-products-table .top-info .check::before {
 	/* green circle dot */
 	border-radius: 50%;
-	border: 1px solid #e6e6e6;
-	background: #ffffff;
+	border: 1px solid #3c4144;
+	background: #181a1b;
 	-webkit-transition: background-color 0.3s, -webkit-transform 0.3s, border-color 0.3s;
 	-moz-transition: background-color 0.3s, -moz-transform 0.3s, border-color 0.3s;
 	transition: background-color 0.3s, transform 0.3s, border-color 0.3s;
@@ -508,6 +508,16 @@ Main Components
 	-webkit-transition: opacity 0.3s;
 	-moz-transition: opacity 0.3s;
 	transition: opacity 0.3s;
+}
+.cd-products-table .top-info .check:hover::before {
+	-webkit-transform: scale(1.5);
+	-moz-transform: scale(1.5);
+	-ms-transform: scale(1.5);
+	-o-transform: scale(1.5);
+	transform: scale(1.5);
+	-webkit-animation: cd-bounce 0.3s;
+	-moz-animation: cd-bounce 0.3s;
+	animation: cd-bounce 0.3s;
 }
 @media only screen and (min-width: 1170px) {
 	.cd-products-table .top-info {
@@ -537,8 +547,8 @@ Main Components
 
 .cd-products-table .selected .top-info .check::before {
 	/* green circle dot */
-	background: #9dc997;
-	border-color: #9dc997;
+	background: #ffd423;
+	border-color: #ffd423;
 	-webkit-transform: scale(1.5);
 	-moz-transform: scale(1.5);
 	-ms-transform: scale(1.5);
@@ -727,4 +737,14 @@ No JS
 
 .no-js .cd-products-columns .check {
 	display: none;
+}
+#testFont > section > div > div.features > ul,
+#testFont > section > div > div.features > ul > li,
+#testFont > section > div > div.features > div {
+	background-color: #181a1b;
+	color: #e8e6e3;
+}
+#testFont > section > div > div.cd-products-wrapper > ul > li > div {
+	background-color: #333333;
+	color: #e8e6e3;
 }

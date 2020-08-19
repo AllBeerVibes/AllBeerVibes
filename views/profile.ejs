@@ -6,9 +6,9 @@
                 <div class="col-md-4">
                     <div id="vertical-menu nav nav-tabs card-header-tabs" role="tablist">
                         <div class="list-group nav nav-tabs card-header-tabs">
-                            <a class="settings list-group-item active" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1"> 
+                            <a class="settings list-group-item" id="item-1-1-tab" data-toggle="tab" role="tab" aria-controls="item-1-1" aria-selected="true" href="#item-1-1"> 
                                 <i class="fa fa-info-circle fa-fw"></i> Information</a>
-                            <a class="settings list-group-item" id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2"> 
+                            <a class="settings list-group-item active" id="item-1-2-tab" data-toggle="tab" role="tab" aria-controls="item-1-2" aria-selected="false" href="#item-1-2"> 
                                 <i class="fa fa-heart fa-fw"></i> Favorites</a>
                            
                                 <% if(!currentUser.googleId && !currentUser.githubId) {%>
@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="col-md-8 tab-content"> 
-                    <div id="item-1-1" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-1-tab">
+                    <div id="item-1-1" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-1-tab">
                         <div class="setting-body">
                             <%- include("partials/messages") %>
                             <h3>Edit Profile</h3>
@@ -60,7 +60,7 @@
                                 </div>
                         </div>
                     </div>
-                    <div id="item-1-2" class="tab-pane fade" role="tabpanel" aria-labelledby="item-1-2-tab"> 
+                    <div id="item-1-2" class="tab-pane fade show active" role="tabpanel" aria-labelledby="item-1-2-tab"> 
                         <div class="setting-body">
                             <h3>Favorites</h3>
                             <hr>

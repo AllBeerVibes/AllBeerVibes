@@ -298,7 +298,8 @@ body {
 	top: 0;
 }
 #profile,
-#authForms {
+#authForms,
+#compareMargin {
 	margin-top: 60px;
 }
 #item-1-1 > div,
@@ -1360,4 +1361,13 @@ body {
 }
 ::-webkit-scrollbar-thumb {
 	background-color: #131516;
+}
+
+/* Dark mode */
+#searchBox,
+#pac-input,
+#searchInput {
+	background-color: #181a1b;
+	color: #c8c3bc;
+	border-color: #3c4144;
 }
