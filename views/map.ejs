@@ -29,7 +29,50 @@
     </head>
 
     <body style="background-color: #333333;">
-        <%- include('partials/header') %>
+    <nav class="navbar navbar-dark navbar-expand-md bg-dark" id="mainNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">All Beer Vibes</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarResponsive" type="button"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="nav navbar-nav ml-auto mt-2 mt-lg-0 text-uppercase">
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger"
+                            href="/suggest">SUGGEST</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link js-scroll-trigger" href="/beer/map">PUB
+                            MAP</a></li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link js-scroll-trigger" href="/compare/my-comparison">COMPARE
+                            <!-- below two lines of code need better solution -->
+                            <% if (session.compare) { %>
+                            <span class="badge"><%= session.compare.totalQty %></span>
+                            <% } %>
+                        </a>
+                    </li>
+                    <% if(!currentUser) {%>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Profile</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="/login" class="dropdown-item">Login</a>
+                            <a href="/register" class="dropdown-item">Register</a>
+                        </div>
+                    </li>
+                    <% }else {%>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= currentUser.name %> </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a href="/profile" class="dropdown-item">Profile</a>
+                            <a href="/logout" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
         <div class="col-sm-12">       
         <input
         id="pac-input"
@@ -45,11 +88,3 @@
         </div>
         <%- include('partials/footer') %>
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-        
-        
-    </body>
-        
-</html>
