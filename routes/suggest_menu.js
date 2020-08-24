@@ -174,7 +174,7 @@ router.get('/profile', auth, async (req, res) => {
             
                 }
 
-                res.cookie('sugData', div, {maxAge: 9000, httpOnly:true});
+                //res.cookie('sugData', div, {maxAge: 9000, httpOnly:true});
                 res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });                   
 
         }

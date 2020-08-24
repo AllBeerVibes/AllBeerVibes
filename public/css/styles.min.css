@@ -36,12 +36,6 @@ body {
 	overflow: auto;
 }
 
-#filter-bar {
-	position: relative;
-	margin-top: 5px;
-	z-index: 1;
-}
-
 #searchInput {
 	text-align: left;
 	width: 700px;
