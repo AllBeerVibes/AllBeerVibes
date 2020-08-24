@@ -24,41 +24,48 @@
                         <div class="col-md-4 col-sm-12">
                             <ul id="item-info">
                                 <li>
-                                    TYPE <%= beer_info.style %>
+                                    <span>TYPE</span> <%= beer_info.style %>
                                 </li>
                                 <li>
-                                    ABV <%= beer_info.abv %>
+                                    <span>ABV</span> <%= beer_info.abv %>
                                 </li>
                                 <li>
-                                    IBU <%= beer_info.ibu %>
+                                    <span>IBU</span> <%= beer_info.ibu %>
                                 </li>
                                 <li>
                                     <%- beer_info.stars %> <a href="#"> <%= beer_info.count %> reviews</a>
                                 </li>
                                 <!--need to check-->
                                 <% if (beer_info.breweryName !== ""){%>
-                                <li>MADE BY <p><%= beer_info.breweryName %></p></li>
+                                <li><span>MADE BY</span><p><%= beer_info.breweryName %></p></li>
                                 <% } %>
                                 <li>
-                                    <form action="" method="post">
-                                        <button type="submit" name="favorite" 
-                                            value="<%= beer_info.bid %>~<%= beer_info.style %>~<%= beer_info.name %>~<%= beer_info.image %>">
-                                        Favorite</button>
-                                    <a href="/compare/add-to-compare/<%= beer_info.bid %>" role="button" class="btn btn-light"> Compare </a>
+                                    <div class="row justify-content-center" id="buttons">
+                                        <div class="col-6" id="left">
+                                            <form action="" method="post">
+                                                <button type="submit" name="favorite" 
+                                                    value="<%= beer_info.bid %>~<%= beer_info.style %>~<%= beer_info.name %>~<%= beer_info.image %>">
+                                                Favorite</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-6">
+                                            <a href="/compare/add-to-compare/<%= beer_info.bid %>" role="button" class="btn btn-light"> Compare </a>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                 </div>
             </div>
 
-                <div class="beer-title">
+                <div class="beer-description">
                     <div class="container-fluid" id="back">
                         <h3>description</h3>
                         <p><%= beer_info.description %> </p>
                     </div>
                 </div>
                 
-                <div class="container-fluid" id="searchResult">
+                <div class="container-fluid" id="searchResult" style="margin-top: 20px;">
                     <div class="container">
                         <h3 id="item-page">Same Type</h3>
                         <div class="row product-list dev" id="topRatedBeers">

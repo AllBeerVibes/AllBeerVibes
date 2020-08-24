@@ -653,7 +653,7 @@ footer #email:hover {
 	position: relative;
 	width: 100%;
 	background: var(--lightWhite);
-	padding: 5px 5px 5px 20px;
+	padding: 15px 5px 5px 20px;
 }
 
 .beer-title #back {
@@ -661,7 +661,7 @@ footer #email:hover {
 }
 
 #description {
-	margin-top: 20px;
+	margin-top: 20px;	
 }
 
 #description #beer-image {
@@ -669,6 +669,7 @@ footer #email:hover {
 	height: 300px;
 	width: 300px;
 	padding: 10px;
+	margin-top: 40px;
 }
 
 #description #beer-image img {
@@ -678,14 +679,21 @@ footer #email:hover {
 
 #description #item-info {
 	font-size: 25px;
+	font-family: 'Lato', Arial;
 	list-style-type: none;
 	color: var(--lightWhite);
 	padding: 20px;
 	margin-left: 10px;
+	margin-top: 40px;
 }
 
 #description #item-info li {
 	margin-bottom: 5px;
+}
+
+#description #item-info li span{
+	color: var(--yellow);
+	font-size: 20px;
 }
 
 #description #item-info button {
@@ -696,18 +704,54 @@ footer #email:hover {
 	color: var(--gradYellow);
 }
 
-#description #item-info button:hover {
-	background: var(--gradYellow);
-	color: var(--ligtGrey);
-}
-
 #searchResult #item-page {
 	color: var(--lightWhite);
 }
 
+.beer-description {
+	margin-top: 20px;
+	position: relative;
+	width: 100%;
+	background: var(--lightWhite);
+	padding: 15px 5px 5px 20px;
+}
+
+.beer-description #back {
+	width: 50%;
+}
+
+#item-info li #buttons {
+	background-color: var(--yellow);
+	width: 60%;
+	margin-top: 15px;
+	border-radius: 20px;
+	margin-left: 8px;
+	color: var(--lightWhite);
+	box-shadow: 5px 5px black;
+	padding: 0;
+}
+
+#item-info li #buttons button,  #item-info li #buttons a{
+	text-align: center;
+	width: 100%;
+	height: 100%;
+	color: var(--grey);
+	font-size: 15px;
+	border-style: none;
+	background: none;
+}
+
+#item-info li #buttons #left {
+	border-right: 1px solid black;
+}
+
+
 @media screen and (max-width: 500px) {
-	.beer-title #back {
+	.beer-title #back, .beer-description #back {
 		width: 100%;
+	}
+	#item-info li #buttons {
+		width: 90%;
 	}
 }
 
