@@ -179,6 +179,26 @@ body {
 	border-right: 1px solid black;
 }
 
+.floating__icon button{
+	display: none;
+	position: fixed;
+	z-index: 99;
+	bottom: 0;
+	right: 0;
+	margin: 20px;	
+	border-style: none;
+	outline-style: none;
+	border-radius: 50%;
+	padding: 20px;
+	background-color: rgba(255, 212, 35, 0.6)
+}
+
+@media screen and (max-width: 500px) {
+	.floating__icon button{
+		display: block;
+	}
+}
+
 /* list description */
 
 .product-item h2 {

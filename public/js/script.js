@@ -363,3 +363,7 @@ function axiosCall(searchTerm, flag, mes, res) {
 		})
 		.catch((error) => console.error(error));
 }
+
+function toTop() {
+	window.scrollTo({top:0,left:0, behavior:'smooth'});
+}
