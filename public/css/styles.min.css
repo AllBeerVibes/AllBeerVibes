@@ -21,6 +21,17 @@ body {
 	background-color: var(--grey);
 }
 
+/* error */
+.error_M {
+	Top: 5;
+	position: fixed;
+	z-index: 2;
+	width: 100%;
+	opacity: 0.5;
+
+}
+
+
 /* search result */
 
 .result-searchbar {
@@ -286,7 +297,7 @@ body {
 /* main nav bar */
 #mainNav {
 	max-width: 1920px;
-	z-index: 2;
+	z-index: 9;
 	position: fixed;
 	width: 100%;
 	top: 0;
@@ -629,7 +640,8 @@ footer #email:hover {
 /* item-description */
 
 .beer-title {
-	margin-top: 20px;
+	margin-top: 50px;
+	position: relative;
 	width: 100%;
 	background: var(--lightWhite);
 	padding: 5px 5px 5px 20px;
@@ -644,12 +656,14 @@ footer #email:hover {
 }
 
 #description #beer-image {
-	text-align: center;
-	padding: 20px;
+	text-align: center;	
+	height: 300px;
+	width: 300px;
+	padding: 10px;
 }
 
 #description #beer-image img {
-	height: 250px;
+	width: 100%;
 	border-radius: 20px;
 }
 

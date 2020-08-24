@@ -43,6 +43,11 @@ router.get('/profile', auth, async (req, res) => {
         
         const likeBeer = [];
 
+        if(user == undefined || user == null) {
+            const errMessage = "We need at least 3 favorite beers on your list"
+            res.render('suggestion', {error: errMessage});
+        }
+        
         for(var i =0; i <user.favorites.length; i++) {
                 likeBeer.push(user.favorites[i].style);
         }

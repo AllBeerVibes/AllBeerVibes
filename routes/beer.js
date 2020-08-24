@@ -16,6 +16,8 @@ const Profile = require('../models/Profile');
 const async = require('async');
 
 const { auth } = require('../middleware/auth');
+const { data } = require('jquery');
+const { json } = require('body-parser');
 
 //Endpoint = /beer/search
 router.get('/search', (req, res) => {
@@ -186,6 +188,11 @@ router.post('/top-rated', auth, (req, res) => {
 
 //Endpoint = /beer/:bid
 router.get('/:bid', (req, res) => {
+	
+	console.log(req.session);
+
+	var sesss = req.session;
+	
 	const { bid } = req.params;
 	axios.get(apiMethods.getBeerByIdURI(CLIENT_ID, CLIENT_SECRET, bid)).then((response) => {
 		const {
@@ -219,26 +226,17 @@ router.get('/:bid', (req, res) => {
 				beers.forEach((beer) => {
 					let stars = apiMethods.starRatingElement(beer.beer.rating_score);
 					let style = beer.beer.beer_style;
-
-					style = style.split(' ');
+	
+					style = style.split(' - ');
 					style = style[0];
-
-					let color = beer.beer.beer_ibu;
-
-					if (color > 60) {
-						color = 'black';
-					}
-					else if (color > 30) {
-						color = 'brown';
-					}
-					else {
-						color = 'yellow';
-					}
-
-					div += apiMethods.beerResultDiv(beer, stars, style, color);
+	
+					let color = apiMethods.getColor(style);
+					let font = apiMethods.getFontColor(color);
+	
+					div += apiMethods.beerResultDiv(beer, stars, style, color, font);
 				});
 
-				res.render('description', {
+				let description_data = {
 					bid          : bid,
 					name         : beer_name,
 					image        : beer_label,
@@ -256,12 +254,86 @@ router.get('/:bid', (req, res) => {
 					country      : country_name,
 					contact      : contact,
 					location     : location,
-					getTopRated  : div
+					topRated	 : div,
+				}
+				
+				sesss.description_data = description_data;
+
+				//res.cookie('description', descrip, {maxAge: 9000});
+				res.render('description', { beer_info: description_data, 					
+					getTopRated  : description_data.topRated
 				});
 			})
 			.catch((error) => console.error(error));
 	});
 });
+
+router.post('/:bid', auth, (req, res) => {
+
+    var userId = req.session.passport.user.id;
+    
+    let favoriteInfo = req.body.favorite.split('~');
+    
+    var favorite = {
+		bid        : favoriteInfo[0],
+		style      : favoriteInfo[1],
+		beer_name  : favoriteInfo[2],
+		beer_label : favoriteInfo[3]
+    };
+	
+	async.parallel({
+		user: function(callback) {
+			Profile.find({user: userId})
+				.exec(callback);
+		},
+
+		duplicateBid: function(callback) {
+            Profile
+            .find({ user: req.user.id })
+			.where({ favorites: { $elemMatch: { bid: favorite.bid } } })
+			.exec(callback);
+		},
+
+	}, function (err, results) {
+		
+		//fixed, there was a change of data type of passport.user
+		if(err) {console.log("we got add error");}
+		else {
+            
+            if((results.duplicateBid).length > 0)
+			{
+                console.log("duplicated beer");
+                var mes = 'You already added this beer on your list';
+				res.render('description', { beer_info: req.session.description_data, 					
+					getTopRated  : req.session.description_data.topRated, userId: '', error: mes });
+				//need to make a notice about duplication
+				//Also, need to be more updated version to make users can change their like
+			}
+			
+			else {
+            Profile.findOneAndUpdate({user: userId}, 
+                {$push: {
+                    favorites : {
+                        bid        : favorite.bid,
+                        style      : favorite.style,
+                        beer_name  : favorite.beer_name,
+                        beer_label : favorite.beer_label
+                        }
+                    }
+                },
+				function (err) {
+					if(!err){
+                        console.log('success');
+                        var mes = 'Added successfully';
+						res.render('description', {beer_info: req.session.description_data, 					
+							getTopRated  : req.session.description_data.topRated, userId: req.session.passport.user.id, success: mes });                   
+					}
+				});
+			}
+		}
+	});
+});
+
 
 router.post('/remove', auth, async (req, res) => {
 	const { beer } = req.body;
