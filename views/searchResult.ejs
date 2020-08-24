@@ -1,5 +1,6 @@
 <%- include('partials/header') %>
-          <div class="result-searchbar">
+       
+            <div class="result-searchbar">
                 <div class="row justify-content-center">
                     <form class="form-inline" method='GET' action="/beer/result">
                         <input class="form-control amber-border" id="searchInput" type="text"
@@ -11,19 +12,18 @@
             </div>
 
             <div class="container-fluid" id="searchResult">
-                <%- include("partials/messages") %>
+                <div class="error_M">
+                    <%- include("partials/messages") %>
+                </div>
                 <div class="container">
                     <div class="row product-list dev" id="beerResult">
-                        <!-- added this invisible input to use the user id from server side session storage-->
                         <input class="beerResult__userId" style="display:none" value= '<%- userId %>'/>
                         <%- getSearchResult %>
                     </div>
                 </div>
             </div>
 
-            <div class="container-fluid" id="fav__modal">
-                <div class="mod__content">                    
-                </div>
-            </div>
-
+        
 <%- include('partials/footer') %>
+        
+

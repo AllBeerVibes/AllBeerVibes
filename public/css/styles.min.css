@@ -23,29 +23,33 @@ body {
 
 /* error */
 .error_M {
-	Top: 5;
-	position: fixed;
 	z-index: 2;
 	width: 100%;
-	opacity: 1;
-	transition: opacity 0.5s ease-in-out;
+	position: fixed;
+	margin: auto;
+	opacity: 0.8;
+	transition: all 0.5s ease-in-out;
 
 }
-
 
 /* search result */
 
 .result-searchbar {
-	position: relative;
-	z-index: 1;
-	margin-top: 100px;
+	position: fixed;
+	width: 100%;
+	height: 80px;
+	top: 0;
+	left:0;
+	background: var(--grey);
+	padding: 20px;
+	z-index: 5;
+	margin-top: 50px;	
 }
 
 #searchResult {
 	position: relative;
-	margin-top: 20px;
-	max-height: 100vh;
-	overflow: auto;
+	margin-top: 130px;
+	overflow: none;
 }
 
 #searchInput {
@@ -274,26 +278,6 @@ body {
 	height: 280px;
 }
 
-/* favorite button modal */
-#fav__modal {
-	display: none;
-	position: fixed;
-	margin: 0;
-	height: 100%;
-	overflow: auto;
-	background: rgba(0, 0, 0, .5);
-	left: 0;
-	top: 0;
-	z-index: 999;
-}
-
-#fav__modal .mod__content {
-	background-color: var(--lightWhite);
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border-radius: 20px;
-	width: 80%; /* Could be more or less, depending on screen size */
-}
 
 /* main nav bar */
 #mainNav {
@@ -380,7 +364,7 @@ body {
 @media screen and (max-width: 500px) {
 	.masthead #intro-search input,
 	.result-searchbar {
-		margin-top: 80px;
+		margin-top: 50px;
 	}
 
 	.masthead #intro-search input,
@@ -391,6 +375,9 @@ body {
 	.result-searchbar button {
 		display: none;
 		margin: 0;
+	}
+	.error_M {
+		width: 350px;
 	}
 }
 
@@ -609,8 +596,8 @@ footer {
 	background-color: var(--ligtGrey);
 	position: relative;
 	width: 100%;
-	z-index: 1;
-	bottom: 0;
+	bottom: 0;	
+	max-height: 200px;
 	margin-top: 50px;
 }
 
@@ -637,6 +624,7 @@ footer #email:hover {
 .social-links a :hover {
 	color: var(--yellow);
 }
+
 
 /* item-description */
 
@@ -733,7 +721,7 @@ footer #email:hover {
 
 /* quiz */
 .quiz {
-	margin-top: 50px;
+	margin-top: 25px;
 }
 .quiz .hidden {
 	display: none;
@@ -803,19 +791,30 @@ footer #email:hover {
 	text-align: center;
 }
 
-.quiz .quiz-process .question {
+.quiz .question {
+	display: flex;
 	position: relative;
 	color: white;
-	height: 100px;
-	margin-top: 50px;
-	margin-bottom: 25px;
+	width: 100%;
+	height: 150px;
+	align-items: center;
+	justify-content: center;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.quiz h3 {
+	font-size: 22px;
+	padding: 0;
+	margin: 0;
+	
 }
 
 .quiz .quiz-process .button-list {
 	position: relative;
 	overflow: auto;
 	display: grid;
-	grid-gap: 10px;
+	grid-gap: 5px;
 	grid-template-columns: repeat(3, 1fr);
 }
 
@@ -823,8 +822,8 @@ footer #email:hover {
 	color: black;
 	border-style: none;
 	border-radius: 5%;
-	width: 150px;
-	height: 100px;
+	width: 170px;
+	height: 90px;
 	padding: 5px;
 }
 
@@ -870,10 +869,17 @@ footer #email:hover {
 	padding: 5px;
 }
 
+.quiz_foot {
+	position: fixed; 
+	bottom:0;
+	margin-top:0;
+}
+
 @media screen and (max-width: 500px) {
 	.quiz .quiz-process .button-list {
 		grid-template-columns: repeat(2, 1fr);
-	}
+	}	
+	
 }
 
 /* arrangement needed */

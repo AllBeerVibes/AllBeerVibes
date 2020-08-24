@@ -1,6 +1,8 @@
 <%- include('partials/header') %>
     <div class="suggest-container">
-        <%- include("partials/messages") %>
+        <div class="error_M">
+            <%- include("partials/messages") %>
+        </div>
         <h1 class="suggest-title">Recommendation Options</h1>
         
                 <table>
@@ -24,4 +26,48 @@
     
     </div>
 
-<%- include('partials/footer') %>
+    <footer style="position: fixed; bottom:0;">
+
+        <div class="row justify-content-center align-items-center" style="margin:0; padding: 20px; text-align: center;">
+    
+            <div class="col-md-2 footer-navigation">
+                <h3><a href="#" class="name-brand"><strong>All Beer Vibes</strong></a></h3>
+                <div class="social-links social-icons" style="padding-right: 10px; font-size: 25px;">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                    <a href="#"><i class="fa fa-github"></i></a>
+                </div>
+            </div>
+    
+            <div class="col-md-2 footer-contacts" style="color:white;">
+                <div class="row justify-content-center">
+                    <div style="margin-right: 10px;">
+                        <i class="fa fa-envelope footer-contacts-icon"></i></div>
+                    <a id="email" href= "mailto: allbeervibes@google.com">allbeervibes@google.com</a>
+                </div>
+            </div>
+    
+            <div class="clearfix"></div>
+            <div class="col-md-2 footer-about" style="color:white" ;>
+                All Beer Vibes © 2020
+    
+            </div>
+        </div>
+    
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+    <script src="/js/script.min.js"></script>
+    <script src="/js/error.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    
+    
+    
+    </body>
+    
+    </html>
+    
+    

@@ -1,11 +1,9 @@
 const errorM = document.querySelector('.error_M');
 
-console.log(window.scrollY);
+window.onclick = function(e) {
+    errorM.style.opacity = 0;
+}
 
-window.onscroll = function() {removeM()};
-
-function removeM() {
-    if(window.pageYOffset > 0) {    
-        errorM.style.opacity = 0;
-    }
+window.onscroll = function(e) {
+    errorM.style.opacity = 0;
 }
