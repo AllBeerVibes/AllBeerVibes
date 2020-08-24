@@ -28,8 +28,6 @@ router.get('/search', (req, res) => {
 router.get('/result', (req, res) => {
 	//I didn't use 'auth' since users should be able to search any beer even though they are not log-on yet
 
-	console.log(req.query);
-
 	let searchTerm = req.query.searchterm;
 
 	axios
@@ -75,6 +73,9 @@ router.get('/map', function(req, res) {
 
 //Endpoint = /beer/top-rated
 router.get('/top-rated', (req, res) => {
+	
+	var sesss = req.session;
+	
 	axios
 		.get(apiMethods.getTopRatedURI(CLIENT_ID, CLIENT_SECRET))
 		.then((response) => {
@@ -94,8 +95,10 @@ router.get('/top-rated', (req, res) => {
 			});
 
 			try {
+				sesss.description_data = div;	
 				res.render('searchResult', { getSearchResult: div, userId: req.session.passport.user.id });
 			} catch (err) {
+				sesss.description_data = div;	
 				res.render('searchResult', { getSearchResult: div, userId: '' });
 			}
 		})
@@ -104,8 +107,6 @@ router.get('/top-rated', (req, res) => {
 
 router.post('/top-rated', auth, (req, res) => {
 	var userId = req.session.passport.user.id;
-
-	console.log(req.body);
 
 	let favoriteInfo = req.body.favorite.split('~');
 
@@ -128,69 +129,55 @@ router.post('/top-rated', auth, (req, res) => {
 					.exec(callback);
 			}
 		},
-		function(err, results) {
+		function (err, results) {
+		
 			//fixed, there was a change of data type of passport.user
-			if (err) {
-				console.log('we got add error');
-			}
+			if(err) {console.log("we got add error");}
 			else {
-				if (results.duplicateBid.length > 0) {
-					console.log('duplicated beer');
-					res.redirect('back');
-					//need to make a notice about duplication
-					//Also, need to be more updated version to make users can change their like
+				
+				if((results.duplicateBid).length > 0)
+				{
+					console.log("duplicated beer");
+					var mes = 'You already added this beer on your list';
+					
+					try {
+					res.render('searchResult', { getSearchResult: req.session.description_data, error: mes, userId: req.session.passport.user.id}); 
+					} catch {
+						res.render('searchResult', { getSearchResult: req.session.description_data, error: mes, userId: ''}); 
+					}
 				}
+				
 				else {
-					if (!results.user) {
-						let profileFields = {
-							user      : req.user.id,
-							location  : '',
-							favorites : [ favorite ]
-						};
-						const profile = Profile.findOneAndUpdate(
-							{ user: req.user.id },
-							{ $set: profileFields },
-							{ new: true, upsert: true },
-							(err) => {
-								if (!err) {
-									console.log('success');
-									res.redirect('back');
-								}
+				Profile.findOneAndUpdate({user: userId}, 
+					{$push: {
+						favorites : {
+							bid        : favorite.bid,
+							style      : favorite.style,
+							beer_name  : favorite.beer_name,
+							beer_label : favorite.beer_label
 							}
-						);
-					}
-					else {
-						Profile.findOneAndUpdate(
-							{ user: userId },
-							{
-								$push : {
-									favorites : {
-										bid        : favorite.bid,
-										style      : favorite.style,
-										beer_name  : favorite.beer_name,
-										beer_label : favorite.beer_label
-									}
+						}
+					},
+					function (err) {
+						if(!err){
+							console.log('success');
+							var mes = 'Added successfully';
+							try {
+								res.render('searchResult', { getSearchResult: req.session.description_data, error: mes, userId: req.session.passport.user.id}); 
+								} catch {
+									res.render('searchResult', { getSearchResult: req.session.description_data, error: mes, userId: ''}); 
 								}
-							},
-							function(err) {
-								if (!err) {
-									console.log('success');
-									res.redirect('back');
-								}
-							}
-						);
-					}
+			
+						}
+					});
 				}
 			}
-		}
-	);
-});
+		});
+	});
 
 //Endpoint = /beer/:bid
 router.get('/:bid', (req, res) => {
 	
-	console.log(req.session);
-
 	var sesss = req.session;
 	
 	const { bid } = req.params;
