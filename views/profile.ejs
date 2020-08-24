@@ -88,7 +88,8 @@
                                                     <p><%= beer.style %> </p>
                                                 </div>
                                                 <div class="justify-content-center">
-                                                    <form method="POST" action="/beer/remove">
+                                                <!-- I changed the action url since the prior one caused the collision between /:bid post-->
+                                                    <form method="POST" action="/beer/favorite/remove">
                                                             <input type="text" name="beer" value=<%= `${beer.bid}` %> hidden>
                                                        
                                                         <button type="submit" class="btn btn-profile">Unfavorite</button>
