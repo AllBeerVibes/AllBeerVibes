@@ -152,6 +152,16 @@ exports.getBeersById = (beerIds) => {
 
 //Displays beer result into cards
 exports.beerResultDiv = (beer, stars, style, color, font) => {
+	let style_vari;
+		
+	if(style.length > 20) {
+		style_vari = `<p style="font-size: 13px; margin-top:5px;">${style}</p>`
+	}
+
+	else {
+		style_vari = `<p>${style}</p>`
+	}
+	
 	const div = `<div class="col-md-6 col-lg-3 product-item">
 					<div class="product-container">
 						<a class="product-image" href="/beer/${beer.beer.bid}">
@@ -173,7 +183,7 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 						</div>
 						<div class="row justify-content-center" id="beer-des"">
 							<div class="col-8" id="ibu-color" style="background-color:${color}; color:${font}">
-								<p>${style}</p>
+								${style_vari}		
 							</div>
 							<div class="col-4">
 	                            <p>${beer.beer.beer_abv}%</p>
@@ -184,7 +194,7 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 							<div class="col-6" id="left">
 								<form action="" method="post">
 									<button type="submit" name="favorite" value="${beer.beer.bid}~${style}~${beer.beer.beer_name}~${beer.beer
-		.beer_label}">Favorite</button>
+									.beer_label}">Favorite</button>
 								</form>	
 							</div>
 							<div class="col-6">

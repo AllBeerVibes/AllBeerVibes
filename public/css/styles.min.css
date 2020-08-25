@@ -144,6 +144,8 @@ body {
 .product-item #ibu-color {
 	color: var(--creamWhite);
 	border-radius: 20px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 .product-item #beer-rating {
