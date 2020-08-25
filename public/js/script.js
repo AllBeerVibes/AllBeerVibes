@@ -188,7 +188,9 @@ exports.beerResultDiv = (beer, stars, style, color, font) => {
 								</form>	
 							</div>
 							<div class="col-6">
+								<form>
 								<a href="/compare/add-to-compare/${beer.beer.bid}" role="button"> Compare </a>
+								</form>
 	                        </div>
 	                    </div>
 					</div>

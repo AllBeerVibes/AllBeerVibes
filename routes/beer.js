@@ -324,8 +324,6 @@ router.post('/:bid', auth, (req, res) => {
 
 router.post('/favorite/remove', auth, async (req, res) => {
 	
-	console.log(req.body);
-	
 	const { beer } = req.body;
 	const profile = await Profile.findOne({
 		user : req.user.id

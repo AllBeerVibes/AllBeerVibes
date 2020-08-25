@@ -43,13 +43,15 @@
                                     <div class="row justify-content-center" id="buttons">
                                         <div class="col-6" id="left">
                                             <form action="" method="post">
-                                                <button type="submit" name="favorite" 
+                                                <button formmethod="post" type="submit" name="favorite" 
                                                     value="<%= beer_info.bid %>~<%= beer_info.style %>~<%= beer_info.name %>~<%= beer_info.image %>">
                                                 Favorite</button>
                                             </form>
                                         </div>
                                         <div class="col-6">
-                                            <a href="/compare/add-to-compare/<%= beer_info.bid %>" role="button" class="btn btn-light"> Compare </a>
+                                            <form>
+                                                <a href="/compare/add-to-compare/<%= beer_info.bid %>" role="button" class="btn btn-light"> Compare </a>
+                                            </form>
                                         </div>
                                     </div>
                                 </li>
