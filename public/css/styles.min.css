@@ -29,7 +29,6 @@ body {
 	margin: auto;
 	opacity: 0.8;
 	transition: all 0.5s ease-in-out;
-
 }
 
 /* search result */
@@ -39,11 +38,11 @@ body {
 	width: 100%;
 	height: 80px;
 	top: 0;
-	left:0;
+	left: 0;
 	background: var(--grey);
 	padding: 20px;
 	z-index: 5;
-	margin-top: 50px;	
+	margin-top: 50px;
 }
 
 #searchResult {
@@ -178,7 +177,8 @@ body {
 	vertical-align: middle;
 }
 
-.product-item #buttons button, .product-item #buttons a  {
+.product-item #buttons button,
+.product-item #buttons a {
 	width: 100%;
 	height: 100%;
 	color: var(--grey);
@@ -186,29 +186,29 @@ body {
 	font-size: 13px;
 	border: none;
 	vertical-align: middle;
-	text-decoration: none;	
+	text-decoration: none;
 }
 
 .product-item #buttons #left {
 	border-right: 1px solid black;
 }
 
-.floating__icon button{
+.floating__icon button {
 	display: none;
 	position: fixed;
 	z-index: 99;
 	bottom: 0;
 	right: 0;
-	margin: 20px;	
+	margin: 20px;
 	border-style: none;
 	outline-style: none;
 	border-radius: 50%;
 	padding: 20px;
-	background-color: rgba(255, 212, 35, 0.6)
+	background-color: rgba(255, 212, 35, 0.6);
 }
 
 @media screen and (max-width: 500px) {
-	.floating__icon button{
+	.floating__icon button {
 		display: block;
 	}
 }
@@ -281,8 +281,6 @@ body {
 	padding: 8px 20px;
 } */
 
-
-
 /* .product-item button:active {
 	background: var(--yellow);
 	color: var(--creamWhite);
@@ -310,7 +308,6 @@ body {
 #item-1-2 > div > div > div > div > div.product-container {
 	height: 280px;
 }
-
 
 /* main nav bar */
 #mainNav {
@@ -581,7 +578,7 @@ body {
 	z-index: -1;
 }
 
-.model_caption p{ 
+.model_caption p {
 	width: 100%;
 	margin: 0;
 	color: var(--yellow);
@@ -617,7 +614,6 @@ body {
 
 .model_caption table button:hover {
 	background: rgb(228, 214, 214, 0.3);
-
 }
 
 /* index sponsor */
@@ -637,7 +633,7 @@ footer {
 	background-color: var(--ligtGrey);
 	position: relative;
 	width: 100%;
-	bottom: 0;	
+	bottom: 0;
 	max-height: 200px;
 	margin-top: 50px;
 }
@@ -666,7 +662,6 @@ footer #email:hover {
 	color: var(--yellow);
 }
 
-
 /* item-description */
 
 .beer-title {
@@ -682,11 +677,11 @@ footer #email:hover {
 }
 
 #description {
-	margin-top: 20px;	
+	margin-top: 20px;
 }
 
 #description #beer-image {
-	text-align: center;	
+	text-align: center;
 	height: auto;
 	width: 300px;
 	padding: 10px;
@@ -712,7 +707,7 @@ footer #email:hover {
 	margin-bottom: 5px;
 }
 
-#description #item-info li span{
+#description #item-info li span {
 	color: var(--yellow);
 	font-size: 20px;
 }
@@ -742,8 +737,7 @@ footer #email:hover {
 	color: var(--lightWhite);
 	box-shadow: 5px 5px black;
 	text-align: center;
-}	
-
+}
 
 #item-info li #buttons form {
 	margin: 0;
@@ -751,7 +745,8 @@ footer #email:hover {
 	vertical-align: middle;
 }
 
-#item-info li #buttons button, #item-info li #buttons a {
+#item-info li #buttons button,
+#item-info li #buttons a {
 	width: 100%;
 	height: 100%;
 	color: var(--grey);
@@ -761,14 +756,13 @@ footer #email:hover {
 	vertical-align: middle;
 }
 
-
 #item-info li #buttons #left {
 	border-right: 1px solid black;
 }
 
-
 @media screen and (max-width: 500px) {
-	.beer-title #back, .beer-description #back {
+	.beer-title #back,
+	.beer-description #back {
 		width: 100%;
 	}
 	#item-info li #buttons {
@@ -892,7 +886,6 @@ footer #email:hover {
 	font-size: 22px;
 	padding: 0;
 	margin: 0;
-	
 }
 
 .quiz .quiz-process .button-list {
@@ -955,16 +948,15 @@ footer #email:hover {
 }
 
 .quiz_foot {
-	position: fixed; 
-	bottom:0;
-	margin-top:0;
+	position: fixed;
+	bottom: 0;
+	margin-top: 0;
 }
 
 @media screen and (max-width: 500px) {
 	.quiz .quiz-process .button-list {
 		grid-template-columns: repeat(2, 1fr);
-	}	
-	
+	}
 }
 
 /* arrangement needed */
@@ -1355,7 +1347,7 @@ body {
 }
 
 .map-text {
-	width:  800px;
+	width: 800px;
 	margin-right: auto;
 	margin-left: auto;
 	margin-top: 5%;
