@@ -1340,23 +1340,31 @@ body {
 }
 
 #map {
-	height: 100%;
+	position: absolute;
+	width: 100%;
+	height: 500px;
 }
 
 .container-map {
-	width: 800px;
+	position: relative;
+	width: 50%;
 	height: 500px;
 	margin-right: auto;
 	margin-left: auto;
-	margin-top: 5%;
 	margin-bottom: 8%;
 }
 
-.container-map h2 {
+.map-text {
+	width:  800px;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 5%;
+}
+.map-text h2 {
 	color: #ffd423;
 }
 
-.container-map p {
+.map-text p {
 	color: #ffd423;
 }
 
