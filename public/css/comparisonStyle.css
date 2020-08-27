@@ -139,11 +139,6 @@ Primary style
 	font-size: 50%;
 }
 
-#testFont body {
-	color: #404042;
-	background-color: #ffffff;
-}
-
 #testFont {
 	font-family: "Source Sans Pro", sans-serif;
 	color: white;
@@ -242,10 +237,10 @@ Main Components
 }
 .cd-products-comparison-table .filter.active {
 	cursor: pointer;
-	background-color: #9dc997;
+	background-color: rgb(224, 203, 16);
 }
 .no-touch .cd-products-comparison-table .filter.active:hover {
-	background-color: #a7cea1;
+	background-color: rgb(224, 203, 16);
 }
 @media only screen and (min-width: 1170px) {
 	.cd-products-comparison-table {
