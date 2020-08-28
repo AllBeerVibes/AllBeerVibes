@@ -139,11 +139,6 @@ Primary style
 	font-size: 50%;
 }
 
-#testFont body {
-	color: #404042;
-	background-color: #ffffff;
-}
-
 #testFont {
 	font-family: "Source Sans Pro", sans-serif;
 	color: white;
@@ -172,7 +167,7 @@ a {
 
 img {
 	width: 6.5cm;
-	height: 4.5cm;
+	height: 3.7cm;
 }
 
 h1 {
@@ -181,6 +176,10 @@ h1 {
 	padding: 4em 5%;
 }
 
+h5 {
+	padding: 0 5%;
+	padding-top: 1.2cm;
+}
 @media only screen and (min-width: 1170px) {
 	h1 {
 		font-size: 4rem;
@@ -197,6 +196,11 @@ Main Components
 .feat-items {
 	min-height: 150px;
 }
+
+.cd-products-comparison-clear-button {
+	padding: 0 5%;
+}
+
 .cd-products-comparison-table {
 	margin-bottom: 6em;
 	padding-top: 20px;
@@ -242,10 +246,10 @@ Main Components
 }
 .cd-products-comparison-table .filter.active {
 	cursor: pointer;
-	background-color: #9dc997;
+	background-color: rgb(224, 203, 16);
 }
 .no-touch .cd-products-comparison-table .filter.active:hover {
-	background-color: #a7cea1;
+	background-color: rgb(224, 203, 16);
 }
 @media only screen and (min-width: 1170px) {
 	.cd-products-comparison-table {
