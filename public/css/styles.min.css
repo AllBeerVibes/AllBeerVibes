@@ -1342,12 +1342,12 @@ body {
 #map {
 	position: absolute;
 	width: 100%;
-	height: 500px;
+	height: 100%;
 }
 
 .container-map {
 	position: relative;
-	width: 50%;
+	width: 85%;
 	height: 500px;
 	margin-right: auto;
 	margin-left: auto;

@@ -28,6 +28,7 @@ function initMap() {
 				map = new google.maps.Map(document.getElementById('map'), {
 					center    : pos,
 					zoom      : 15,
+					disableDefaultUI: true,
 					mapTypeId : 'roadmap',
 					styles    : [
 						{ elementType: 'geometry', stylers: [ { color: '#242f3e' } ] },
@@ -113,7 +114,7 @@ function initMap() {
 
 				var input = document.getElementById('pac-input');
 				var searchBox = new google.maps.places.SearchBox(input);
-				map.controls[google.maps.ControlPosition.TOP_LEFT].push(input); // Bias the SearchBox results towards current map's viewport.
+				map.controls[google.maps.ControlPosition.TOP_CENTER].push(input); // Bias the SearchBox results towards current map's viewport.
 
 				map.addListener('bounds_changed', function() {
 					searchBox.setBounds(map.getBounds());
