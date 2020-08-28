@@ -24,20 +24,20 @@
                         <div class="col-md-4 col-sm-12">
                             <ul id="item-info">
                                 <li>
-                                    <span>TYPE</span> <%= beer_info.style %>
+                                    <span>TYPE:</span> <%= beer_info.style %>
                                 </li>
                                 <li>
-                                    <span>ABV</span> <%= beer_info.abv %>
+                                    <span>ABV:</span> <%= beer_info.abv %>
                                 </li>
                                 <li>
-                                    <span>IBU</span> <%= beer_info.ibu %>
+                                    <span>IBU:</span> <%= beer_info.ibu %>
                                 </li>
                                 <li>
                                     <%- beer_info.stars %> <a href="#"> <%= beer_info.count %> reviews</a>
                                 </li>
                                 <!--need to check-->
                                 <% if (beer_info.breweryName !== ""){%>
-                                <li><span>MADE BY</span><p><%= beer_info.breweryName %></p></li>
+                                <li><span>MADE BY:</span><p><%= beer_info.breweryName %></p></li>
                                 <% } %>
                                 <li>
                                     <div class="row justify-content-center" id="buttons">
@@ -62,7 +62,7 @@
 
                 <div class="beer-description">
                     <div class="container-fluid" id="back">
-                        <h3>description</h3>
+                        <h3>Description</h3>
                         <p><%= beer_info.description %> </p>
                     </div>
                 </div>

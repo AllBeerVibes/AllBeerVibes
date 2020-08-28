@@ -235,7 +235,7 @@ Main Components
 }
 .cd-products-comparison-table .filter {
 	padding: .6em 1.5em;
-	color: #ffffff;
+	color: #efefef;
 	background-color: #cccccc;
 	border-radius: 3px;
 	margin-left: 1em;
@@ -447,7 +447,7 @@ Main Components
 	-moz-transition: height 0.3s;
 	transition: height 0.3s;
 	cursor: pointer;
-	background: #ffffff;
+	background: #efefef;
 }
 .cd-products-table .top-info::after {
 	/* color gradient below .top-info -  visible when .top-info is fixed */
@@ -669,7 +669,7 @@ Main Components
 	/* replace text with image */
 	overflow: hidden;
 	padding: 20px 10px;
-	color: #fff;
+	color: #efefef;
 	height: 60px;
 	width: 40px;
 	background: rgba(64, 64, 66, 0.8) url("../img/cd-arrow.svg") no-repeat center center;
@@ -745,10 +745,11 @@ No JS
 #testFont > section > div > div.features > ul,
 #testFont > section > div > div.features > ul > li,
 #testFont > section > div > div.features > div {
-	background-color: #181a1b;
-	color: #e8e6e3;
+	background-color: #fbb034;
+	background-image: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
+	color: #333333;
 }
 #testFont > section > div > div.cd-products-wrapper > ul > li > div {
 	background-color: #333333;
-	color: #e8e6e3;
+	color: #efefef;
 }
