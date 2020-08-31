@@ -12,7 +12,6 @@ object,
 iframe,
 h1,
 h2,
-h3,
 h4,
 h5,
 h6,
@@ -86,9 +85,9 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -102,9 +101,9 @@ section,
 main {
 	display: block;
 }
-body {
+/* body {
 	line-height: 1;
-}
+} */
 ol,
 ul {
 	list-style: none;
@@ -142,32 +141,24 @@ Primary style
 
 #testFont {
 	font-family: "Source Sans Pro", sans-serif;
-	color: #efefef;
-}
-
-.top-info {
-	font-size: 16px;
+	color: white;
 }
 
 #testFont h2 {
-	font-size: 16px;
-}
-
-#testFont h3 {
-	font-size: 18px;
+	font-size: 1.3em;
 }
 
 #testFont a {
-	font-size: 16px;
-	color: #efefef;
+	font-size: 1em;
+	color: white;
 }
 
 #testFont ul {
-	font-size: 16px;
+	font-size: 1em;
 }
 
 #testFont li {
-	font-size: 16px;
+	font-size: 0.8em;
 }
 
 a {
@@ -175,8 +166,8 @@ a {
 }
 
 img {
-	width: 100%;
-	height: 65%;
+	width: 6.5cm;
+	height: 3.7cm;
 }
 
 h1 {
@@ -189,7 +180,6 @@ h5 {
 	padding: 0 5%;
 	padding-top: 1.2cm;
 }
-
 @media only screen and (min-width: 1170px) {
 	h1 {
 		font-size: 4rem;
@@ -211,22 +201,6 @@ Main Components
 	padding: 0 5%;
 }
 
-.cd-products-columns .product .top-info {
-	min-width: 5cm;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
-}
-
-.product .cd-features-list li {
-	min-width: 5cm;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	text-align: center;
-}
-
 .cd-products-comparison-table {
 	margin-bottom: 6em;
 	padding-top: 20px;
@@ -245,7 +219,7 @@ Main Components
 	display: table;
 }
 .cd-products-comparison-table h2 {
-	float: left;
+	/* float: left; */
 	font-weight: bold;
 }
 .cd-products-comparison-table .actions {
@@ -261,7 +235,7 @@ Main Components
 }
 .cd-products-comparison-table .filter {
 	padding: .6em 1.5em;
-	color: #ffffff;
+	color: #efefef;
 	background-color: #cccccc;
 	border-radius: 3px;
 	margin-left: 1em;
@@ -333,6 +307,7 @@ Main Components
 	background-image: linear-gradient(to right, rgba(0, 0, 0, 0.06), transparent);
 	opacity: 0;
 }
+
 @media only screen and (min-width: 1170px) {
 	.cd-products-table .features {
 		width: 210px;
@@ -411,10 +386,23 @@ Main Components
 	border-top-width: 1px;
 	border-right-width: 1px;
 }
-
+.cd-features-list li.rate {
+	/* rating stars */
+	padding: 21px 0;
+}
+.cd-features-list li.rate span {
+	display: inline-block;
+	height: 22px;
+	width: 110px;
+	background: url(../img/cd-star.svg);
+	color: transparent;
+}
 @media only screen and (min-width: 1170px) {
 	.cd-features-list li {
 		font-size: 1.6rem;
+	}
+	.cd-features-list li.rate {
+		padding: 22px 0;
 	}
 }
 
@@ -424,9 +412,11 @@ Main Components
 	font-weight: bold;
 	color: rgb(68, 66, 66);
 	/* set line-height value equal to font-size of text inside product cells */
+	line-height: 14px;
 	padding: 25px 10px;
 	text-align: left;
 }
+
 @media only screen and (min-width: 1170px) {
 	.features .cd-features-list li,
 	.cd-products-table .features .top-info {
@@ -506,7 +496,7 @@ Main Components
 	width: 100%;
 }
 .cd-products-table .top-info .check::before {
-	/* circle dot */
+	/* green circle dot */
 	border-radius: 50%;
 	border: 1px solid #3c4144;
 	background: #181a1b;
@@ -523,7 +513,6 @@ Main Components
 	-moz-transition: opacity 0.3s;
 	transition: opacity 0.3s;
 }
-
 .cd-products-table .top-info .check:hover::before {
 	-webkit-transform: scale(1.5);
 	-moz-transform: scale(1.5);
@@ -534,7 +523,6 @@ Main Components
 	-moz-animation: cd-bounce 0.3s;
 	animation: cd-bounce 0.3s;
 }
-
 @media only screen and (min-width: 1170px) {
 	.cd-products-table .top-info {
 		height: 280px;
@@ -562,7 +550,7 @@ Main Components
 }
 
 .cd-products-table .selected .top-info .check::before {
-	/* circle dot */
+	/* green circle dot */
 	background: #ffd423;
 	border-color: #ffd423;
 	-webkit-transform: scale(1.5);
@@ -754,7 +742,6 @@ No JS
 .no-js .cd-products-columns .check {
 	display: none;
 }
-
 #testFont > section > div > div.features > ul,
 #testFont > section > div > div.features > ul > li,
 #testFont > section > div > div.features > div {

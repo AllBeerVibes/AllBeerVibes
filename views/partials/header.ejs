@@ -36,7 +36,6 @@
                                 href="/beer/map">PUB MAP</a></li>
                         <li class="nav-item" role="presentation">
                             <a class="nav-link js-scroll-trigger" href="/compare/my-comparison">COMPARE
-                                <!-- below two lines of code need better solution -->
                                 <% if (session.compare) { %>
                                     <span class="badge"><%= session.compare.totalQty %></span>
                                 <% } %>

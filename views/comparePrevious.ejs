@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <!-- from: https://codyhouse.co/gem/products-comparison-table/ -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
         <title>ABV Beer Comparison</title>
-        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet'
-            type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
         <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
         <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
@@ -20,6 +18,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kaushan+Script">
         <link rel="stylesheet" href="css/comparisonStyle.css"> <!-- Resource style -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script> <!-- jQuery package -->
+        <script src="js/comparisonModernizr.js"></script> <!-- Modernizr -->
         <script type="text/javascript" src='https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'></script>
     </head>
 
@@ -82,13 +81,13 @@
 
                 <div class="cd-products-table">
                     <div class="features">
-                        <div class="top-info"><ul>Beers</ul></div>
+                        <div class="top-info">Beers</div>
                         <ul class="cd-features-list">
                             <li>Company</li>
                             <li>Country</li>
-                            <li>ABV (%)</li>
+                            <li>Alcohol by Volume</li>
                             <li>Style</li>
-                            <li>Rating</li>
+                            <li>Customer Rating</li>
                         </ul>
                     </div> <!-- .features -->
 
@@ -100,9 +99,9 @@
                                     <div class="check"></div>
 
                                     <% if (products[i].item.beer_label_hd !== "") { %>
-                                    <img src="<%= products[i].item.beer_label_hd %>">
-                                    <% } else { %>
-                                    <img src="<%= products[i].item.beer_label %>">
+                                        <img src="<%= products[i].item.beer_label_hd %>"> 
+                                    <% } else { %> 
+                                        <img src="<%= products[i].item.beer_label %>" >
                                     <% } %>
 
                                     <h3><%= products[i].item.beer_name %></h3>
@@ -113,14 +112,13 @@
                                     <li><%= products[i].item.brewery.country_name %></li>
                                     <li><%= products[i].item.beer_abv %></li>
                                     <li><%= products[i].item.beer_style %></li>
-                                    <li><%= products[i].item.rating_score %></li>
+                                    <li><%= products[i].item.rating_score %><br><%= products[i].item.rating_count %></li>
                                     <li>
                                         <div class="btn-group">
-                                            <a href="/compare/delete-from-compare/<%= products[i].item.bid %>"
-                                                role="button"> Delete </a>
+                                            <a href="/compare/delete-from-compare/<%= products[i].item.bid %>" role="button"> Delete </a>
                                         </div>
                                     </li>
-                                </ul> <!-- .cd-features-list -->
+                                </ul>
                             </li> <!-- .product -->
                             <% } %>
                         </ul> <!-- .cd-products-columns -->
@@ -131,51 +129,50 @@
                         <li><a href="#0" class="next">&#9658;</a></li>
                     </ul>
                 </div> <!-- .cd-products-table -->
-            </section> <!-- .cd-products-comparison-table -->
+            </section> <!-- .cd-products-comparison-table -->    
             <section class="cd-products-comparison-clear-button">
-                <h4>
-                    <a href="/compare/clear-compare-list" role="button"><strong>Clear Comparison List</strong></a>
-                </h4>
-                <% } else { %>
-                <h5>No beer in your comparison list!</h5>
-                <% } %>
+            <h4>
+                <a href="/compare/clear-compare-list" role="button"><strong>Clear Comparison List</strong></a>
+            </h4>
+             <% } else { %>
+            <h5>No beer in your comparison list!</h5> 
+            <% } %>
             </section>
         </div>
 
-        <footer>
-
+        <footer class="footer" style="max-height: 200px; padding-top:5px;">
             <div class="row justify-content-center align-items-center" style="margin:0; padding: 20px; text-align: center;">
-
                 <div class="col-md-2 footer-navigation">
                     <h3><a href="#" class="name-brand"><strong>All Beer Vibes</strong></a></h3>
                     <div class="social-links social-icons" style="padding-right: 10px; font-size: 25px;">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
                         <a href="#"><i class="fa fa-github"></i></a>
                     </div>
                 </div>
 
-                <div class="col-md-2 footer-contacts" style="color:#efefef;">
+                <div class="col-md-2 footer-contacts" style="color:white;">
                     <div class="row justify-content-center">
                         <div style="margin-right: 10px;">
                             <i class="fa fa-envelope footer-contacts-icon"></i></div>
-                        <a id="email" href="mailto: allbeervibes@google.com">allbeervibes@gmail.com</a>
+                        <a id="email" href="mailto: allbeervibes@google.com">allbeervibes@google.com</a>
                     </div>
                 </div>
-
+                
                 <div class="clearfix"></div>
-                <div class="col-md-2 footer-about" style="color:#efefef" ;>
+                <div class="col-md-2 footer-about" style="color:white" ;>
                     All Beer Vibes © 2020
                 </div>
             </div>
         </footer>
 
         <script src="js/comparisonStyle.js"></script> <!-- Resource jQuery -->
-        <script src="/js/script.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js'></script>
+        <script src="/js/script.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.3.1/js/swiper.jquery.min.js"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
     </body>
-
 </html>
