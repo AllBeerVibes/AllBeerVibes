@@ -1,3 +1,8 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
 html,
 body,
 div,
@@ -80,7 +85,6 @@ video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	/* font-size: 100%; */
 	vertical-align: baseline;
 }
 
@@ -128,10 +132,6 @@ Primary style
 *::before {
 	box-sizing: border-box;
 }
-/* 
-#testFont html {
-	font-size: 50%;
-} */
 
 #testFont {
 	font-family: "Source Sans Pro", sans-serif;
