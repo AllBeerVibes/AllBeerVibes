@@ -106,7 +106,7 @@
                                     <img src="<%= products[i].item.beer_label %>">
                                     <% } %>
 
-                                    <h3><%= products[i].item.beer_name %></h3>
+                                    <p><%= products[i].item.beer_name %></p>
                                 </div> <!-- .top-info -->
 
                                 <ul class="cd-features-list">
@@ -115,7 +115,7 @@
                                     <li><%= products[i].item.beer_abv %></li>
                                     <li><%= products[i].item.beer_style %></li>
                                     <% let fixedRateScore = Number(products[i].item.rating_score).toFixed(1) %>
-                                    <li><%= fixedRateScore%></li>
+                                    <li><%= fixedRateScore%> / 5</li>
                                     <li>
                                         <div class="btn-group">
                                             <a href="/compare/delete-from-compare/<%= products[i].item.bid %>"
