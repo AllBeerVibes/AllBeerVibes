@@ -326,6 +326,42 @@ body {
 	border-radius: 20px;
 	width: 100%;
 }
+@media (min-width: 576px) {
+	.button-container {
+		position: absolute;
+		bottom: 10px;
+		left: 200px;
+	}
+}
+@media (min-width: 768px) {
+	.button-container {
+		position: absolute;
+		bottom: 10px;
+		left: 60px;
+	}
+}
+@media (min-width: 992px) {
+	#item-1-2 > div > div > div > div > div.product-container {
+		/* max-height: 350px; */
+		height: 370px;
+		position: relative;
+		text-align: center;
+		border-radius: 20px;
+		width: 100%;
+	}
+	.button-container {
+		position: absolute;
+		bottom: 10px;
+		left: 50px;
+	}
+}
+@media (min-width: 1200px) {
+	.button-container {
+		position: absolute;
+		bottom: 10px;
+		left: 70px;
+	}
+}
 
 /* main nav bar */
 #mainNav {
@@ -682,17 +718,16 @@ footer #email:hover {
 	color: var(--yellow);
 }
 
-
 .sug_foot {
-	position: fixed; 
-	bottom:0;
+	position: fixed;
+	bottom: 0;
 }
 
 @media screen and (max-width: 500px) {
 	.sug_foot {
-	position:relative;}
+		position: relative;
+	}
 }
-
 
 /* item-description */
 
