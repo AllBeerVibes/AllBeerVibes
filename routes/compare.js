@@ -158,9 +158,7 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 			}
 		});
 
-		req.session.save(() => {
-			res.redirect('/compare/my-comparison');
-		});
+		res.redirect('/compare/my-comparison');
 	}
 	else {
 		compare = new Compare(req.session.compare ? req.session.compare : {});
@@ -177,8 +175,6 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 			res.redirect('/compare/my-comparison');
 		});
 	}
-		//res.redirect('/compare/my-comparison');
-
 });
 
 module.exports = router;
