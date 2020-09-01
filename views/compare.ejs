@@ -114,7 +114,8 @@
                                     <li><%= products[i].item.brewery.country_name %></li>
                                     <li><%= products[i].item.beer_abv %></li>
                                     <li><%= products[i].item.beer_style %></li>
-                                    <li><%= products[i].item.rating_score %></li>
+                                    <% let fixedRateScore = Number(products[i].item.rating_score).toFixed(1) %>
+                                    <li><%= fixedRateScore%></li>
                                     <li>
                                         <div class="btn-group">
                                             <a href="/compare/delete-from-compare/<%= products[i].item.bid %>"
