@@ -13,7 +13,7 @@ const User = require('../models/User');
 @desc     reset page
 @access   private
 */
-router.get('/:uid', (req, res) => {
+router.get('/:uid/', (req, res) => {
 	const { uid } = req.params;
 	res.render('reset', { uid });
 });
@@ -32,6 +32,7 @@ router.post(
 	(req, res) => {
 		errors = validationResult(req).array();
 		let { uid, newPassword, confirmPassword } = req.body;
+		uid = uid.slice(0, -1);
 
 		if (newPassword !== confirmPassword) {
 			errors.push({ value: '', msg: 'Passwords do not match', param: 'confirmPassword', location: 'body' });

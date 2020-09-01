@@ -256,7 +256,7 @@ router.post('/forgot', [ check('email', 'Please include a valid email').isEmail(
 						subject : 'Forgot Password',
 						html    : `<h1>Forgot Password</h1>
 						<h3>Click the button below to change your password.</h3>
-						<button><a href="http://localhost:5000/reset/${user._id}">Reset Password</a></button>`
+						<button><a href="http://localhost:5000/reset/${user._id}/">Reset Password</a></button>`
 					};
 
 					const send = async () => {
