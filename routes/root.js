@@ -17,10 +17,8 @@ const Compare = require('../models/Compare');
 const CompareTest = require('../models/CompareTest');
 
 const transporter = nodemailer.createTransport({
-	host   : 'smtp.gmail.com',
-	port   : 465,
-	secure : true,
-	auth   : {
+	service : 'gmail',
+	auth    : {
 		user : process.env.EMAIL_USER,
 		pass : process.env.EMAIL_PASS
 	}
@@ -253,6 +251,7 @@ router.post('/forgot', [ check('email', 'Please include a valid email').isEmail(
 				}
 				else {
 					const mailOptions = {
+						from    : process.env.EMAIL_USER,
 						to      : email,
 						subject : 'Forgot Password',
 						html    : `<h1>Forgot Password</h1>
