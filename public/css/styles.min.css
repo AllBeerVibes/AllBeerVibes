@@ -20,6 +20,10 @@ body {
 	background-color: var(--grey);
 }
 
+* {
+	font-family: 'Lato', Arial, sans-serif;
+}
+
 /* error */
 .error_M {
 	z-index: 2;
