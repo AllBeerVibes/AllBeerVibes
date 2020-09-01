@@ -86,7 +86,6 @@ video {
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	font: inherit;
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -261,7 +260,7 @@ Main Components
 }
 .cd-products-comparison-table .filter {
 	padding: .6em 1.5em;
-	color: #ffffff;
+	color: #efefef;
 	background-color: #cccccc;
 	border-radius: 3px;
 	margin-left: 1em;
