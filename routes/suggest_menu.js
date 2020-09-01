@@ -88,9 +88,7 @@ router.get('/profile', auth, async (req, res) => {
                     count = 1;
                 }
             }
-            
-            console.log(nominate);
-        
+                    
         //function(nominate)    ;
 
         var suggest_list = await beers.find({style: nominate});

@@ -51,10 +51,11 @@ router.get('/clear-compare-list', (req, res) => {
 	}
 	else {
 		delete req.session.compare;
-		req.flash('success', 'Comparison list cleared!');
 	}
-
-	res.redirect('/compare/my-comparison');
+	
+	req.session.save(() => {
+		res.redirect('/compare/my-comparison');
+	});
 });
 
 router.get('/add-to-compare/:bid', (req, res) => {
@@ -122,6 +123,7 @@ router.get('/add-to-compare/:bid', (req, res) => {
 				compare.addBeerCompare(response.data.response.beer, beerId);
 				req.session.compare = compare;
 			}
+
 			req.session.save(() => {
 				res.redirect('back');
 			});
@@ -140,7 +142,7 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 			compare.deleteBeerCompare(beerId);
 
 			if (compare.totalQty > 0) {
-				CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function(err) {
+				CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: compare } }, function (err) {
 					if (err) {
 						req.flash('error', err.message);
 						return res.redirect('/compare/my-comparison');
@@ -148,12 +150,16 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 				});
 			}
 			else {
-				CompareTest.deleteOne({ user: req.user }, function(err) {
+				CompareTest.deleteOne({ user: req.user }, function (err) {
 					if (err) {
 						return res.write('Error');
 					}
 				});
 			}
+		});
+
+		req.session.save(() => {
+			res.redirect('/compare/my-comparison');
 		});
 	}
 	else {
@@ -166,9 +172,13 @@ router.get('/delete-from-compare/:bid', (req, res) => {
 		else {
 			delete req.session.compare;
 		}
-	}
 
-	res.redirect('/compare/my-comparison');
+		req.session.save(() => {
+			res.redirect('/compare/my-comparison');
+		});
+	}
+		//res.redirect('/compare/my-comparison');
+
 });
 
 module.exports = router;
