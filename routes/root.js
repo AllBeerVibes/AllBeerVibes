@@ -17,8 +17,10 @@ const Compare = require('../models/Compare');
 const CompareTest = require('../models/CompareTest');
 
 const transporter = nodemailer.createTransport({
-	service : 'gmail',
-	auth    : {
+	host   : 'smtp.gmail.com',
+	port   : 465,
+	secure : true,
+	auth   : {
 		user : process.env.EMAIL_USER,
 		pass : process.env.EMAIL_PASS
 	}
@@ -186,29 +188,35 @@ router.post(
 					let sessionCompareProducts = compare.generateArray();
 
 					for (let i = 0; i < compare.totalQty; i++) {
-						dbCompareData.addBeerCompare(sessionCompareProducts[i].item, sessionCompareProducts[i].item.bid);
+						dbCompareData.addBeerCompare(
+							sessionCompareProducts[i].item,
+							sessionCompareProducts[i].item.bid
+						);
 					}
 
-					CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: dbCompareData } }, function(err) {
-							if (err) {
-								req.flash('error', err.message);
-								return res.redirect('/compare/my-comparison');
-							}
-					});				
-				} else {
+					CompareTest.findOneAndUpdate({ user: req.user }, { $set: { compare: dbCompareData } }, function(
+						err
+					) {
+						if (err) {
+							req.flash('error', err.message);
+							return res.redirect('/compare/my-comparison');
+						}
+					});
+				}
+				else {
 					let compareTest = new CompareTest({
-						user: req.user,
-						compare: compare
+						user    : req.user,
+						compare : compare
 					});
 
-					compareTest.save(function (err) {
+					compareTest.save(function(err) {
 						if (err) {
 							req.flash('error', err.message);
 							return res.redirect('/profile');
 						}
 					});
 				}
-				
+
 				delete req.session.compare;
 				return res.redirect('/profile');
 			});
@@ -245,7 +253,6 @@ router.post('/forgot', [ check('email', 'Please include a valid email').isEmail(
 				}
 				else {
 					const mailOptions = {
-						from    : process.env.EMAIL_USER,
 						to      : email,
 						subject : 'Forgot Password',
 						html    : `<h1>Forgot Password</h1>
@@ -274,30 +281,29 @@ router.post('/forgot', [ check('email', 'Please include a valid email').isEmail(
 	}
 });
 
-
 //the page which is not disclosed to normal user, but management only
 //Minho: I made this url to transfer our own beer db to mongo DB.
 
-router.get('/abv/db/management', (req,res) => {
+router.get('/abv/db/management', (req, res) => {
 	res.render('management');
 });
 
-router.post('/abv/db/management', (req,res) => {
-	
-	var data_list = [{
+router.post('/abv/db/management', (req, res) => {
+	var data_list = [
+		{
+			bid            : '',
+			style          : '',
+			beer_name      : '',
+			brewery_name   : '',
+			award_category : '',
+			award_title    : '',
+			year           : ''
+		}
+	];
 
-		bid: '',
-		style: '',
-		beer_name: '',
-		brewery_name: '',
-		award_category: '',
-		award_title: '',
-		year: '',
-	
-	}];
-	
 	//CSV is much easier to manage data than txt.
-	fs.createReadStream('./db/beer.csv')
+	fs
+		.createReadStream('./db/beer.csv')
 		.pipe(csv()) //to use this we need csv-parser module
 		.on('data', (row) => {
 			data_list.push(row);
@@ -305,73 +311,71 @@ router.post('/abv/db/management', (req,res) => {
 		})
 		.on('end', () => {
 			console.log(data_list);
-			console.log("finished to load csv");
-			
+			console.log('finished to load csv');
+
 			//manage beer data with json to avoid duplicated information.
 			//so we should share json file after anyone of us updated the beer list on mongo
-			fs.readFile('./db/beer.json', 'utf8', function readFileCallback(err, dt){    
-			
-				if (err){
+			fs.readFile('./db/beer.json', 'utf8', function readFileCallback(err, dt) {
+				if (err) {
 					console.log(err);
-				} else {
-				console.log("finsihed to load json");
-	
-				var obj = JSON.parse(dt); //get current data as object
-				
-				for(var i=1; i<data_list.length; i++){
-		
-					var check = true;
-					var n = 0;
-					
-					//check if the data is already stroed in json
-					while(check && n < obj.length) {
-						
-						if(data_list[i].beer_name == obj[n].beer_name && data_list[i].brewery_name == obj[n].brewery_name) {
-							check = false;
+				}
+				else {
+					console.log('finsihed to load json');
+
+					var obj = JSON.parse(dt); //get current data as object
+
+					for (var i = 1; i < data_list.length; i++) {
+						var check = true;
+						var n = 0;
+
+						//check if the data is already stroed in json
+						while (check && n < obj.length) {
+							if (
+								data_list[i].beer_name == obj[n].beer_name &&
+								data_list[i].brewery_name == obj[n].brewery_name
+							) {
+								check = false;
+							}
+							n++;
 						}
-						n++;
-					}
-					
-					//add data if the data is not duplicated with db
-					if(check == true)
-					{
-						obj.push({
-							bid: data_list[i].bid,
-							style: data_list[i].style,
-							beer_name: data_list[i].beer_name,
-							brewery_name: data_list[i].brewery_name,
-							award_category: data_list[i].award_category,
-							award_title: data_list[i].award_title,
-							year: data_list[i].year,
-						})	
+
+						//add data if the data is not duplicated with db
+						if (check == true) {
+							obj.push({
+								bid            : data_list[i].bid,
+								style          : data_list[i].style,
+								beer_name      : data_list[i].beer_name,
+								brewery_name   : data_list[i].brewery_name,
+								award_category : data_list[i].award_category,
+								award_title    : data_list[i].award_title,
+								year           : data_list[i].year
+							});
 							var beer = new beers(data_list[i]);
 
 							//save on mongo
-							beer.save(function (err) {
-							if(!err) {
-								console.log("mongo success");
-							}
-						});
-							
-					};
+							beer.save(function(err) {
+								if (!err) {
+									console.log('mongo success');
+								}
+							});
+						}
+					}
+
+					json = JSON.stringify(obj); //convert it back to store on json file
+
+					console.log(json);
+
+					fs.writeFile('./db/beer.json', json, (err) => {
+						if (err) throw err;
+						console.log('Data written to file');
+					});
 				}
-				
-				json = JSON.stringify(obj); //convert it back to store on json file
-				
-				console.log(json);
+			});
 
-				fs.writeFile('./db/beer.json', json, (err) => {
-					if (err) throw err;
-					console.log('Data written to file');
-				});
-			}});
-					
 			console.log('finished conversion');
-			
-			res.redirect('back');
-		})
-		
-});
 
+			res.redirect('back');
+		});
+});
 
 module.exports = router;
