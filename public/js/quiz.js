@@ -1,6 +1,6 @@
 var array = [];
 var charArray = ['a','b','c','d','e','f'];
-var answerArray = ["IPA", "Stout", "Witbier", "Sour Ale", "Larger", "Barleywine"];
+var answerArray = ["IPA", "Stout", "Witbier", "Sour Ale", "Lager", "Barleywine"];
 var answerStyle = '';
 
 //sessionStorage.setItem('quizArray', array);
@@ -12,9 +12,6 @@ const resultContent = document.querySelector('.quiz-result .content');
 const resultHead = document.querySelector('.quiz-result .like');
 
 quizMenu.addEventListener('click', e => {
-    
-    console.log(array);
-
     var targetData = e.target.closest('button');
 
     array.push(targetData.value);
@@ -26,8 +23,6 @@ quizMenu.addEventListener('click', e => {
 
         quizMenu.classList.add('hidden');
         result.classList.remove('hidden');
-
-        console.log(array);
 
         array.sort();
             
@@ -53,11 +48,7 @@ quizMenu.addEventListener('click', e => {
                 }
             }
             
-            console.log(nominate);
-
             var num = charArray.indexOf(nominate);
-
-            console.log(num);
 
             answerStyle = answerArray[num];
 

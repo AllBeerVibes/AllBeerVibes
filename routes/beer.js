@@ -137,7 +137,6 @@ router.post('/top-rated', auth, (req, res) => {
 				
 				if((results.duplicateBid).length > 0)
 				{
-					console.log("duplicated beer");
 					var mes = 'You already added this beer on your list';
 					
 					try {
@@ -160,7 +159,6 @@ router.post('/top-rated', auth, (req, res) => {
 					},
 					function (err) {
 						if(!err){
-							console.log('success');
 							var mes = 'Added successfully';
 							try {
 								res.render('searchResult', { getSearchResult: req.session.description_data, error: mes, userId: req.session.passport.user.id}); 
@@ -310,7 +308,6 @@ router.post('/:bid', auth, (req, res) => {
                 },
 				function (err) {
 					if(!err){
-                        console.log('success');
                         var mes = 'Added successfully';
 						res.render('description', {beer_info: req.session.description_data, 					
 							getTopRated  : req.session.description_data.topRated, userId: req.session.passport.user.id, success: mes });                   
