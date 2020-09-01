@@ -678,6 +678,18 @@ footer #email:hover {
 	color: var(--yellow);
 }
 
+
+.sug_foot {
+	position: fixed; 
+	bottom:0;
+}
+
+@media screen and (max-width: 500px) {
+	.sug_foot {
+	position:relative;}
+}
+
+
 /* item-description */
 
 .beer-title {
@@ -914,6 +926,7 @@ footer #email:hover {
 
 .quiz .quiz-process .button-list button {
 	color: black;
+	background-color: var(--creamWhite);
 	border-style: none;
 	border-radius: 5%;
 	width: 170px;
