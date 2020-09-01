@@ -17,7 +17,7 @@ const { auth } = require('../middleware/auth');
 
 //const e = require('express');
 
-const beers = require('../models/beers');
+const beers = require('../models/Beers');
 
 const axios = require('axios');
 

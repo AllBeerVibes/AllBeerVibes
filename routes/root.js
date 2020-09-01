@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 const fs = require('fs');
 const csv = require('csv-parser');
 
-const beers = require('../models/beers');
+const beers = require('../models/Beers');
 
 /*
 @route    GET /
