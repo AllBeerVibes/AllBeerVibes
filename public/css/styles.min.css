@@ -26,14 +26,18 @@ body {
 }
 
 body {
-	font-family: 'Lato', Arial, sans-serif;
+	font-family: 'Lato';
 	background-color: var(--grey);
 	display: flex;
 	flex-direction: column;
 }
 
-* {
-	font-family: 'Lato', Arial, sans-serif;
+@media all {
+	h1, h3, h2, button, td, a {
+	font-family: 'Lato';
+	font-style: italic;
+	font-weight: bold;
+	}
 }
 
 /* error */
@@ -570,6 +574,13 @@ body {
 	top: -25px;
 }
 
+@media screen and (max-width: 700px) {
+	.snip1527 .date {
+		font-size: 20px;
+	}
+}
+
+
 .snip1527 h3 {
 	display: inline-block;
 	font-weight: 1000;
@@ -991,6 +1002,7 @@ footer #email:hover {
 
 .quiz .quiz-result .result {
 	display: flex;
+	padding: 10px;
 	flex-direction: column;
 	align-items: center;
 }
@@ -1018,6 +1030,7 @@ footer #email:hover {
 .quiz .quiz-result .result .content button {
 	margin-top: 20px;
 	font-size: 20px;
+	background: linear-gradient(315deg, #fbb034 0%, #ffdd00 74%);
 	color: black;
 	border-style: none;
 	border-radius: 5%;
