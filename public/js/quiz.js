@@ -53,7 +53,7 @@ quizMenu.addEventListener('click', e => {
             var num = charArray.indexOf(nominate);
 
             answerStyle = answerArray[num];
-            answerExplanation = styleExplanationArray[num];;
+            answerExplanation = styleExplanationArray[num];
 
             resultHead.innerHTML = answerStyle;
                        
